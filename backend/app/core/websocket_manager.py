@@ -5,9 +5,8 @@ sub-second agent reasoning thought events, and containment status updates.
 """
 
 import asyncio
-import json
 import logging
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any
 from fastapi import WebSocket
 
 from backend.app.models.incident import AgentThoughtEvent

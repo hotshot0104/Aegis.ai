@@ -5,7 +5,6 @@ Endpoint:
   telemetry ticks, and containment state changes to the SOC dashboard.
 """
 
-import asyncio
 import logging
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from backend.app.core.websocket_manager import ws_manager

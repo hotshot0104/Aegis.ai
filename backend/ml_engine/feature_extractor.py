@@ -133,10 +133,11 @@ class FlowFeatureExtractor:
 
         if name in FEATURE_SCALING_BOUNDS:
             max_val = FEATURE_SCALING_BOUNDS[name]
-            return float(np.clip(float_val / max_val, 0.0, 1.0))
+            scaled = float_val / max_val
+            return 0.0 if scaled < 0.0 else (1.0 if scaled > 1.0 else scaled)
 
         # Rates and binary flags are already naturally in [0.0, 1.0]
-        return float(np.clip(float_val, 0.0, 1.0))
+        return 0.0 if float_val < 0.0 else (1.0 if float_val > 1.0 else float_val)
 
     @classmethod
     def extract_vector(cls, flow_dict: Dict[str, Any]) -> np.ndarray:
@@ -144,11 +145,11 @@ class FlowFeatureExtractor:
         Extracts and normalizes a 41-dimensional feature vector from a raw flow dictionary.
         Returns a 1D NumPy float64 array of shape (41,).
         """
-        vector = np.zeros(len(FEATURE_NAMES), dtype=np.float64)
-        for idx, feature_name in enumerate(FEATURE_NAMES):
-            raw_val = flow_dict.get(feature_name, 0.0)
-            vector[idx] = cls.normalize_value(feature_name, raw_val)
-        return vector
+        values = [
+            cls.normalize_value(feature_name, flow_dict.get(feature_name, 0.0))
+            for feature_name in FEATURE_NAMES
+        ]
+        return np.array(values, dtype=np.float64)
 
     @classmethod
     def extract_batch(cls, flow_list: List[Dict[str, Any]]) -> np.ndarray:

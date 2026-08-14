@@ -11,7 +11,7 @@ from typing import Dict, Any, List
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel
 
-from backend.app.models.incident import ContainmentApprovalRequest, IncidentCard
+from backend.app.models.incident import ContainmentApprovalRequest
 from backend.app.core.config import settings
 from backend.app.core.security import verify_officer_token, generate_audit_hash
 from backend.app.core.websocket_manager import ws_manager

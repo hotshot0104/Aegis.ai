@@ -93,7 +93,7 @@ class NetworkAnomalyDetector:
         - High deviation / Zero-Day attacks (raw < 0.00) map to [0.83, 1.00].
         """
         normalized = (0.05 - raw_score) / 0.10
-        return float(np.clip(normalized, 0.0, 1.0))
+        return 0.0 if normalized < 0.0 else (1.0 if normalized > 1.0 else float(normalized))
 
 
 

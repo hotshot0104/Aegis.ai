@@ -15,7 +15,7 @@ from datetime import datetime, timezone
 from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import JSONResponse, FileResponse
+from fastapi.responses import FileResponse
 
 from backend.app.core.config import settings
 from backend.app.routers.telemetry_router import router as telemetry_router, get_detector

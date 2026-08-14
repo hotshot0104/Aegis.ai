@@ -254,7 +254,7 @@ class CyberTools:
                 if same_srv_rate > 0.95:
                     score += 25.0
                     matched_indicators.append(f"single-service rate={same_srv_rate:.2f}")
-                if srv_diff_host_rate < 0.05:
+                if srv_diff_host_rate < 0.05 and count > 0:
                     score += 20.0
                     matched_indicators.append("zero host dispersion (single C2 target)")
                 if count > 50 and count < 500:
