@@ -10,8 +10,15 @@ Generates:
 import json
 import os
 import random
+import sys
 import numpy as np
 import pandas as pd
+
+# Bootstrap project root to sys.path for direct script execution
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
 from backend.ml_engine.feature_extractor import FEATURE_NAMES, FlowFeatureExtractor
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

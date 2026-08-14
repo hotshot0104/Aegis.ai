@@ -11,6 +11,7 @@ Tests:
 import os
 import json
 import time
+import asyncio
 import pytest
 import numpy as np
 import pandas as pd
@@ -115,3 +116,30 @@ def test_rolling_false_positive_filter():
     assert t5["should_escalate"] is True
     assert t5["consecutive_anomalies"] == 3
     assert t5["status"] == "ESCALATE_TO_AGENT"
+
+
+@pytest.mark.asyncio
+async def test_rolling_filter_concurrent_evaluate_async():
+    """Verify thread-safe evaluate_async handles concurrent coroutine evaluation."""
+    rf_filter = RollingFalsePositiveFilter(window_size=3, time_window_seconds=5.0)
+    
+    # Run concurrent async evaluations across multiple distinct IPs
+    async def feed_ip(ip: str, anomaly: bool):
+        return await rf_filter.evaluate_async(ip, is_anomaly=anomaly, bdi_score=0.90 if anomaly else 0.05)
+
+    # Concurrently feed 3 ticks for 2 different IPs
+    tasks = []
+    for _ in range(3):
+        tasks.append(feed_ip("192.168.1.50", True))
+        tasks.append(feed_ip("192.168.1.51", False))
+
+    results = await asyncio.gather(*tasks)
+    assert len(results) == 6
+    
+    # Check that the 3rd evaluation of the anomalous IP escalated
+    final_anom = await rf_filter.evaluate_async("192.168.1.50", is_anomaly=True, bdi_score=0.95)
+    assert final_anom["should_escalate"] is True
+    
+    # Check that normal IP never escalated
+    final_norm = await rf_filter.evaluate_async("192.168.1.51", is_anomaly=False, bdi_score=0.01)
+    assert final_norm["should_escalate"] is False

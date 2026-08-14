@@ -142,5 +142,19 @@ curl -X GET http://localhost:8000/api/v1/agent/daily-brief
   - `backend/app/models/`: Pydantic v2 data contracts exported in `backend/app/models/__init__.py`.
   - `tests/test_agent_dag.py`: 9 integration and unit tests covering end-to-end DAG triage, sub-second latency ($< 1,500\text{ ms}$), streaming events, and CISO report synthesis.
 * **Verification Command:** `pytest tests/ -v` (Status: 19/19 Passed in 2.13s).
+### Codebase Deep Audit & Robustness Hardening (COMPLETED ✅)
+* **Date:** 2026-08-14
+* **Remediated Issues:**
+  - Added standalone `sys.path` bootstrap to `generate_baseline_data.py` and `train_model.py` so they run directly via `python script.py` and `python -m package.script`.
+  - Replaced legacy global random state with modern `np.random.default_rng` and lognormal byte distributions.
+  - Synchronized `n_estimators=50` and contamination parameters across `anomaly_detector.py` and `train_model.py`.
+  - Made `asyncio.Lock` lazy-initialized and added `evaluate_async()` wrapper to `RollingFalsePositiveFilter` for thread-safe concurrent execution across async loops.
+  - Implemented class-level memory caching with `clear_cache()` in `CyberTools` to eliminate repeated disk I/O.
+  - Added strict `ipaddress.ip_address` format validation and bounded port/protocol checks in firewall containment generator.
+  - Added Pydantic `Field(ge=..., le=...)` boundary validation to `IncidentCard` fields.
+  - Fixed hardcoded BDI severity strings to dynamically adapt (`NOMINAL`, `SUSPICIOUS`, `CRITICAL`).
+  - Resolved `UNKNOWN` criticality leak in `AgentSupervisor` by sequencing asset resolution before rule generation.
+  - Configured `pytest.ini` with `asyncio_mode = auto` and clean warning filters.
+* **Verification Command:** `pytest tests/ -v` (Status: 20/20 Passed in 3.04s with 0 warnings).
 * **Next Phase:** Phase 3: High-Performance FastAPI Backend & WebSockets (`/api/v1/telemetry`, `/api/v1/agent`, `/api/v1/ws/agent-thoughts`).
 

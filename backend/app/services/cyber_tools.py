@@ -28,6 +28,12 @@ class CyberTools:
     _asset_registry_cache: Optional[Dict] = None
     _mitre_kb_cache: Optional[List[Dict]] = None
 
+    @classmethod
+    def clear_cache(cls) -> None:
+        """Clears in-memory caches to allow reload on file modifications."""
+        cls._asset_registry_cache = None
+        cls._mitre_kb_cache = None
+
     # ──────────────────────────────────────────────────────────────────────
     # Tool 1: Flow Metrics Deep Inspector
     # ──────────────────────────────────────────────────────────────────────
@@ -323,8 +329,14 @@ class CyberTools:
             raise ValueError(f"Invalid IP address format: '{src_ip}'")
 
         safe_ip = validated_ip
-        safe_port = int(dst_port)
-        safe_proto = protocol.lower().replace(";", "")
+        try:
+            port_val = int(dst_port)
+            safe_port = max(1, min(65535, port_val))
+        except (ValueError, TypeError):
+            safe_port = 80
+
+        proto_str = str(protocol).lower().strip()
+        safe_proto = proto_str if proto_str in {"tcp", "udp", "icmp"} else "tcp"
 
         return ContainmentRules(
             iptables_rule=(

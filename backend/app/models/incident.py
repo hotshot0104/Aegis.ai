@@ -106,10 +106,10 @@ class IncidentCard(BaseModel):
     """
     incident_id: str = Field(default_factory=lambda: f"AEGIS-{uuid.uuid4().hex[:6].upper()}")
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    bdi_score: float
+    bdi_score: float = Field(ge=0.0, le=1.0, description="Behavioral Deviation Index [0.0, 1.0]")
     attacker_ip: str
     target_ip: str
-    target_port: int
+    target_port: int = Field(default=80, ge=0, le=65535, description="Destination port [0, 65535]")
     protocol: str = "TCP"
 
     # Sub-agent outputs

@@ -5,9 +5,16 @@ and evaluates detection capability against synthetic zero-day attack samples.
 """
 
 import os
+import sys
 import json
 import pandas as pd
 import numpy as np
+
+# Bootstrap project root to sys.path for direct script execution
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
 from backend.ml_engine.feature_extractor import FlowFeatureExtractor
 from backend.ml_engine.anomaly_detector import NetworkAnomalyDetector
 
