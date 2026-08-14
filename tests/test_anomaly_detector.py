@@ -15,7 +15,6 @@ import asyncio
 import pytest
 import numpy as np
 import pandas as pd
-from backend.ml_engine.feature_extractor import FlowFeatureExtractor
 from backend.ml_engine.anomaly_detector import NetworkAnomalyDetector
 from backend.ml_engine.rolling_filter import RollingFalsePositiveFilter
 

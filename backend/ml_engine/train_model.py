@@ -8,7 +8,6 @@ import os
 import sys
 import json
 import pandas as pd
-import numpy as np
 
 # Bootstrap project root to sys.path for direct script execution
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

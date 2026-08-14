@@ -5,7 +5,7 @@ following the NSL-KDD / CIC-IDS2017 flow taxonomy.
 Strictly zero-IoC compliant (Rule 1 & Rule 2).
 """
 
-from typing import Dict, List, Any, Union
+from typing import Dict, List, Any
 import numpy as np
 
 # 41 Statistical Non-Payload Flow Features

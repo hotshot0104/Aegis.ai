@@ -16,13 +16,10 @@ import inspect
 import time
 import uuid
 from datetime import datetime, timezone
-from typing import Dict, Any, Optional, Callable, List, Tuple
+from typing import Dict, Any, Optional, Callable, List
 
 from backend.app.models.incident import (
     IncidentCard,
-    MitreMapping,
-    AssetProfile,
-    ContainmentRules,
     AgentThoughtEvent,
 )
 from backend.app.services.cyber_tools import CyberTools
