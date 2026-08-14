@@ -105,3 +105,16 @@ curl -X POST http://localhost:8000/api/v1/telemetry/simulate/attack
 # 6. Fetch Executive CISO Daily Brief
 curl -X GET http://localhost:8000/api/v1/agent/daily-brief
 ```
+
+---
+
+## 6. Phase Execution Log & Verification Status
+
+### Phase 0: Baseline Telemetry & Dataset Preparation (COMPLETED ✅)
+* **Date:** 2026-08-14
+* **Components Built:**
+  - `backend/ml_engine/feature_extractor.py`: 41-feature non-payload flow extractor with categorical encoding and continuous feature scaling.
+  - `backend/ml_engine/generate_baseline_data.py`: Generator for 5,000 pure benign baseline records (`label == 'normal'`), synthetic zero-day attack samples (`T1021.002`, `T1046`, `T1071.001`), `asset_inventory.json` (5 hosts with criticality tiers), and `mitre_attack_kb.json` (4 tactics/techniques).
+  - `pytest.ini` & `tests/test_feature_extractor.py`: 5/5 automated unit tests passing covering feature shapes ($1 \times 41$), $[0.0, 1.0]$ bounds, and data purity.
+* **Verification Command:** `pytest tests/test_feature_extractor.py -v` (Status: 5 Passed).
+* **Next Phase:** Phase 1: Unsupervised Perception & Anomaly Engine (`IsolationForest` training & `RollingFalsePositiveFilter`).

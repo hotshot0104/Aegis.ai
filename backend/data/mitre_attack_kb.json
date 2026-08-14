@@ -1,0 +1,56 @@
+[
+  {
+    "technique_id": "T1021.002",
+    "tactic": "Lateral Movement",
+    "technique_name": "SMB/Windows Admin Shares",
+    "description": "Adversaries may use valid accounts to interact with remote SMB services over Port 445 to laterally traverse internal enterprise subnets.",
+    "indicators": [
+      "port 445 burst",
+      "same srv rate high",
+      "cross subnet traversal",
+      "smb file creation"
+    ],
+    "mitigation": "Disable SMBv1, enforce SMB signing, block Port 445 between workstations, isolate compromised internal host.",
+    "recommended_firewall_action": "DROP_SRC_IP"
+  },
+  {
+    "technique_id": "T1046",
+    "tactic": "Reconnaissance",
+    "technique_name": "Network Service Discovery",
+    "description": "Adversaries may attempt to get a listing of services running on remote hosts across the network using port sweeps or SYN scanning.",
+    "indicators": [
+      "high diff_srv_rate",
+      "S0 flags",
+      "half open syn",
+      "rapid multi-port probe"
+    ],
+    "mitigation": "Configure firewall rate-limiting, drop unsolicited SYN half-open packets, isolate scanning source.",
+    "recommended_firewall_action": "DROP_SRC_IP"
+  },
+  {
+    "technique_id": "T1071.001",
+    "tactic": "Command and Control",
+    "technique_name": "Web Protocols (HTTP/HTTPS Beaconing)",
+    "description": "Adversaries may communicate using application layer protocols associated with web traffic (HTTP/HTTPS) to bypass network security monitoring with periodic beacon intervals.",
+    "indicators": [
+      "periodic low-jitter beacon",
+      "equal byte symmetry",
+      "low duration repeat bursts"
+    ],
+    "mitigation": "Inspect TLS handshake headers, apply egress DNS filtering, block C2 destination IP.",
+    "recommended_firewall_action": "DROP_DST_IP"
+  },
+  {
+    "technique_id": "T1048",
+    "tactic": "Exfiltration",
+    "technique_name": "Exfiltration Over Alternative Protocol",
+    "description": "Adversaries may steal data by exfiltrating it over a different protocol than the command and control channel (e.g. DNS tunneling or raw UDP bursts).",
+    "indicators": [
+      "extreme src_bytes to dst_bytes ratio",
+      "abnormal udp duration",
+      "high entropy outbound payload"
+    ],
+    "mitigation": "Block unauthorized egress protocols, enforce strict DNS inspection and rate limiting.",
+    "recommended_firewall_action": "DROP_SRC_IP"
+  }
+]
