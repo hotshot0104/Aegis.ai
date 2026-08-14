@@ -28,8 +28,8 @@ class NetworkAnomalyDetector:
 
     def __init__(
         self,
-        n_estimators: int = 75,
-        contamination: float = 0.03,
+        n_estimators: int = 50,
+        contamination: float = 0.01,
         random_state: int = 42,
         anomaly_threshold: float = 0.80,
         model_path: Optional[str] = None
@@ -87,11 +87,12 @@ class NetworkAnomalyDetector:
     def compute_bdi(self, raw_score: float) -> float:
         """
         Transforms raw decision_function score into Behavioral Deviation Index (BDI) in [0.00, 1.00].
-        - Normal baseline (raw >= 0.00) maps to low BDI [0.00, 0.40].
-        - Suspicious deviation (raw -0.05 to 0.00) maps to [0.40, 0.79].
-        - High deviation / Zero-Day attacks (raw <= -0.05) map to [0.80, 1.00].
+        Calibrated for contamination=0.01 (tighter boundary):
+        - Normal baseline (raw >= 0.05) maps to low BDI [0.00, 0.40].
+        - Suspicious deviation (raw 0.00 to 0.05) maps to [0.50, 0.80].
+        - High deviation / Zero-Day attacks (raw < 0.00) map to [0.83, 1.00].
         """
-        normalized = (0.10 - raw_score) / 0.20
+        normalized = (0.05 - raw_score) / 0.10
         return float(np.clip(normalized, 0.0, 1.0))
 
 

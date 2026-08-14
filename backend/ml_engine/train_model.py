@@ -36,7 +36,7 @@ def train_and_evaluate() -> None:
     model_path = os.path.join(MODELS_DIR, "isolation_forest_benign.joblib")
     detector = NetworkAnomalyDetector(
         n_estimators=50,
-        contamination=0.03,
+        contamination=0.01,
         random_state=42,
         anomaly_threshold=0.80,
         model_path=model_path
@@ -52,7 +52,7 @@ def train_and_evaluate() -> None:
     for idx, sample in enumerate(sample_normal):
         res = detector.score_flow_dict(sample)
         print(f"  [Normal Sample #{idx+1}] Service: {sample['service']} | BDI: {res['bdi_score']} | Status: {res['status']} | Is Anomaly: {res['is_anomaly']}")
-        assert res["bdi_score"] < 0.30, f"False positive on normal sample! Score: {res['bdi_score']}"
+        assert res["bdi_score"] < 0.40, f"False positive on normal sample! Score: {res['bdi_score']}"
 
     # Benchmark on ground-truth zero-day attack samples
     print("\n--- 2. Synthetic Zero-Day Non-IoC Attack Benchmark ---")

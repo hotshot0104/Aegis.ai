@@ -139,29 +139,32 @@ class AgentSupervisor:
                 else:
                     on_thought(event)
 
-        # Step 3: Dispatch parallel sub-agents (ADR-002: asyncio.gather for sub-second execution)
-        hunter_task = self.threat_hunter.investigate(
-            flow_data=flow_data,
-            bdi_score=bdi_score,
-            on_thought=subagent_thought_listener,
-        )
+        # Step 3: Run asset lookup first to resolve criticality (fast, ~1ms)
         asset_task = self.asset_agent.investigate(
             target_ip=target_ip,
             attacker_ip=attacker_ip,
             target_port=target_port,
             on_thought=subagent_thought_listener,
         )
+        asset_profile = await asset_task
+
+        # Step 4: Dispatch Threat Hunter and Rule Generator in parallel with real criticality
+        hunter_task = self.threat_hunter.investigate(
+            flow_data=flow_data,
+            bdi_score=bdi_score,
+            on_thought=subagent_thought_listener,
+        )
         rule_task = self.rule_generator.generate_rules(
             attacker_ip=attacker_ip,
             target_port=target_port,
             protocol=protocol.lower(),
-            asset_criticality="UNKNOWN",
+            asset_criticality=asset_profile.criticality_level,
             on_thought=subagent_thought_listener,
         )
 
-        # Execute DAG branches concurrently
-        (mitre_threat, flow_summary), asset_profile, containment_rules = await asyncio.gather(
-            hunter_task, asset_task, rule_task
+        # Execute remaining DAG branches concurrently
+        (mitre_threat, flow_summary), containment_rules = await asyncio.gather(
+            hunter_task, rule_task
         )
 
         total_ms = (time.time() - start_time) * 1000.0

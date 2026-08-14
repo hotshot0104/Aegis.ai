@@ -28,8 +28,9 @@ wheels/
 .env
 .env.local
 
-# ML Models & Checkpoints
-# Models will be trained and loaded locally
+# ML Models & Checkpoints (regenerate via train_model.py)
+backend/models_saved/*.joblib
+*.joblib
 
 # Data
 # Allow baseline CSV and JSON files for hackathon reproducibility

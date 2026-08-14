@@ -7,7 +7,7 @@ Rule 5: Sub-Second Streaming Transparency (AgentThoughtEvent streaming).
 """
 
 import inspect
-from typing import Dict, Any, Optional, Callable, Tuple, Awaitable
+from typing import Dict, Any, Optional, Callable, Tuple
 from backend.app.models.incident import MitreMapping, AgentThoughtEvent
 from backend.app.services.cyber_tools import CyberTools
 

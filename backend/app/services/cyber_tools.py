@@ -6,6 +6,7 @@ No arbitrary shell execution. No IoC lookups (Rule 1).
 """
 
 import json
+import ipaddress
 import os
 from typing import Dict, Any, List, Optional
 
@@ -22,6 +23,10 @@ DATA_DIR = os.path.join(
 
 class CyberTools:
     """Deterministic, schema-validated security tools for the AEGIS-AI agent core."""
+
+    # Class-level caches to avoid disk I/O on every tool call
+    _asset_registry_cache: Optional[Dict] = None
+    _mitre_kb_cache: Optional[List[Dict]] = None
 
     # ──────────────────────────────────────────────────────────────────────
     # Tool 1: Flow Metrics Deep Inspector
@@ -58,11 +63,12 @@ class CyberTools:
         dst_host_srv_diff_host_rate = flow_data.get("dst_host_srv_diff_host_rate", 0.0)
         flag = flow_data.get("flag", "SF")
 
-        # Build analysis narrative
+        # Compute dynamic severity label from BDI score
+        severity = "CRITICAL" if bdi_score >= 0.80 else "SUSPICIOUS" if bdi_score >= 0.50 else "NOMINAL"
         findings = []
         findings.append(
             f"Flow Analysis: {src_ip} -> {dst_ip}:{dst_port} ({protocol}). "
-            f"BDI Score: {bdi_score:.4f} (CRITICAL)."
+            f"BDI Score: {bdi_score:.4f} ({severity})."
         )
 
         if count > 100:
@@ -125,11 +131,15 @@ class CyberTools:
         """
         asset_path = os.path.join(DATA_DIR, "asset_inventory.json")
 
-        try:
-            with open(asset_path, "r", encoding="utf-8") as f:
-                registry = json.load(f)
-        except (FileNotFoundError, json.JSONDecodeError):
-            registry = {}
+        # Use cached registry to avoid disk I/O on every call
+        if CyberTools._asset_registry_cache is None:
+            try:
+                with open(asset_path, "r", encoding="utf-8") as f:
+                    CyberTools._asset_registry_cache = json.load(f)
+            except (FileNotFoundError, json.JSONDecodeError):
+                CyberTools._asset_registry_cache = {}
+
+        registry = CyberTools._asset_registry_cache
 
         if ip in registry:
             return AssetProfile(**registry[ip])
@@ -168,11 +178,15 @@ class CyberTools:
         """
         mitre_path = os.path.join(DATA_DIR, "mitre_attack_kb.json")
 
-        try:
-            with open(mitre_path, "r", encoding="utf-8") as f:
-                kb: List[Dict] = json.load(f)
-        except (FileNotFoundError, json.JSONDecodeError):
-            kb = []
+        # Use cached knowledge base to avoid disk I/O on every call
+        if CyberTools._mitre_kb_cache is None:
+            try:
+                with open(mitre_path, "r", encoding="utf-8") as f:
+                    CyberTools._mitre_kb_cache = json.load(f)
+            except (FileNotFoundError, json.JSONDecodeError):
+                CyberTools._mitre_kb_cache = []
+
+        kb: List[Dict] = CyberTools._mitre_kb_cache
 
         # Extract behavioral signals from the flow
         dst_port = flow_data.get("dst_port", 0)
@@ -237,7 +251,7 @@ class CyberTools:
                 if srv_diff_host_rate < 0.05:
                     score += 20.0
                     matched_indicators.append("zero host dispersion (single C2 target)")
-                if count > 50 and count < 200:
+                if count > 50 and count < 500:
                     score += 15.0
                     matched_indicators.append(f"periodic beacon count={int(count)}")
 
@@ -302,7 +316,13 @@ class CyberTools:
         Returns:
             ContainmentRules Pydantic model with platform-specific commands.
         """
-        safe_ip = src_ip.replace(";", "").replace("|", "").replace("&", "").strip()
+        # Validate IP address format (prevents injection of non-IP strings)
+        try:
+            validated_ip = str(ipaddress.ip_address(src_ip.strip()))
+        except ValueError:
+            raise ValueError(f"Invalid IP address format: '{src_ip}'")
+
+        safe_ip = validated_ip
         safe_port = int(dst_port)
         safe_proto = protocol.lower().replace(";", "")
 
