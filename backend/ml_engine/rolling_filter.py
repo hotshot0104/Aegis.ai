@@ -3,10 +3,12 @@ Rolling False-Positive Filter for Project AEGIS-AI.
 Suppresses transient network noise, short bursts, and temporary spike events
 by requiring K consecutive anomaly ticks per IP within a sliding time window
 before escalating to the Multi-Agent Defense Core.
+Thread-safe for concurrent async access via asyncio.Lock.
 """
 
-from typing import Dict, Tuple, Deque, Any
+from typing import Dict, Tuple, Deque, Any, Optional
 from collections import deque
+import asyncio
 import time
 
 
@@ -30,6 +32,8 @@ class RollingFalsePositiveFilter:
         self.time_window_seconds = time_window_seconds
         # ip -> deque of (timestamp, is_anomaly, bdi_score)
         self.history: Dict[str, Deque[Tuple[float, bool, float]]] = {}
+        # Lazy async lock for thread-safe concurrent access from FastAPI handlers
+        self._lock: Optional[asyncio.Lock] = None
 
     def evaluate(self, ip: str, is_anomaly: bool, bdi_score: float = 0.0) -> Dict[str, Any]:
         """
@@ -85,3 +89,10 @@ class RollingFalsePositiveFilter:
     def clear_all(self) -> None:
         """Clears all tracking history."""
         self.history.clear()
+
+    async def evaluate_async(self, ip: str, is_anomaly: bool, bdi_score: float = 0.0) -> Dict[str, Any]:
+        """Thread-safe async wrapper around evaluate() for FastAPI concurrent access."""
+        if self._lock is None:
+            self._lock = asyncio.Lock()
+        async with self._lock:
+            return self.evaluate(ip, is_anomaly, bdi_score)

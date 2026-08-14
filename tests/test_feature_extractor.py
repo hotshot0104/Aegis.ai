@@ -5,10 +5,9 @@ Ensures zero-IoC compliance, 41-feature dimensions, and normalization properties
 
 import os
 import json
-import pytest
 import numpy as np
 import pandas as pd
-from backend.ml_engine.feature_extractor import FlowFeatureExtractor, FEATURE_NAMES
+from backend.ml_engine.feature_extractor import FlowFeatureExtractor
 
 DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "backend", "data")
 

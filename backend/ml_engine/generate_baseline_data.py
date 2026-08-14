@@ -10,9 +10,14 @@ Generates:
 import json
 import os
 import random
+import sys
 import numpy as np
 import pandas as pd
-from feature_extractor import FEATURE_NAMES, FlowFeatureExtractor
+
+# Bootstrap project root to sys.path for direct script execution
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(BASE_DIR, "data")
@@ -21,7 +26,7 @@ os.makedirs(DATA_DIR, exist_ok=True)
 def generate_benign_baseline(n_samples: int = 5000) -> str:
     """Generates pure normal/benign network traffic records."""
     random.seed(42)
-    np.random.seed(42)
+    rng = np.random.default_rng(42)
     
     records = []
     services = ["http", "dns", "smtp", "ssh", "other"]
@@ -32,47 +37,47 @@ def generate_benign_baseline(n_samples: int = 5000) -> str:
         
         # Realistic benign distributions
         if srv == "http":
-            duration = np.random.exponential(scale=2.0)
-            src_bytes = int(np.random.normal(loc=350, scale=120))
-            dst_bytes = int(np.random.exponential(scale=3500))
+            duration = rng.exponential(scale=2.0)
+            src_bytes = int(rng.lognormal(mean=5.8, sigma=0.35))
+            dst_bytes = int(rng.exponential(scale=3500))
             flag = "SF"
             protocol = "tcp"
         elif srv == "dns":
-            duration = np.random.exponential(scale=0.05)
-            src_bytes = int(np.random.normal(loc=65, scale=15))
-            dst_bytes = int(np.random.normal(loc=140, scale=40))
+            duration = rng.exponential(scale=0.05)
+            src_bytes = int(rng.lognormal(mean=4.17, sigma=0.22))
+            dst_bytes = int(rng.lognormal(mean=4.94, sigma=0.27))
             flag = "SF"
             protocol = "udp"
         elif srv == "smtp":
-            duration = np.random.exponential(scale=4.0)
-            src_bytes = int(np.random.normal(loc=800, scale=250))
-            dst_bytes = int(np.random.normal(loc=1200, scale=400))
+            duration = rng.exponential(scale=4.0)
+            src_bytes = int(rng.lognormal(mean=6.68, sigma=0.30))
+            dst_bytes = int(rng.lognormal(mean=7.09, sigma=0.32))
             flag = "SF"
             protocol = "tcp"
         elif srv == "ssh":
-            duration = np.random.exponential(scale=60.0)
-            src_bytes = int(np.random.normal(loc=2500, scale=800))
-            dst_bytes = int(np.random.normal(loc=4000, scale=1200))
+            duration = rng.exponential(scale=60.0)
+            src_bytes = int(rng.lognormal(mean=7.82, sigma=0.31))
+            dst_bytes = int(rng.lognormal(mean=8.29, sigma=0.29))
             flag = "SF"
             protocol = "tcp"
         else:
-            duration = np.random.exponential(scale=1.0)
-            src_bytes = int(np.random.normal(loc=200, scale=80))
-            dst_bytes = int(np.random.normal(loc=200, scale=80))
+            duration = rng.exponential(scale=1.0)
+            src_bytes = int(rng.lognormal(mean=5.30, sigma=0.38))
+            dst_bytes = int(rng.lognormal(mean=5.30, sigma=0.38))
             flag = random.choice(["SF", "SF", "SF", "REJ"])
             protocol = "tcp"
             
         record = {
-            "duration": max(0.0, float(round(duration, 3))),
+            "duration": float(round(max(0.0, duration), 3)),
             "protocol_type": protocol,
             "service": srv,
             "flag": flag,
-            "src_bytes": max(0, src_bytes),
-            "dst_bytes": max(0, dst_bytes),
+            "src_bytes": max(1, src_bytes),
+            "dst_bytes": max(1, dst_bytes),
             "land": 0,
             "wrong_fragment": 0,
             "urgent": 0,
-            "hot": int(np.random.choice([0, 1], p=[0.98, 0.02])),
+            "hot": int(rng.choice([0, 1], p=[0.98, 0.02])),
             "num_failed_logins": 0,
             "logged_in": 1 if srv in ["http", "ssh", "smtp"] else 0,
             "num_compromised": 0,
@@ -85,21 +90,21 @@ def generate_benign_baseline(n_samples: int = 5000) -> str:
             "num_outbound_cmds": 0,
             "is_host_login": 0,
             "is_guest_login": 0,
-            "count": int(max(1, np.random.poisson(lam=4))),
-            "srv_count": int(max(1, np.random.poisson(lam=3))),
-            "serror_rate": float(round(np.random.beta(0.1, 10), 3)),
-            "srv_serror_rate": float(round(np.random.beta(0.1, 10), 3)),
+            "count": int(max(1, rng.poisson(lam=4))),
+            "srv_count": int(max(1, rng.poisson(lam=3))),
+            "serror_rate": float(round(rng.beta(0.1, 10), 3)),
+            "srv_serror_rate": float(round(rng.beta(0.1, 10), 3)),
             "rerror_rate": 0.0,
             "srv_rerror_rate": 0.0,
-            "same_srv_rate": float(round(np.random.uniform(0.85, 1.0), 3)),
-            "diff_srv_rate": float(round(np.random.uniform(0.0, 0.15), 3)),
-            "srv_diff_host_rate": float(round(np.random.uniform(0.0, 0.10), 3)),
-            "dst_host_count": int(np.random.randint(10, 255)),
-            "dst_host_srv_count": int(np.random.randint(10, 255)),
-            "dst_host_same_srv_rate": float(round(np.random.uniform(0.80, 1.0), 3)),
-            "dst_host_diff_srv_rate": float(round(np.random.uniform(0.0, 0.20), 3)),
-            "dst_host_same_src_port_rate": float(round(np.random.uniform(0.0, 0.15), 3)),
-            "dst_host_srv_diff_host_rate": float(round(np.random.uniform(0.0, 0.10), 3)),
+            "same_srv_rate": float(round(rng.uniform(0.85, 1.0), 3)),
+            "diff_srv_rate": float(round(rng.uniform(0.0, 0.15), 3)),
+            "srv_diff_host_rate": float(round(rng.uniform(0.0, 0.10), 3)),
+            "dst_host_count": int(rng.integers(10, 255)),
+            "dst_host_srv_count": int(rng.integers(10, 255)),
+            "dst_host_same_srv_rate": float(round(rng.uniform(0.80, 1.0), 3)),
+            "dst_host_diff_srv_rate": float(round(rng.uniform(0.0, 0.20), 3)),
+            "dst_host_same_src_port_rate": float(round(rng.uniform(0.0, 0.15), 3)),
+            "dst_host_srv_diff_host_rate": float(round(rng.uniform(0.0, 0.10), 3)),
             "dst_host_serror_rate": 0.0,
             "dst_host_srv_serror_rate": 0.0,
             "dst_host_rerror_rate": 0.0,
@@ -239,21 +244,21 @@ def generate_synthetic_attacks() -> str:
                 "land": 0,
                 "wrong_fragment": 0,
                 "urgent": 0,
-                "hot": 0,
+                "hot": 15,
                 "num_failed_logins": 0,
                 "logged_in": 1,
-                "num_compromised": 1,
-                "root_shell": 0,
-                "su_attempted": 0,
-                "num_root": 0,
-                "num_file_creations": 0,
-                "num_shells": 0,
-                "num_access_files": 0,
+                "num_compromised": 5,
+                "root_shell": 1,
+                "su_attempted": 1,
+                "num_root": 5,
+                "num_file_creations": 4,
+                "num_shells": 2,
+                "num_access_files": 4,
                 "num_outbound_cmds": 0,
                 "is_host_login": 0,
                 "is_guest_login": 0,
-                "count": 120,
-                "srv_count": 120,
+                "count": 480,
+                "srv_count": 480,
                 "serror_rate": 0.0,
                 "srv_serror_rate": 0.0,
                 "rerror_rate": 0.0,

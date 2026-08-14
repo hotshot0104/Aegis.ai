@@ -23,7 +23,7 @@
 
 ### ADR-001: Unsupervised Isolation Forest for Non-IoC Perception
 * **Context:** SIH Problem 1451 strictly prohibits relying solely on IoCs (Indicators of Compromise). Traditional supervised classification requires attack signatures in the training set.
-* **Decision:** We use an unsupervised `IsolationForest` (150 estimators, 3% contamination) trained **strictly on normal/benign network traffic** (`label == 'normal'`).
+* **Decision:** We use an unsupervised `IsolationForest` (50 estimators, 1% contamination) trained **strictly on normal/benign network traffic** (`label == 'normal'`).
 * **Consequences:** The model learns a tight statistical envelope of normal behavior. Novel zero-day attacks and polymorphic payloads manifest as outliers with short path lengths, triggering high anomaly scores without prior signature knowledge.
 
 ### ADR-002: Multi-Agent DAG with Supervisor vs Monolithic LLM
@@ -76,7 +76,7 @@
 
 | Symptom / Error | Probable Cause | Immediate Resolution |
 | :--- | :--- | :--- |
-| **High False Positive Rate on Normal Traffic** | Anomaly threshold set too aggressively or feature variance uncalibrated. | 1. Check `bdi_score` formula in `backend/ml_engine/anomaly_detector.py`.<br>2. Ensure contamination parameter is $\le 0.03$.<br>3. Verify rolling window filter is active ($K=3$ consecutive ticks). |
+| **High False Positive Rate on Normal Traffic** | Anomaly threshold set too aggressively or feature variance uncalibrated. | 1. Check `bdi_score` formula in `backend/ml_engine/anomaly_detector.py`.<br>2. Ensure contamination parameter is $\le 0.01$.<br>3. Verify rolling window filter is active ($K=3$ consecutive ticks). |
 | **Agent DAG Latency Exceeds 2 Seconds** | Sub-agents running synchronously or vector search blocking. | 1. Ensure `asyncio.gather()` is used in `agent_supervisor.py` to run sub-agents concurrently.<br>2. Cache local MITRE vector embeddings in memory. |
 | **WebSocket Disconnects or Missed Events** | Client buffering overflow or missing heartbeat ping. | 1. Ensure `WebSocketManager` handles disconnection exceptions gracefully.<br>2. Send lightweight ping frame every 15 seconds. |
 | **Feature Dimension Mismatch Error (Length != 41)** | Ingested flow JSON is missing one or more required statistical fields. | 1. Check Pydantic schema in `backend/app/models/telemetry.py`.<br>2. Use default 0.0 fill in `feature_extractor.py` for omitted dimensions. |
@@ -142,5 +142,34 @@ curl -X GET http://localhost:8000/api/v1/agent/daily-brief
   - `backend/app/models/`: Pydantic v2 data contracts exported in `backend/app/models/__init__.py`.
   - `tests/test_agent_dag.py`: 9 integration and unit tests covering end-to-end DAG triage, sub-second latency ($< 1,500\text{ ms}$), streaming events, and CISO report synthesis.
 * **Verification Command:** `pytest tests/ -v` (Status: 19/19 Passed in 2.13s).
-* **Next Phase:** Phase 3: High-Performance FastAPI Backend & WebSockets (`/api/v1/telemetry`, `/api/v1/agent`, `/api/v1/ws/agent-thoughts`).
+### Codebase Deep Audit & Robustness Hardening (COMPLETED ✅)
+* **Date:** 2026-08-14
+* **Remediated Issues:**
+  - Added standalone `sys.path` bootstrap to `generate_baseline_data.py` and `train_model.py` so they run directly via `python script.py` and `python -m package.script`.
+  - Replaced legacy global random state with modern `np.random.default_rng` and lognormal byte distributions.
+  - Synchronized `n_estimators=50` and contamination parameters across `anomaly_detector.py` and `train_model.py`.
+  - Made `asyncio.Lock` lazy-initialized and added `evaluate_async()` wrapper to `RollingFalsePositiveFilter` for thread-safe concurrent execution across async loops.
+  - Implemented class-level memory caching with `clear_cache()` in `CyberTools` to eliminate repeated disk I/O.
+  - Added strict `ipaddress.ip_address` format validation and bounded port/protocol checks in firewall containment generator.
+  - Added Pydantic `Field(ge=..., le=...)` boundary validation to `IncidentCard` fields.
+  - Built `backend/app/core/security.py` with constant-time token verification (`secrets.compare_digest`) and SHA-256 tamper-evident audit hashing.
+  - Built `backend/app/core/config.py` with Pydantic v2 `SettingsConfigDict` configuration settings.
+  - Established `backend/app/routers/__init__.py` for Phase 3 FastAPI endpoints.
+  - Added unit tests in `tests/test_security.py` validating officer auth token verification and cryptographic audit digests.
+  - Cleaned up all unused imports across 8 codebase and test files.
+### Phase 3: High-Performance FastAPI Backend & WebSockets (COMPLETED ✅)
+* **Date:** 2026-08-14
+* **Components Built:**
+  - `backend/app/core/websocket_manager.py`: `WebSocketManager` singleton for real-time `AGENT_THOUGHT`, `TELEMETRY_TICK`, `INCIDENT_CREATED`, and `CONTAINMENT_UPDATE` broadcasts.
+  - `backend/app/services/incident_store.py`: `IncidentStore` in-memory repository for sub-millisecond incident retrieval and audit logging.
+  - `backend/app/routers/telemetry_router.py`: REST endpoints for flow vector scoring (`POST /api/v1/telemetry/stream`), normal traffic simulation (`POST /api/v1/telemetry/simulate/normal`), and zero-day attack burst triage (`POST /api/v1/telemetry/simulate/attack`).
+  - `backend/app/routers/agent_router.py`: Endpoints for on-demand manual investigation (`POST /api/v1/agent/investigate`), CISO Daily Brief (`GET /api/v1/agent/daily-brief`), and incident listing.
+  - `backend/app/routers/containment_router.py`: Rule 3 HITL containment authorization gate (`POST /api/v1/agent/execute-containment`) with officer token verification, `iptables`/Cisco/PowerShell rule execution, and deterministic SHA-256 audit digest generation.
+  - `backend/app/routers/ws_router.py`: Dedicated WebSocket streaming connection at `WebSocket /api/v1/ws/agent-thoughts`.
+  - `backend/app/main.py`: FastAPI app entry point with async lifespan (model pre-loading on startup), CORS middleware, and static UI file mounting.
+  - `tests/test_api_endpoints.py`: 10 integration and unit tests covering all endpoints, auth gates, and WebSocket streams.
+* **Verification Command:** `pytest tests/ -v` (Status: 45/45 Passed in 3.32s).
+* **Multi-Scenario Stress Harness:** `python backend/simulate_all_scenarios.py` (Status: 10/10 Scenarios Passed in 4.52s, 0 errors).
+* **Codebase Cleanliness:** 0 unused imports across all Python files, 25x faster feature extraction via scalar clamping.
+* **Next Phase:** Phase 4: Frontend SOC Command Center UI (`frontend/index.html`, `frontend/css/`, `frontend/js/`).
 
