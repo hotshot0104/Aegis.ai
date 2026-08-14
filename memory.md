@@ -110,17 +110,37 @@ curl -X GET http://localhost:8000/api/v1/agent/daily-brief
 
 ## 6. Phase Execution Log & Verification Status
 
+### Phase 0: Baseline Telemetry & Dataset Preparation (COMPLETED ✅)
+* **Date:** 2026-08-14
+* **Components Built:**
+  - `backend/ml_engine/feature_extractor.py`: 41-feature non-payload flow extractor with categorical encoding and continuous feature scaling.
+  - `backend/ml_engine/generate_baseline_data.py`: Generator for 5,000 pure benign baseline records (`label == 'normal'`), synthetic zero-day attack samples (`T1021.002`, `T1046`, `T1071.001`), `asset_inventory.json` (5 hosts with criticality tiers), and `mitre_attack_kb.json` (4 tactics/techniques).
+  - `pytest.ini` & `tests/test_feature_extractor.py`: 5/5 automated unit tests passing covering feature shapes ($1 \times 41$), $[0.0, 1.0]$ bounds, and data purity.
+* **Verification Command:** `pytest tests/test_feature_extractor.py -v` (Status: 5 Passed).
+
 ### Phase 1: Unsupervised Perception & Anomaly Engine (COMPLETED ✅)
 * **Date:** 2026-08-14
 * **Components Built:**
-  - `backend/ml_engine/anomaly_detector.py`: `NetworkAnomalyDetector` using Isolation Forest ($n=50$ estimators, $3\%$ contamination, $100\%$ benign training). Computes Behavioral Deviation Index (BDI) and explains drifted statistical features.
+  - `backend/ml_engine/anomaly_detector.py`: `NetworkAnomalyDetector` using Isolation Forest ($n=75$ estimators, $3\%$ contamination, $100\%$ benign training). Computes Behavioral Deviation Index (BDI) and explains drifted statistical features.
   - `backend/ml_engine/rolling_filter.py`: `RollingFalsePositiveFilter` enforcing $K=3$ consecutive anomaly windows over 5.0 seconds to eliminate transient spike noise.
   - `backend/ml_engine/train_model.py`: Model training pipeline that serializes the model to `backend/models_saved/isolation_forest_benign.joblib`.
   - `tests/test_anomaly_detector.py`: 5 automated tests verifying model loading, benign flow BDI ($< 0.40$, `is_anomaly=False`), zero-day attacks ($BDI \ge 0.80$, `is_anomaly=True`), sub-5ms inference latency, and temporal filtering.
-* **Verification Results:** 10/10 automated tests passing (`pytest tests/ -v`).
+* **Verification Results:** 5/5 automated tests passing (`pytest tests/test_anomaly_detector.py -v`).
 * **Performance Metrics:**
   - Normal traffic BDI: $0.00 – 0.12$ (`NOMINAL`)
   - Zero-day attack BDI: $0.803 – 1.00$ (`CRITICAL_ANOMALY`)
   - Average inference latency: $\sim 2.8\text{ ms}$ per vector (target $< 5\text{ ms}$)
-* **Next Phase:** Phase 2: Autonomous Multi-Agent Reasoning DAG & Tooling (`agent_supervisor.py`, `cyber_tools.py`, `threat_hunter_agent.py`, `asset_agent.py`, `rule_generator_agent.py`).
+
+### Phase 2: Autonomous Multi-Agent Reasoning DAG & Tools (COMPLETED ✅)
+* **Date:** 2026-08-14
+* **Components Built:**
+  - `backend/app/services/cyber_tools.py`: 4 deterministic Pydantic security tools (`tool_inspect_flow_metrics`, `tool_query_asset_registry`, `tool_mitre_vector_search`, `tool_generate_containment_command`).
+  - `backend/app/services/threat_hunter_agent.py`: `ThreatHunterAgent` for MITRE ATT&CK TTP mapping (T1021.002, T1046, T1071) with streaming `AgentThoughtEvent` dispatch.
+  - `backend/app/services/asset_agent.py`: `AssetInvestigatorAgent` for enterprise subnet registry lookup and crown-jewel blast radius calculation.
+  - `backend/app/services/rule_generator_agent.py`: `ContainmentRuleGeneratorAgent` for multi-platform firewall CLI compilation (`iptables`, Cisco ACL, PowerShell) with HITL safety guardrails.
+  - `backend/app/services/agent_supervisor.py`: `AgentSupervisor` DAG orchestrator executing sub-agents in parallel via `asyncio.gather()`, synthesizing the unified `IncidentCard`, and generating Markdown CISO Daily Threat Briefs.
+  - `backend/app/models/`: Pydantic v2 data contracts exported in `backend/app/models/__init__.py`.
+  - `tests/test_agent_dag.py`: 9 integration and unit tests covering end-to-end DAG triage, sub-second latency ($< 1,500\text{ ms}$), streaming events, and CISO report synthesis.
+* **Verification Command:** `pytest tests/ -v` (Status: 19/19 Passed in 2.13s).
+* **Next Phase:** Phase 3: High-Performance FastAPI Backend & WebSockets (`/api/v1/telemetry`, `/api/v1/agent`, `/api/v1/ws/agent-thoughts`).
 
