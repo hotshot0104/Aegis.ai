@@ -1,0 +1,52 @@
+{
+  "192.168.1.45": {
+    "ip": "192.168.1.45",
+    "hostname": "DB-PROD-FINANCE-01",
+    "owner_department": "Treasury & Core Banking",
+    "criticality_level": "CRITICAL_TIER_1",
+    "os_type": "Ubuntu 22.04 LTS (PostgreSQL 15)",
+    "mac_address": "00:50:56:A1:B2:C3",
+    "subnet": "192.168.1.0/24 (Production Core DB Subnet)",
+    "crown_jewel": true
+  },
+  "192.168.1.10": {
+    "ip": "192.168.1.10",
+    "hostname": "DC-PRIMARY-AD01",
+    "owner_department": "IT Operations & Identity",
+    "criticality_level": "CRITICAL_TIER_1",
+    "os_type": "Windows Server 2022 (Active Directory)",
+    "mac_address": "00:50:56:B2:C3:D4",
+    "subnet": "192.168.1.0/24 (Production Core Services)",
+    "crown_jewel": true
+  },
+  "192.168.1.104": {
+    "ip": "192.168.1.104",
+    "hostname": "ENG-WORKSTATION-88",
+    "owner_department": "Engineering Development",
+    "criticality_level": "LOW_TIER_3",
+    "os_type": "Windows 11 Enterprise",
+    "mac_address": "00:50:56:C3:D4:E5",
+    "subnet": "192.168.1.0/24 (Corporate LAN)",
+    "crown_jewel": false
+  },
+  "192.168.1.72": {
+    "ip": "192.168.1.72",
+    "hostname": "SALES-LAPTOP-14",
+    "owner_department": "Sales & Marketing",
+    "criticality_level": "MEDIUM",
+    "os_type": "macOS Sonoma",
+    "mac_address": "00:50:56:D4:E5:F6",
+    "subnet": "192.168.1.0/24 (Corporate LAN)",
+    "crown_jewel": false
+  },
+  "192.168.1.1": {
+    "ip": "192.168.1.1",
+    "hostname": "GATEWAY-FIREWALL-01",
+    "owner_department": "Network Security",
+    "criticality_level": "CRITICAL_TIER_1",
+    "os_type": "pfSense Enterprise Router",
+    "mac_address": "00:50:56:00:00:01",
+    "subnet": "192.168.1.0/24 (Perimeter Gateway)",
+    "crown_jewel": true
+  }
+}

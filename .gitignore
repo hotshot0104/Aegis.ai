@@ -28,17 +28,13 @@ wheels/
 .env
 .env.local
 
-# ML Models & Checkpoints (large binary files)
-models_saved/*.joblib
-!models_saved/.gitkeep
-*.onnx
-*.pt
-*.pth
+# ML Models & Checkpoints
+# Models will be trained and loaded locally
 
 # Data
-backend/data/*.csv
-backend/data/*.pcap
-!backend/data/benign_baseline_sample.csv
+# Allow baseline CSV and JSON files for hackathon reproducibility
+!backend/data/*.csv
+!backend/data/*.json
 
 # IDE / OS
 .DS_Store
