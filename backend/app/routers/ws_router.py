@@ -34,8 +34,17 @@ async def websocket_agent_thoughts_endpoint(websocket: WebSocket) -> None:
         while True:
             # Keep connection open and receive optional ping/control frames from dashboard
             data = await websocket.receive_text()
+            # Handle both raw "ping" and JSON {"action": "PING"} from frontend
             if data == "ping":
                 await websocket.send_text("pong")
+            else:
+                try:
+                    import json
+                    parsed = json.loads(data)
+                    if isinstance(parsed, dict) and parsed.get("action", "").upper() == "PING":
+                        await websocket.send_json({"type": "PONG", "data": {"status": "OK"}})
+                except (json.JSONDecodeError, TypeError):
+                    pass  # Ignore unparseable messages
     except WebSocketDisconnect:
         await ws_manager.disconnect(websocket)
     except Exception as exc:

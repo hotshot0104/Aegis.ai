@@ -17,8 +17,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
+import asyncio
 from backend.app.core.config import settings
-from backend.app.routers.telemetry_router import router as telemetry_router, get_detector
+from backend.app.routers.telemetry_router import router as telemetry_router, get_detector, continuous_telemetry_loop
 from backend.app.routers.agent_router import router as agent_router
 from backend.app.routers.containment_router import router as containment_router
 from backend.app.routers.ws_router import router as ws_router
@@ -35,10 +36,15 @@ async def lifespan(app: FastAPI):
     else:
         print(f"[!] Warning: Anomaly Detector model not found or untrained at {settings.MODEL_PATH}")
 
+    # Start background telemetry generator loop
+    telemetry_task = asyncio.create_task(continuous_telemetry_loop())
+
     yield
 
     # Shutdown: Clean up any active connections
     print(f"[*] Shutting down {settings.PROJECT_NAME}...")
+    telemetry_task.cancel()
+
 
 
 app = FastAPI(
@@ -66,7 +72,11 @@ app.include_router(containment_router, prefix=settings.API_V1_STR)
 app.include_router(ws_router, prefix=settings.API_V1_STR)
 
 # Mount frontend directory for static UI serving if it exists
-FRONTEND_DIR = os.path.join(settings.BASE_DIR, "frontend")
+PROJECT_ROOT = os.path.dirname(settings.BASE_DIR)
+FRONTEND_DIR = os.path.join(PROJECT_ROOT, "frontend")
+if not os.path.exists(FRONTEND_DIR):
+    FRONTEND_DIR = os.path.join(settings.BASE_DIR, "frontend")
+
 if os.path.exists(FRONTEND_DIR):
     app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
 

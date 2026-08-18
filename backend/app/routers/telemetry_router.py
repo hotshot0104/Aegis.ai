@@ -11,6 +11,7 @@ import json
 import os
 import random
 import time
+from datetime import datetime, timezone
 from typing import Dict, Any, Optional
 import pandas as pd
 from fastapi import APIRouter, HTTPException, BackgroundTasks, status
@@ -246,3 +247,59 @@ async def simulate_attack(mitre_id: Optional[str] = None) -> IncidentCard:
     })
 
     return incident_card
+
+
+async def continuous_telemetry_loop():
+    """Continuously streams realistic network telemetry ticks over WebSockets to animate dashboard."""
+    sample_ips = [
+        ("66.104.232.73", "statuspage.io", "AU"),
+        ("73.117.6.114", "db-cluster-prod.internal", "SG"),
+        ("80.130.35.155", "k8s-ingress.aegis.dev", "NL"),
+        ("87.143.64.196", "monitoring.datadog.com", "SE"),
+        ("94.156.93.237", "api.aegis.cloud", "KR"),
+        ("101.169.122.23", "finance.subnet.internal", "IT"),
+        ("108.182.151.64", "auth-gateway.aegis.io", "ES"),
+        ("115.195.180.105", "exit-node-05.tor.org", "US"),
+        ("122.208.209.146", "telemetry.aws-east.com", "DE"),
+        ("129.221.238.187", "webhook.github.com", "JP"),
+        ("136.234.12.228", "cdn-edge.cloudflare.com", "IN"),
+        ("143.247.41.14", "s3-vault.amazonaws.com", "GB"),
+        ("150.5.70.55", "statuspage.io", "CA"),
+        ("157.18.99.96", "db-cluster-prod.internal", "FR"),
+        ("164.31.128.137", "k8s-ingress.aegis.dev", "BR"),
+        ("171.44.157.178", "monitoring.datadog.com", "AU"),
+        ("178.57.186.219", "api.aegis.cloud", "SG"),
+        ("185.70.215.5", "finance.subnet.internal", "NL"),
+        ("192.83.244.46", "auth-gateway.aegis.io", "SE"),
+        ("199.96.18.87", "exit-node-05.tor.org", "US"),
+    ]
+    tick_counter = 1
+    while True:
+        try:
+            await asyncio.sleep(2.0)
+            if not ws_manager.active_connections:
+                continue
+
+            src_ip, domain, country = random.choice(sample_ips)
+            bdi = round(random.uniform(0.04, 0.12), 3)
+            payload = {
+                "flow_id": f"FLOW-LIVE-{tick_counter:05d}",
+                "src_ip": src_ip,
+                "domain": domain,
+                "country": country,
+                "dst_ip": "192.168.1.1",
+                "dst_port": random.choice([80, 443, 8000, 5432]),
+                "protocol": "TCP",
+                "bdi_score": bdi,
+                "is_anomaly": False,
+                "status": "NOMINAL",
+                "inference_ms": round(random.uniform(1.8, 3.2), 2),
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+            }
+            await ws_manager.broadcast_telemetry(payload)
+            tick_counter += 1
+        except asyncio.CancelledError:
+            break
+        except Exception:
+            pass
+
