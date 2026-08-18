@@ -16,6 +16,11 @@ export function MiddleTerminal() {
   const [commandInput, setCommandInput] = useState("");
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   
   const [terminalLogs, setTerminalLogs] = useState<TerminalLog[]>([
     {
@@ -329,7 +334,7 @@ export function MiddleTerminal() {
   return (
     <div className="w-full h-full flex flex-col bg-[#09090C] rounded-none overflow-hidden border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.8)] font-mono text-white select-none">
       {/* Seamless Terminal Screen Area */}
-      <div className="flex-1 bg-[#09090C] p-4 overflow-y-auto custom-scrollbar flex flex-col gap-1.5 font-mono text-xs leading-relaxed">
+      <div className="flex-1 min-h-0 bg-[#09090C] p-4 overflow-y-auto custom-scrollbar flex flex-col gap-1.5 font-mono text-xs leading-relaxed">
         {/* Terminal Logs */}
         {terminalLogs.map((log) => (
           <div key={log.id} className="flex items-start gap-2">
@@ -369,8 +374,8 @@ export function MiddleTerminal() {
                 <span className="text-neutral-300 font-bold">
                   {isUser ? "$ OPERATOR COMMAND" : "OKARA AGENT EXECUTION"}
                 </span>
-                {msg.createdAt && (
-                  <span className="text-[10px] text-neutral-600">[{new Date(msg.createdAt).toLocaleTimeString()}]</span>
+                {isMounted && msg.createdAt && (
+                  <span suppressHydrationWarning className="text-[10px] text-neutral-600">[{new Date(msg.createdAt).toLocaleTimeString()}]</span>
                 )}
               </div>
 

@@ -160,19 +160,19 @@ export const aegisApi = {
         this.getIncidents().catch(() => []),
       ]);
 
-      const activeCount = incidents.filter((i) => i.status === "PENDING_APPROVAL" || i.status === "ACTIVE").length;
-      const containedCount = incidents.filter((i) => i.status === "CONTAINED").length;
-      const totalIncidents = incidents.length;
+      const activeIncs = incidents.filter((i) => i.status === "PENDING_APPROVAL" || i.status === "ACTIVE");
       const avgBdi =
-        incidents.length > 0
-          ? incidents.reduce((acc, i) => acc + (i.bdi_score || 0), 0) / incidents.length
+        activeIncs.length > 0
+          ? activeIncs.reduce((acc, i) => acc + (i.bdi_score || 0), 0) / activeIncs.length
           : 0.08;
+
+      const containedCount = incidents.filter((i) => i.status === "CONTAINED").length;
 
       return {
         flow_ticks: 1420 + incidents.length * 15,
-        active_incidents: activeCount,
+        active_incidents: activeIncs.length,
         contained_threats: containedCount,
-        total_incidents: totalIncidents,
+        total_incidents: incidents.length,
         contained: containedCount,
         avg_bdi_score: Math.round(avgBdi * 1000) / 1000,
         inference_latency_ms: 2.8,

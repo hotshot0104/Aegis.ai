@@ -70,7 +70,7 @@ class CyberTools:
         flag = flow_data.get("flag", "SF")
 
         # Compute dynamic severity label from BDI score
-        severity = "CRITICAL" if bdi_score >= 0.80 else "SUSPICIOUS" if bdi_score >= 0.50 else "NOMINAL"
+        severity = "CRITICAL" if bdi_score >= 0.70 else "SUSPICIOUS" if bdi_score >= 0.30 else "NOMINAL"
         findings = []
         findings.append(
             f"Flow Analysis: {src_ip} -> {dst_ip}:{dst_port} ({protocol}). "

@@ -93,7 +93,6 @@ export function ChatProvider({
           text: "### 🛡️ AEGIS Multi-Agent System Active\nMonitoring 104 network nodes. Detected high-velocity SYN sweep from **185.220.101.5** targeting Finance Subnet.",
         },
       ],
-      createdAt: new Date(),
     },
   ]);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);

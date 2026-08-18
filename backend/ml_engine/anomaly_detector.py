@@ -31,7 +31,7 @@ class NetworkAnomalyDetector:
         n_estimators: int = 50,
         contamination: float = 0.01,
         random_state: int = 42,
-        anomaly_threshold: float = 0.80,
+        anomaly_threshold: float = 0.70,
         model_path: Optional[str] = None
     ) -> None:
         self.n_estimators = n_estimators
@@ -86,14 +86,24 @@ class NetworkAnomalyDetector:
 
     def compute_bdi(self, raw_score: float) -> float:
         """
-        Transforms raw decision_function score into Behavioral Deviation Index (BDI) in [0.00, 1.00].
-        Calibrated for contamination=0.01 (tighter boundary):
-        - Normal baseline (raw >= 0.05) maps to low BDI [0.00, 0.40].
-        - Suspicious deviation (raw 0.00 to 0.05) maps to [0.50, 0.80].
-        - High deviation / Zero-Day attacks (raw < 0.00) map to [0.83, 1.00].
+        Transforms raw decision_function score into Behavioral Deviation Index (BDI) in [0.00, 0.98].
+        Piecewise calibration for contamination=0.01:
+        - Normal baseline (raw >= 0.05):         BDI [0.00, 0.30]
+        - Suspicious deviation (0.00 <= raw < 0.05): BDI [0.30, 0.70]
+        - High deviation / Zero-Day (raw < 0.00):   BDI [0.70, 0.98]
+        Capped at 0.98 to prevent saturation at exactly 1.00.
         """
-        normalized = (0.05 - raw_score) / 0.10
-        return 0.0 if normalized < 0.0 else (1.0 if normalized > 1.0 else float(normalized))
+        if raw_score >= 0.05:
+            # Normal: map [0.05, +inf) -> [0.00, 0.30]
+            # Higher raw_score = more normal = lower BDI
+            bdi = max(0.0, 0.30 - (raw_score - 0.05) * 3.0)
+        elif raw_score >= 0.00:
+            # Suspicious: map [0.00, 0.05) -> [0.30, 0.70]
+            bdi = 0.30 + (0.05 - raw_score) * 8.0
+        else:
+            # Anomalous: map [-0.20, 0.00) -> [0.70, 0.98]
+            bdi = 0.70 + min(0.28, abs(raw_score) * 1.4)
+        return round(max(0.0, min(0.98, bdi)), 4)
 
 
 
@@ -126,7 +136,7 @@ class NetworkAnomalyDetector:
 
         if bdi_score >= self.anomaly_threshold:
             status = "CRITICAL_ANOMALY"
-        elif bdi_score >= 0.50:
+        elif bdi_score >= 0.30:
             status = "SUSPICIOUS"
         else:
             status = "NOMINAL"

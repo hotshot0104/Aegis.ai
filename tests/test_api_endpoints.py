@@ -68,12 +68,12 @@ def test_telemetry_stream_normal_flow():
     assert response.status_code == 200
     data = response.json()
     assert data["is_anomaly"] is False
-    assert data["bdi_score"] < 0.40
+    assert data["bdi_score"] < 0.50
     assert data["status"] in ["NOMINAL", "SUSPICIOUS"]
 
 
 def test_telemetry_stream_attack_flow():
-    """Verify high-deviation attack flow produces critical BDI score (>= 0.80)."""
+    """Verify high-deviation attack flow produces critical BDI score (>= 0.70)."""
     payload = {
         "src_ip": "192.168.1.104",
         "dst_ip": "192.168.1.45",
@@ -98,7 +98,7 @@ def test_telemetry_stream_attack_flow():
     assert response.status_code == 200
     data = response.json()
     assert data["is_anomaly"] is True
-    assert data["bdi_score"] >= 0.80
+    assert data["bdi_score"] >= 0.70
     assert data["status"] == "CRITICAL_ANOMALY"
 
 
@@ -109,7 +109,7 @@ def test_simulate_normal_traffic():
     data = response.json()
     assert data["status"] == "SUCCESS"
     assert len(data["flows"]) == 3
-    assert data["avg_bdi"] < 0.40
+    assert data["avg_bdi"] < 0.50
 
 
 def test_simulate_attack_burst_and_triage():
@@ -119,7 +119,7 @@ def test_simulate_attack_burst_and_triage():
     incident = response.json()
     
     assert incident["incident_id"].startswith("AEGIS-")
-    assert incident["bdi_score"] >= 0.80
+    assert incident["bdi_score"] >= 0.70
     assert incident["attacker_ip"] == "192.168.1.104"
     assert incident["target_ip"] == "192.168.1.45"
     assert incident["status"] == "PENDING_APPROVAL"

@@ -518,7 +518,7 @@ function WorkflowCard({
             {humanizeRunType(workflow.runType)}
           </p>
         </div>
-        <span className="text-[11px] text-neutral-500 shrink-0">
+        <span suppressHydrationWarning className="text-[11px] text-neutral-500 shrink-0">
           {formatRelativeTime(workflow.startedAt)}
         </span>
       </div>
@@ -864,8 +864,8 @@ export function FlowsPage() {
                   <StagePipeline stages={selectedWorkflow.stages} />
 
                   <div className="flex flex-wrap gap-4 text-[11px] text-neutral-600 pt-1">
-                    <span>Started: {formatDateTime(selectedWorkflow.startedAt)}</span>
-                    <span>Finished: {formatDateTime(selectedWorkflow.finishedAt)}</span>
+                    <span suppressHydrationWarning>Started: {formatDateTime(selectedWorkflow.startedAt)}</span>
+                    <span suppressHydrationWarning>Finished: {formatDateTime(selectedWorkflow.finishedAt)}</span>
                     {selectedWorkflow.personas.length > 0 && (
                       <span>Personas: {selectedWorkflow.personas.join(', ')}</span>
                     )}

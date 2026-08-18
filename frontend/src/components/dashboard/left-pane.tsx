@@ -205,7 +205,7 @@ export function DashboardLeftPane() {
         </div>
 
         {/* Continuous Flowing Unboxed IP Telemetry Lines */}
-        <div className="flex-1 overflow-hidden relative">
+        <div className="flex-1 min-h-0 overflow-hidden relative">
           <div className="animate-ip-flow flex flex-col gap-2.5">
             {loopedFeed.map((item, idx) => (
               <div
