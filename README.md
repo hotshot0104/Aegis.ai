@@ -6,6 +6,14 @@
 
 ---
 
+## 🖥️ Live SOC Command Center Interface
+
+![AEGIS-AI SOC Command Center Dashboard](./assets/dashboard_preview.png)
+
+*Figure 1: AEGIS-AI Command Center — Real-time Behavioral Disruption Index (BDI) tracking, live multi-node telemetry streaming, Okara cyber console with autonomous multi-agent triage, and 1-click Human-in-the-Loop containment approvals.*
+
+---
+
 ## 📑 Project Architecture & Documentation Hub
 
 This repository is structured into modular, domain-specific engineering documents:
@@ -32,6 +40,25 @@ This repository is structured into modular, domain-specific engineering document
 * **ML / Perception:** Scikit-learn (`IsolationForest`), NumPy, Pandas, Joblib
 * **Agentic Core:** Asynchronous Multi-Agent DAG, ChromaDB / In-Memory Semantic RAG
 * **Frontend:** Obsidian Dark Mode SOC Command Center, Real-Time WebSockets (`ws://`), Canvas Telemetry Gauges
+
+---
+
+## 🚀 Quickstart
+
+### 1. Backend Service (FastAPI)
+```bash
+# Activate Python virtual environment and launch backend
+python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000
+```
+* API Documentation: `http://127.0.0.1:8000/docs`
+* Telemetry & Agent WebSocket: `ws://127.0.0.1:8000/api/v1/ws`
+
+### 2. Frontend Command Center (Next.js)
+```bash
+cd frontend
+npm run dev
+```
+* SOC Command Center Dashboard: `http://localhost:3001/dashboard`
 
 ---
 
