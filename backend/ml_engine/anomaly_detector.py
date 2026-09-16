@@ -20,6 +20,72 @@ DEFAULT_MODEL_PATH = os.path.join(
 )
 
 
+class SubspaceEnsembleIF:
+    """
+    Subspace Ensemble of Isolation Forests.
+    Trains 3 specialist models on distinct feature subsets to overcome axis-aligned cut bias
+    and improve detection of subtle anomalies in specific domains.
+    """
+    def __init__(self, n_estimators=10, max_samples=256, contamination=0.01, random_state=42, n_jobs=1):
+        self.n_estimators = n_estimators
+        self.max_samples = max_samples
+        self.contamination = contamination
+        self.random_state = random_state
+        self.n_jobs = n_jobs
+        
+        # Define the feature subsets by name
+        self.volume_features = [
+            "src_bytes", "dst_bytes", "duration", "count", "srv_count"
+        ]
+        self.topology_features = [
+            "dst_host_count", "dst_host_srv_count", "dst_host_same_srv_rate",
+            "dst_host_diff_srv_rate", "dst_host_same_src_port_rate", 
+            "dst_host_srv_diff_host_rate", "dst_host_serror_rate", 
+            "dst_host_srv_serror_rate", "dst_host_rerror_rate", "dst_host_srv_rerror_rate",
+            "serror_rate", "srv_serror_rate", "rerror_rate", "srv_rerror_rate",
+            "same_srv_rate", "diff_srv_rate", "srv_diff_host_rate"
+        ]
+        self.auth_features = [
+            "num_failed_logins", "logged_in", "service", "flag", "root_shell",
+            "is_guest_login", "su_attempted", "protocol_type", "hot", "num_compromised",
+            "num_root", "num_file_creations", "num_shells", "num_access_files",
+            "is_host_login", "num_outbound_cmds"
+        ]
+        
+        # Get column indices dynamically from FEATURE_NAMES
+        self.volume_idx = [FEATURE_NAMES.index(f) for f in self.volume_features if f in FEATURE_NAMES]
+        self.topology_idx = [FEATURE_NAMES.index(f) for f in self.topology_features if f in FEATURE_NAMES]
+        self.auth_idx = [FEATURE_NAMES.index(f) for f in self.auth_features if f in FEATURE_NAMES]
+        
+        # Initialize the 3 models
+        self.models = {
+            "volume": IsolationForest(n_estimators=self.n_estimators, max_samples=self.max_samples, contamination=self.contamination, random_state=self.random_state, n_jobs=self.n_jobs),
+            "topology": IsolationForest(n_estimators=self.n_estimators, max_samples=self.max_samples, contamination=self.contamination, random_state=self.random_state+1, n_jobs=self.n_jobs),
+            "auth": IsolationForest(n_estimators=self.n_estimators, max_samples=self.max_samples, contamination=self.contamination, random_state=self.random_state+2, n_jobs=self.n_jobs)
+        }
+
+    def fit(self, X):
+        """Fit all 3 specialist models."""
+        self.models["volume"].fit(X[:, self.volume_idx])
+        self.models["topology"].fit(X[:, self.topology_idx])
+        self.models["auth"].fit(X[:, self.auth_idx])
+        return self
+
+    def decision_function(self, X):
+        """
+        Score using all 3 models. 
+        IsolationForest returns lower (negative) values for anomalies.
+        We return the minimum score across the 3 models (the most anomalous score).
+        """
+        score_vol = self.models["volume"].decision_function(X[:, self.volume_idx])
+        score_top = self.models["topology"].decision_function(X[:, self.topology_idx])
+        score_auth = self.models["auth"].decision_function(X[:, self.auth_idx])
+        
+        # Stack scores and find the minimum per row
+        stacked = np.vstack([score_vol, score_top, score_auth])
+        return np.min(stacked, axis=0)
+
+
 class NetworkAnomalyDetector:
     """
     Unsupervised statistical perception engine.
@@ -28,19 +94,21 @@ class NetworkAnomalyDetector:
 
     def __init__(
         self,
-        n_estimators: int = 50,
+        n_estimators: int = 10,
+        max_samples: int = 256,
         contamination: float = 0.01,
         random_state: int = 42,
         anomaly_threshold: float = 0.70,
         model_path: Optional[str] = None
     ) -> None:
         self.n_estimators = n_estimators
+        self.max_samples = max_samples
         self.contamination = contamination
         self.random_state = random_state
         self.anomaly_threshold = anomaly_threshold
         self.model_path = model_path or DEFAULT_MODEL_PATH
         
-        self.model: Optional[IsolationForest] = None
+        self.model: Optional[SubspaceEnsembleIF] = None
         self.is_trained: bool = False
 
         # Attempt to load saved model if present
@@ -62,9 +130,9 @@ class NetworkAnomalyDetector:
                 f"Expected features shape (N, {len(FEATURE_NAMES)}), got {normal_features.shape}"
             )
 
-        self.model = IsolationForest(
+        self.model = SubspaceEnsembleIF(
             n_estimators=self.n_estimators,
-            max_samples="auto",
+            max_samples=self.max_samples,
             contamination=self.contamination,
             random_state=self.random_state,
             n_jobs=1
@@ -105,7 +173,46 @@ class NetworkAnomalyDetector:
             bdi = 0.70 + min(0.28, abs(raw_score) * 1.4)
         return round(max(0.0, min(0.98, bdi)), 4)
 
+    def compute_bdi_batch(self, raw_scores: np.ndarray) -> np.ndarray:
+        """
+        Vectorized transformation of raw decision_function scores into BDI array in [0.00, 0.98].
+        """
+        raw = np.asarray(raw_scores, dtype=np.float64)
+        bdi = np.empty_like(raw)
 
+        m1 = raw >= 0.05
+        bdi[m1] = np.maximum(0.0, 0.30 - (raw[m1] - 0.05) * 3.0)
+
+        m2 = (raw >= 0.00) & (~m1)
+        bdi[m2] = 0.30 + (0.05 - raw[m2]) * 8.0
+
+        m3 = raw < 0.00
+        bdi[m3] = 0.70 + np.minimum(0.28, np.abs(raw[m3]) * 1.4)
+
+        return np.clip(np.round(bdi, 4), 0.0, 0.98)
+
+    def score_batch(self, feature_matrix: np.ndarray) -> Dict[str, np.ndarray]:
+        """
+        Vectorized scoring of an (N, 41) feature matrix.
+        Returns dict containing arrays: raw_scores, bdi_scores, is_anomaly.
+        """
+        if not self.is_trained or self.model is None:
+            raise RuntimeError("Model is not trained. Call train_on_benign_traffic or load a model.")
+
+        if feature_matrix.ndim != 2 or feature_matrix.shape[1] != len(FEATURE_NAMES):
+            raise ValueError(
+                f"Feature matrix must have shape (N, {len(FEATURE_NAMES)}), got {feature_matrix.shape}"
+            )
+
+        raw_scores = self.model.decision_function(feature_matrix)
+        bdi_scores = self.compute_bdi_batch(raw_scores)
+        is_anomaly = bdi_scores >= self.anomaly_threshold
+
+        return {
+            "raw_scores": raw_scores,
+            "bdi_scores": bdi_scores,
+            "is_anomaly": is_anomaly
+        }
 
     def score_vector(self, feature_vector: np.ndarray) -> Dict[str, Any]:
         """

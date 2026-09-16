@@ -58,3 +58,6 @@ dist/
 # Temporary directories
 temp_repo/
 
+# Raw dataset files (re-downloaded via backend/ml_engine/download_nslkdd.py)
+backend/data/nslkdd/
+

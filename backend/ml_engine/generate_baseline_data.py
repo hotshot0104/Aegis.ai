@@ -23,10 +23,22 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 os.makedirs(DATA_DIR, exist_ok=True)
 
-def generate_benign_baseline(n_samples: int = 5000) -> str:
-    """Generates pure normal/benign network traffic records."""
-    random.seed(42)
-    rng = np.random.default_rng(42)
+def generate_benign_baseline(n_samples: int = 5000, seed: int = None) -> str:
+    """
+    Generates pure normal/benign network traffic records.
+
+    Args:
+        n_samples: Number of benign flow records to generate.
+        seed: Optional random seed for reproducibility. If None, a time-based
+              seed is used to produce non-deterministic training data, which
+              prevents the model from memorising a single fixed fingerprint.
+    """
+    if seed is not None:
+        random.seed(seed)
+        rng = np.random.default_rng(seed)
+    else:
+        rng = np.random.default_rng()  # Non-deterministic
+        random.seed()  # Non-deterministic
     
     records = []
     services = ["http", "dns", "smtp", "ssh", "other"]
@@ -67,13 +79,25 @@ def generate_benign_baseline(n_samples: int = 5000) -> str:
             flag = random.choice(["SF", "SF", "SF", "REJ"])
             protocol = "tcp"
             
+        # Add Gaussian jitter (±10%) to continuous features to prevent the model
+        # from memorising a single fixed statistical fingerprint of benign traffic.
+        def jitter(val: float, pct: float = 0.10) -> float:
+            noise = float(rng.normal(0.0, pct * abs(val))) if val != 0 else float(rng.normal(0.0, 0.01))
+            return max(0.0, val + noise)
+
+        count_base = int(max(1, rng.poisson(lam=4)))
+        srv_count_base = int(max(1, rng.poisson(lam=3)))
+        same_srv_rate_base = float(rng.uniform(0.85, 1.0))
+        # diff_srv_rate is constrained so same + diff <= 1.0
+        diff_srv_rate_base = float(min(rng.uniform(0.0, 0.15), 1.0 - same_srv_rate_base))
+
         record = {
-            "duration": float(round(max(0.0, duration), 3)),
+            "duration": float(round(jitter(max(0.001, duration)), 3)),
             "protocol_type": protocol,
             "service": srv,
             "flag": flag,
-            "src_bytes": max(1, src_bytes),
-            "dst_bytes": max(1, dst_bytes),
+            "src_bytes": max(1, int(jitter(float(src_bytes)))),
+            "dst_bytes": max(1, int(jitter(float(dst_bytes)))),
             "land": 0,
             "wrong_fragment": 0,
             "urgent": 0,
@@ -90,25 +114,25 @@ def generate_benign_baseline(n_samples: int = 5000) -> str:
             "num_outbound_cmds": 0,
             "is_host_login": 0,
             "is_guest_login": 0,
-            "count": int(max(1, rng.poisson(lam=4))),
-            "srv_count": int(max(1, rng.poisson(lam=3))),
-            "serror_rate": float(round(rng.beta(0.1, 10), 3)),
-            "srv_serror_rate": float(round(rng.beta(0.1, 10), 3)),
-            "rerror_rate": 0.0,
-            "srv_rerror_rate": 0.0,
-            "same_srv_rate": float(round(rng.uniform(0.85, 1.0), 3)),
-            "diff_srv_rate": float(round(rng.uniform(0.0, 0.15), 3)),
-            "srv_diff_host_rate": float(round(rng.uniform(0.0, 0.10), 3)),
-            "dst_host_count": int(rng.integers(10, 255)),
-            "dst_host_srv_count": int(rng.integers(10, 255)),
-            "dst_host_same_srv_rate": float(round(rng.uniform(0.80, 1.0), 3)),
-            "dst_host_diff_srv_rate": float(round(rng.uniform(0.0, 0.20), 3)),
-            "dst_host_same_src_port_rate": float(round(rng.uniform(0.0, 0.15), 3)),
-            "dst_host_srv_diff_host_rate": float(round(rng.uniform(0.0, 0.10), 3)),
-            "dst_host_serror_rate": 0.0,
-            "dst_host_srv_serror_rate": 0.0,
-            "dst_host_rerror_rate": 0.0,
-            "dst_host_srv_rerror_rate": 0.0,
+            "count": int(max(1, jitter(float(count_base)))),
+            "srv_count": int(max(1, jitter(float(srv_count_base)))),
+            "serror_rate": float(round(min(1.0, max(0.0, jitter(float(rng.beta(0.1, 10)), 0.15))), 3)),
+            "srv_serror_rate": float(round(min(1.0, max(0.0, jitter(float(rng.beta(0.1, 10)), 0.15))), 3)),
+            "rerror_rate": float(round(min(1.0, max(0.0, float(rng.beta(0.05, 20)))), 3)),
+            "srv_rerror_rate": float(round(min(1.0, max(0.0, float(rng.beta(0.05, 20)))), 3)),
+            "same_srv_rate": float(round(min(1.0, max(0.0, jitter(same_srv_rate_base, 0.05))), 3)),
+            "diff_srv_rate": float(round(min(1.0, max(0.0, jitter(diff_srv_rate_base, 0.10))), 3)),
+            "srv_diff_host_rate": float(round(min(1.0, max(0.0, jitter(float(rng.uniform(0.0, 0.10)), 0.15))), 3)),
+            "dst_host_count": int(max(1, min(255, int(jitter(float(rng.integers(10, 255))))))),
+            "dst_host_srv_count": int(max(1, min(255, int(jitter(float(rng.integers(10, 255))))))),
+            "dst_host_same_srv_rate": float(round(min(1.0, max(0.0, jitter(float(rng.uniform(0.80, 1.0)), 0.05))), 3)),
+            "dst_host_diff_srv_rate": float(round(min(1.0, max(0.0, jitter(float(rng.uniform(0.0, 0.20)), 0.10))), 3)),
+            "dst_host_same_src_port_rate": float(round(min(1.0, max(0.0, jitter(float(rng.uniform(0.0, 0.15)), 0.10))), 3)),
+            "dst_host_srv_diff_host_rate": float(round(min(1.0, max(0.0, jitter(float(rng.uniform(0.0, 0.10)), 0.15))), 3)),
+            "dst_host_serror_rate": float(round(min(1.0, max(0.0, float(rng.beta(0.05, 20)))), 3)),
+            "dst_host_srv_serror_rate": float(round(min(1.0, max(0.0, float(rng.beta(0.05, 20)))), 3)),
+            "dst_host_rerror_rate": float(round(min(1.0, max(0.0, float(rng.beta(0.05, 20)))), 3)),
+            "dst_host_srv_rerror_rate": float(round(min(1.0, max(0.0, float(rng.beta(0.05, 20)))), 3)),
             "label": "normal",
         }
         records.append(record)
@@ -281,7 +305,170 @@ def generate_synthetic_attacks() -> str:
                 "src_port": 58912,
                 "dst_port": 443,
             }
-        }
+        },
+        # --- SUBTLE ATTACKS (near-normal) ---
+        # These 3 samples are intentionally close to benign traffic patterns
+        # to verify the model can detect stealthy, low-and-slow attacks that
+        # do not exhibit the extreme statistical deviations of classic attacks.
+        {
+            "attack_id": "ATK-ZERO-004",
+            "name": "Slow-Burn DNS Data Exfiltration",
+            "mitre_id": "T1048.003",
+            "description": "Low-volume DNS tunneling exfiltration: slightly elevated src_bytes over many repeated short-interval DNS queries to one external host.",
+            "flow_data": {
+                "duration": 0.08,
+                "protocol_type": "udp",
+                "service": "dns",
+                "flag": "SF",
+                "src_bytes": 3200,
+                "dst_bytes": 180,
+                "land": 0,
+                "wrong_fragment": 0,
+                "urgent": 0,
+                "hot": 1,
+                "num_failed_logins": 0,
+                "logged_in": 0,
+                "num_compromised": 0,
+                "root_shell": 0,
+                "su_attempted": 0,
+                "num_root": 0,
+                "num_file_creations": 0,
+                "num_shells": 0,
+                "num_access_files": 0,
+                "num_outbound_cmds": 0,
+                "is_host_login": 0,
+                "is_guest_login": 0,
+                "count": 120,
+                "srv_count": 118,
+                "serror_rate": 0.0,
+                "srv_serror_rate": 0.0,
+                "rerror_rate": 0.0,
+                "srv_rerror_rate": 0.0,
+                "same_srv_rate": 0.99,
+                "diff_srv_rate": 0.01,
+                "srv_diff_host_rate": 0.02,
+                "dst_host_count": 1,
+                "dst_host_srv_count": 1,
+                "dst_host_same_srv_rate": 1.0,
+                "dst_host_diff_srv_rate": 0.0,
+                "dst_host_same_src_port_rate": 0.95,
+                "dst_host_srv_diff_host_rate": 0.0,
+                "dst_host_serror_rate": 0.0,
+                "dst_host_srv_serror_rate": 0.0,
+                "dst_host_rerror_rate": 0.0,
+                "dst_host_srv_rerror_rate": 0.0,
+                "src_ip": "192.168.1.88",
+                "dst_ip": "8.8.8.8",
+                "src_port": 52341,
+                "dst_port": 53,
+            }
+        },
+        {
+            "attack_id": "ATK-ZERO-005",
+            "name": "Living-off-the-Land SSH Credential Stuffing",
+            "mitre_id": "T1110.001",
+            "description": "Slow SSH brute-force: slightly elevated num_failed_logins and count, mimicking legitimate admin activity but with anomalous error rate patterns.",
+            "flow_data": {
+                "duration": 18.5,
+                "protocol_type": "tcp",
+                "service": "ssh",
+                "flag": "SF",
+                "src_bytes": 5800,
+                "dst_bytes": 2100,
+                "land": 0,
+                "wrong_fragment": 0,
+                "urgent": 0,
+                "hot": 2,
+                "num_failed_logins": 3,
+                "logged_in": 0,
+                "num_compromised": 0,
+                "root_shell": 0,
+                "su_attempted": 0,
+                "num_root": 0,
+                "num_file_creations": 0,
+                "num_shells": 0,
+                "num_access_files": 0,
+                "num_outbound_cmds": 0,
+                "is_host_login": 0,
+                "is_guest_login": 0,
+                "count": 45,
+                "srv_count": 43,
+                "serror_rate": 0.0,
+                "srv_serror_rate": 0.0,
+                "rerror_rate": 0.62,
+                "srv_rerror_rate": 0.60,
+                "same_srv_rate": 0.96,
+                "diff_srv_rate": 0.04,
+                "srv_diff_host_rate": 0.05,
+                "dst_host_count": 12,
+                "dst_host_srv_count": 12,
+                "dst_host_same_srv_rate": 0.95,
+                "dst_host_diff_srv_rate": 0.05,
+                "dst_host_same_src_port_rate": 0.80,
+                "dst_host_srv_diff_host_rate": 0.08,
+                "dst_host_serror_rate": 0.0,
+                "dst_host_srv_serror_rate": 0.0,
+                "dst_host_rerror_rate": 0.62,
+                "dst_host_srv_rerror_rate": 0.60,
+                "src_ip": "10.0.2.31",
+                "dst_ip": "192.168.1.10",
+                "src_port": 49201,
+                "dst_port": 22,
+            }
+        },
+        {
+            "attack_id": "ATK-ZERO-006",
+            "name": "Symmetric C2 Beacon Mimic (Stealth Heartbeat)",
+            "mitre_id": "T1071.001",
+            "description": "Perfectly symmetric src/dst byte count and rigid same_src_port_rate=1.0 — unnatural for legitimate HTTP, indicates automated beaconing agent.",
+            "flow_data": {
+                "duration": 1.20,
+                "protocol_type": "tcp",
+                "service": "http",
+                "flag": "SF",
+                "src_bytes": 512,
+                "dst_bytes": 512,
+                "land": 0,
+                "wrong_fragment": 0,
+                "urgent": 0,
+                "hot": 0,
+                "num_failed_logins": 0,
+                "logged_in": 1,
+                "num_compromised": 0,
+                "root_shell": 0,
+                "su_attempted": 0,
+                "num_root": 0,
+                "num_file_creations": 0,
+                "num_shells": 0,
+                "num_access_files": 0,
+                "num_outbound_cmds": 0,
+                "is_host_login": 0,
+                "is_guest_login": 0,
+                "count": 18,
+                "srv_count": 18,
+                "serror_rate": 0.0,
+                "srv_serror_rate": 0.0,
+                "rerror_rate": 0.0,
+                "srv_rerror_rate": 0.0,
+                "same_srv_rate": 1.0,
+                "diff_srv_rate": 0.0,
+                "srv_diff_host_rate": 0.0,
+                "dst_host_count": 1,
+                "dst_host_srv_count": 1,
+                "dst_host_same_srv_rate": 1.0,
+                "dst_host_diff_srv_rate": 0.0,
+                "dst_host_same_src_port_rate": 1.0,
+                "dst_host_srv_diff_host_rate": 0.0,
+                "dst_host_serror_rate": 0.0,
+                "dst_host_srv_serror_rate": 0.0,
+                "dst_host_rerror_rate": 0.0,
+                "dst_host_srv_rerror_rate": 0.0,
+                "src_ip": "192.168.1.55",
+                "dst_ip": "203.0.113.42",
+                "src_port": 60000,
+                "dst_port": 80,
+            }
+        },
     ]
     
     out_path = os.path.join(DATA_DIR, "synthetic_attack_samples.json")
@@ -402,6 +589,7 @@ def generate_mitre_knowledge_base() -> str:
 
 
 if __name__ == "__main__":
+    # Non-deterministic by default — pass seed=<int> for reproducible runs
     generate_benign_baseline()
     generate_synthetic_attacks()
     generate_asset_inventory()
