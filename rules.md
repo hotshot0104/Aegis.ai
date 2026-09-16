@@ -10,7 +10,7 @@
 
 ### 🛑 Rule 1: Zero IoC Dependency in Perception Tier
 * **Rule:** The ML Perception Engine (`backend/ml_engine/`) must **NEVER** use static IP blocklists, domain blacklists, CVE signature tables, or SHA-256 file hashes to classify network traffic.
-* **Rationale:** SIH Problem 1451 strictly tests non-IoC detection capability against zero-day compromises and polymorphic threats.
+* **Rationale:** Project specifications strictly demand non-IoC detection capability against zero-day compromises and polymorphic threats.
 * **Enforcement:** All anomaly detection must be computed strictly through statistical flow features (entropy, packet inter-arrival jitter, SYN/ACK ratios, flow duration, byte variance).
 
 ### 🛑 Rule 2: Unsupervised Benign-Only Training
@@ -37,7 +37,7 @@
 The project follows a Clean Architecture structure:
 
 ```
-sih/
+aegis-ai/
 ├── backend/
 │   ├── app/
 │   │   ├── main.py                     # FastAPI application entrypoint

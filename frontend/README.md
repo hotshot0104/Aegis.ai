@@ -1,6 +1,6 @@
 # AEGIS-AI — Cyber Command Dashboard
 
-High-performance real-time Security Operations Center (SOC) dashboard for **Project AEGIS-AI** (Autonomous Agentic SOC & Non-IoC Network Compromise Defense for SIH Problem Statement 1451).
+High-performance real-time Security Operations Center (SOC) dashboard for **Project AEGIS-AI** (Autonomous Agentic SOC & Non-IoC Network Compromise Defense).
 
 ---
 

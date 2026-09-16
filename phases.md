@@ -1,7 +1,7 @@
 # 🚀 PROJECT AEGIS-AI: Implementation Phases, Roadmap & Live Pitch Playbook
 
 > **Document Code:** `AEGIS-PHASES-001`  
-> **Target Event:** Smart India Hackathon (SIH 2023 / Problem Statement 1451 / #74)  
+> **Target Specification:** Autonomous Non-IoC Network Compromise Detection  
 > **Sprint Horizon:** Rapid 4-Day Sprint (Aug 15 – Aug 18) $\to$ Presentation (Aug 19)
 
 ---
@@ -95,24 +95,24 @@ gantt
   1. Run end-to-end integration tests (`tests/test_anomaly_detector.py`, `tests/test_agent_dag.py`).
   2. Record high-definition 2-minute backup demo screen recording.
   3. Rehearse the 5-Minute Evaluator Pitch script.
-  4. Prepare answers for tough jury questions (false positive mitigation, scalability, DIoT academic grounding).
+  4. Prepare answers for technical audit questions (false positive mitigation, scalability, DIoT academic grounding).
 * **Definition of Done (DoD):** Live demo executes flawlessly in $< 3\text{ minutes}$ with zero runtime errors.
 
 ---
 
-## 2. The 5-Minute "Rank 1" Hackathon Pitch Playbook
+## 2. The 5-Minute Technical Evaluation Playbook
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────────┐
-│                   5-MINUTE SIH JURY PITCH SCRIPT & TIMELINE                      │
+│                5-MINUTE TECHNICAL EVALUATION SCRIPT & TIMELINE                   │
 └──────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ### [0:00 – 0:50] The Problem Gap & Why IoCs Fail
 * **Visual:** Slide 1 — Traditional Signature IDS vs Zero-Day Attacks.
 * **Spoken Script:**  
-  *"Respected members of the jury, 95% of enterprise firewalls today rely on static Indicators of Compromise (IoCs)—known IP blacklists, domain registries, and file hashes. But when a zero-day exploit, ransomware, or encrypted C2 attack strikes, signatures DO NOT exist.*  
-  *SIH Problem Statement 1451 asks: How do we detect compromised network assets WITHOUT relying on signatures?*  
+  *"95% of enterprise firewalls today rely on static Indicators of Compromise (IoCs)—known IP blacklists, domain registries, and file hashes. But when a zero-day exploit, ransomware, or encrypted C2 attack strikes, signatures DO NOT exist.*  
+  *Core Problem: How do we detect compromised network assets WITHOUT relying on signatures?*  
   *We built **AEGIS-AI**: a dual-tier system combining an Unsupervised Anomaly Perception Engine trained strictly on normal traffic, paired with an Autonomous 4-Agent SOC Defense Core."*
 
 ### [0:50 – 1:45] Live Baseline Traffic Demonstration

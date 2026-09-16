@@ -1,7 +1,7 @@
 # 📋 PROJECT AEGIS-AI: System & Technical Requirements Specification
 
 > **Document Code:** `AEGIS-REQ-001`  
-> **Target Version:** v1.0.0 (SIH MVP) & v2.0.0 (Enterprise)  
+> **Target Version:** v1.0.0 (Core MVP) & v2.0.0 (Enterprise)  
 > **Classification:** Technical Requirements Specification
 
 ---
@@ -86,7 +86,7 @@
 
 ### NFR-03: Scalability & Resource Efficiency
 * **ML Inference Memory Footprint:** Isolation Forest model memory $< 150\text{ MB}$.
-* **Backend Resource Consumption:** $< 512\text{ MB}$ RAM on standard edge nodes or standard laptop during hackathon demo.
+* **Backend Resource Consumption:** $< 512\text{ MB}$ RAM on standard edge nodes or standard hardware during live evaluation.
 * **Concurrency:** Capable of sustaining 10 concurrent WebSocket dashboard connections simultaneously.
 
 ### NFR-04: Reliability & Fault Tolerance

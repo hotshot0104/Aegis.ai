@@ -10,7 +10,7 @@
 | Parameter | Value / Detail |
 | :--- | :--- |
 | **Project Title** | Project AEGIS-AI (Autonomous Agentic SOC & Non-IoC Network Compromise Defense) |
-| **Target Event** | Smart India Hackathon (SIH 2023 / Problem Statement 1451 / #74) |
+| **Target Environment** | Enterprise SOC & Autonomous Network Perimeter Defense |
 | **Theme** | Cybersecurity & AI / Machine Learning |
 | **Core Philosophy** | Detect network compromise through **statistical flow anomalies (non-IoC)** without relying on static signatures, IP blacklists, or malware hashes. |
 | **Backend Stack** | Python 3.10+, FastAPI, Scikit-learn (`IsolationForest`), Uvicorn, Pydantic v2, ChromaDB / FAISS. |
@@ -22,7 +22,7 @@
 ## 2. Architectural Decision Records (ADR)
 
 ### ADR-001: Unsupervised Isolation Forest for Non-IoC Perception
-* **Context:** SIH Problem 1451 strictly prohibits relying solely on IoCs (Indicators of Compromise). Traditional supervised classification requires attack signatures in the training set.
+* **Context:** Modern cybersecurity mandates strictly prohibit relying solely on IoCs (Indicators of Compromise). Traditional supervised classification requires attack signatures in the training set.
 * **Decision:** We use an unsupervised `IsolationForest` (50 estimators, 1% contamination) trained **strictly on normal/benign network traffic** (`label == 'normal'`).
 * **Consequences:** The model learns a tight statistical envelope of normal behavior. Novel zero-day attacks and polymorphic payloads manifest as outliers with short path lengths, triggering high anomaly scores without prior signature knowledge.
 

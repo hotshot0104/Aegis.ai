@@ -618,7 +618,7 @@ class SimulationHarness:
             max_lat = float(np.max(latencies_ms))
             throughput_fps = num_burst_flows / (sum(latencies_ms) / 1000.0)
 
-            # Verification against SIH requirements: Inference latency < 25ms P95, < 35ms P99
+            # Verification against NFR-01 SLA requirements: Inference latency < 25ms P95, < 35ms P99
             assert p95 < 25.0, f"P95 latency is {p95}ms, exceeded 25.0ms requirement!"
             assert p99 < 35.0, f"P99 latency is {p99}ms, exceeded 35.0ms threshold!"
 

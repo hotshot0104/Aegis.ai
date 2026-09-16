@@ -2,10 +2,10 @@
 
 > **Document Version:** 1.0.0  
 > **Status:** Approved / Active Baseline  
-> **Project Code:** `AEGIS-AI-SIH2023-PS1451`  
-> **Target Event:** Smart India Hackathon (SIH 2023 / Problem Statement 1451 / #74)  
+> **Project Code:** `AEGIS-AI-ENTERPRISE-001`  
+> **Classification:** Production Defense Specification  
 > **Theme:** Cybersecurity & Artificial Intelligence / Machine Learning  
-> **Problem Statement:** *"Develop an AI/ML tool to detect whether a system / firewall / router / network is compromised. The technique should not rely only on IoCs (Indicators of Compromise) detection."*
+> **Core Objective:** *"Develop an AI/ML tool to detect whether a system / firewall / router / network is compromised. The technique should not rely only on IoCs (Indicators of Compromise) detection."*
 
 ---
 
@@ -56,7 +56,7 @@ Legacy Security Operations Centers (SOCs) and Intrusion Detection Systems (IDS/I
 | **P1: Tier-1 / Tier-2 SOC Analyst** | Daily triage & alert monitoring | Overwhelmed by alert fatigue; manual MITRE correlation takes 20+ mins per incident. | Automated incident synthesis with root-cause flow breakdown and suggested firewall command in <2 seconds. |
 | **P2: SOC Manager / CISO** | Executive oversight & compliance | Needs real-time posture awareness, blast radius clarity, and executive summary reports. | Auto-generated CISO Daily Briefs in markdown; audit-ready MITRE ATT&CK coverage reports. |
 | **P3: Network & Firewall Admin** | Perimeter & internal security | Writing accurate `iptables` or Cisco ACL syntax during active breach is error-prone. | 1-Click validated containment rule generation across multiple firewall formats. |
-| **P4: Hackathon Jury & Evaluators** | Technical review & validation | Verifying that the solution genuinely works without hardcoded signatures or cheat datasets. | Live interactive demo: normal baseline replay followed by real-time non-IoC zero-day injection. |
+| **P4: Technical Evaluators & SOC Auditors** | Technical review & validation | Verifying that the solution genuinely works without hardcoded signatures or cheat datasets. | Live interactive evaluation: normal baseline replay followed by real-time non-IoC zero-day injection. |
 
 ---
 
@@ -151,7 +151,7 @@ sequenceDiagram
 
 ## 8. Release Scope & MVP Boundaries
 
-### In-Scope for Hackathon MVP (v1.0)
+### In-Scope for Core MVP (v1.0)
 * Full unsupervised Isolation Forest model trained on benign flow records.
 * Live Telemetry Streaming Simulator (Normal baseline + Injected Zero-Day attack spikes).
 * 4-Agent DAG with structured tool calling (MITRE RAG, Asset Registry, Containment Rule Builder).

@@ -1,9 +1,9 @@
 # 🛡️ PROJECT AEGIS-AI: Autonomous Agentic SOC & Non-IoC Network Compromise Defense System
 
-> **Smart India Hackathon (SIH 2023 / Problem Statement 1451 / #74)**  
+> **Project Specification: Enterprise Autonomous Non-IoC Network Compromise Detection**  
 > **Theme:** Cybersecurity & Artificial Intelligence / Machine Learning  
-> **Official Title:** *"Develop an AI/ML tool to detect whether a system / firewall / router / network is compromised. The technique should not rely only on IoCs (Indicators of Compromise) detection."*  
-> **Target Event:** Internal SIH Hackathon — PSIT Kanpur (Presentation: August 19)
+> **System Objective:** *"Develop an AI/ML tool to detect whether a system / firewall / router / network is compromised. The technique should not rely only on IoCs (Indicators of Compromise) detection."*  
+> **Target Deployment:** Production Enterprise SOC & Network Perimeter
 
 ---
 
@@ -270,7 +270,7 @@ FastAPI Endpoints (`backend/app/routers/soc_api.py`):
 
 | Timestamp | Screen State | Spoken Script for Evaluators |
 | :--- | :--- | :--- |
-| **0:00 – 0:50** | **Slide 1: Problem Gap** | *"Respected jury, 95% of current firewalls rely on IoCs—static signatures and IP blacklists. But when a zero-day attack or ransomware hits, signatures do not exist. SIH Problem 1451 demands detection **without relying on signatures**."* |
+| **0:00 – 0:50** | **Slide 1: Problem Gap** | *"95% of current firewalls rely on IoCs—static signatures and IP blacklists. But when a zero-day attack or ransomware hits, signatures do not exist. Modern threat defense demands detection **without relying on signatures**."* |
 | **0:50 – 1:45** | **Live Baseline Demo** | Click **'Simulate Normal Enterprise Traffic'**. <br> *"Our model uses an Unsupervised Isolation Forest trained solely on normal baseline traffic. Anomaly score remains low at 0.06. Zero false alarms."* |
 | **1:45 – 3:15** | **Zero-Day Injection & Agent Live Trace** | Click **'Inject Non-IoC Zero-Day Spike'**. <br> 1. Anomaly Gauge spikes to **0.94**. <br> 2. The **AEGIS Multi-Agent Terminal** begins live streaming: <br> *"Look at the terminal: the Agent autonomously queries our internal subnet registry, correlates the traffic against the MITRE ATT&CK Matrix, and identifies SMB lateral movement."* |
 | **3:15 – 4:15** | **Human-in-the-Loop 1-Click Action** | Show the incident card in the UI. <br> Click **`[ Approve Containment ]`**. <br> Modal confirms: *`iptables containment rule executed in 0.8 seconds. Node 192.168.1.104 isolated.`* |
@@ -315,4 +315,4 @@ Include this slide in your presentation to impress college faculty:
 ```
 
 ---
-*Created for Team AEGIS-AI • SIH 2023 Internal Hackathon at PSIT Kanpur • Problem Statement 1451*
+*Created for Team AEGIS-AI • Autonomous Non-IoC Compromise Detection System*

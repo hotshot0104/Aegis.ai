@@ -1,8 +1,8 @@
 # 🛡️ Project AEGIS-AI: Autonomous Agentic SOC & Non-IoC Network Defense
 
-> **Smart India Hackathon (SIH 2023 / Problem Statement 1451 / #74)**  
-> **Theme:** Cybersecurity & Artificial Intelligence / Machine Learning  
-> **Official Challenge:** *"Develop an AI/ML tool to detect whether a system / firewall / router / network is compromised. The technique should not rely only on IoCs (Indicators of Compromise) detection."*
+> **Autonomous Non-IoC Network Compromise Detection & Agentic Defense Core**  
+> **Domain:** Enterprise Cybersecurity & Artificial Intelligence / Machine Learning  
+> **Mission:** *"AI/ML autonomous defense system to detect compromised network assets, firewalls, and routers without relying solely on static Indicators of Compromise (IoCs)."*
 
 ---
 
@@ -35,4 +35,4 @@ This repository is structured into modular, domain-specific engineering document
 
 ---
 
-*Developed for SIH Internal Hackathon • Team AEGIS-AI*
+*Project AEGIS-AI • Autonomous SOC Defense System*

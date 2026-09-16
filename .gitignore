@@ -33,7 +33,7 @@ backend/models_saved/*.joblib
 *.joblib
 
 # Data
-# Allow baseline CSV and JSON files for hackathon reproducibility
+# Allow baseline CSV and JSON files for deployment reproducibility
 !backend/data/*.csv
 !backend/data/*.json
 
