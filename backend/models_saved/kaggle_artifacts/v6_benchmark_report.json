@@ -1,0 +1,18 @@
+{
+  "model_name": "AEGIS-AI Cloud Training Benchmark v6 (Dual-Head AE + SC-EQR + Quad Fusion)",
+  "timestamp": "2026-10-07 05:47:22Z",
+  "single_flow_recall": {
+    "isolation_forest": 63.25878594249201,
+    "dual_head_ae": 87.89059456089768,
+    "quad_engine_ensemble": 86.05937816566664
+  },
+  "roc_auc": {
+    "isolation_forest": 0.9571269872301005,
+    "dual_head_ae": 0.9573893621989693,
+    "quad_engine_ensemble": 0.9214419613128139
+  },
+  "false_positive_rates": {
+    "benign_val": 2.0046031628183236,
+    "unseen_benign": 8.804448563484709
+  }
+}

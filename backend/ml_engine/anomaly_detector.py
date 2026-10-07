@@ -32,30 +32,7 @@ class SubspaceEnsembleIF:
         self.contamination = contamination
         self.random_state = random_state
         self.n_jobs = n_jobs
-        
-        # Define the feature subsets by name
-        self.volume_features = [
-            "src_bytes", "dst_bytes", "duration", "count", "srv_count"
-        ]
-        self.topology_features = [
-            "dst_host_count", "dst_host_srv_count", "dst_host_same_srv_rate",
-            "dst_host_diff_srv_rate", "dst_host_same_src_port_rate", 
-            "dst_host_srv_diff_host_rate", "dst_host_serror_rate", 
-            "dst_host_srv_serror_rate", "dst_host_rerror_rate", "dst_host_srv_rerror_rate",
-            "serror_rate", "srv_serror_rate", "rerror_rate", "srv_rerror_rate",
-            "same_srv_rate", "diff_srv_rate", "srv_diff_host_rate"
-        ]
-        self.auth_features = [
-            "num_failed_logins", "logged_in", "service", "flag", "root_shell",
-            "is_guest_login", "su_attempted", "protocol_type", "hot", "num_compromised",
-            "num_root", "num_file_creations", "num_shells", "num_access_files",
-            "is_host_login", "num_outbound_cmds"
-        ]
-        
-        # Get column indices dynamically from FEATURE_NAMES
-        self.volume_idx = [FEATURE_NAMES.index(f) for f in self.volume_features if f in FEATURE_NAMES]
-        self.topology_idx = [FEATURE_NAMES.index(f) for f in self.topology_features if f in FEATURE_NAMES]
-        self.auth_idx = [FEATURE_NAMES.index(f) for f in self.auth_features if f in FEATURE_NAMES]
+        self._ensure_indices()
         
         # Initialize the 3 models
         self.models = {
@@ -64,11 +41,47 @@ class SubspaceEnsembleIF:
             "auth": IsolationForest(n_estimators=self.n_estimators, max_samples=self.max_samples, contamination=self.contamination, random_state=self.random_state+2, n_jobs=self.n_jobs)
         }
 
+    def _ensure_indices(self):
+        """Ensures subspace indices exist even after deserialization without __init__."""
+        if not hasattr(self, "volume_idx") or not hasattr(self, "topology_idx") or not hasattr(self, "auth_idx"):
+            self.volume_features = [
+                "src_bytes", "dst_bytes", "duration", "count", "srv_count"
+            ]
+            self.topology_features = [
+                "dst_host_count", "dst_host_srv_count", "dst_host_same_srv_rate",
+                "dst_host_diff_srv_rate", "dst_host_same_src_port_rate", 
+                "dst_host_srv_diff_host_rate", "dst_host_serror_rate", 
+                "dst_host_srv_serror_rate", "dst_host_rerror_rate", "dst_host_srv_rerror_rate",
+                "serror_rate", "srv_serror_rate", "rerror_rate", "srv_rerror_rate",
+                "same_srv_rate", "diff_srv_rate", "srv_diff_host_rate"
+            ]
+            self.auth_features = [
+                "num_failed_logins", "logged_in", "service", "flag", "root_shell",
+                "is_guest_login", "su_attempted", "protocol_type", "hot", "num_compromised",
+                "num_root", "num_file_creations", "num_shells", "num_access_files",
+                "is_host_login", "num_outbound_cmds"
+            ]
+            self.volume_idx = [FEATURE_NAMES.index(f) for f in self.volume_features if f in FEATURE_NAMES]
+            self.topology_idx = [FEATURE_NAMES.index(f) for f in self.topology_features if f in FEATURE_NAMES]
+            self.auth_idx = [FEATURE_NAMES.index(f) for f in self.auth_features if f in FEATURE_NAMES]
+
+            # If unpickled from Kaggle cloud notebook, auth model was trained on 19 features:
+            auth_model = self.models.get("auth") if hasattr(self, "models") else None
+            if auth_model is not None and getattr(auth_model, "n_features_in_", 0) == 19:
+                self.volume_idx = [0, 1, 2, 19, 20]
+                self.topology_idx = list(range(21, 38))
+                self.auth_idx = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 38, 39, 40]
+
     def fit(self, X):
         """Fit all 3 specialist models."""
-        self.models["volume"].fit(X[:, self.volume_idx])
-        self.models["topology"].fit(X[:, self.topology_idx])
-        self.models["auth"].fit(X[:, self.auth_idx])
+        self._ensure_indices()
+        vol_model = self.models.get("volume") or self.models.get("vol")
+        top_model = self.models.get("topology") or self.models.get("top")
+        auth_model = self.models.get("auth")
+
+        vol_model.fit(X[:, self.volume_idx])
+        top_model.fit(X[:, self.topology_idx])
+        auth_model.fit(X[:, self.auth_idx])
         return self
 
     def decision_function(self, X):
@@ -77,13 +90,24 @@ class SubspaceEnsembleIF:
         IsolationForest returns lower (negative) values for anomalies.
         We return the minimum score across the 3 models (the most anomalous score).
         """
-        score_vol = self.models["volume"].decision_function(X[:, self.volume_idx])
-        score_top = self.models["topology"].decision_function(X[:, self.topology_idx])
-        score_auth = self.models["auth"].decision_function(X[:, self.auth_idx])
+        self._ensure_indices()
+        vol_model = self.models.get("volume") or self.models.get("vol")
+        top_model = self.models.get("topology") or self.models.get("top")
+        auth_model = self.models.get("auth")
+
+        score_vol = vol_model.decision_function(X[:, self.volume_idx])
+        score_top = top_model.decision_function(X[:, self.topology_idx])
+        score_auth = auth_model.decision_function(X[:, self.auth_idx])
         
         # Stack scores and find the minimum per row
         stacked = np.vstack([score_vol, score_top, score_auth])
         return np.min(stacked, axis=0)
+
+
+# Register SubspaceEnsembleIF in sys.modules['__main__'] for seamless unpickling of cloud-trained models
+import sys
+if '__main__' in sys.modules and not hasattr(sys.modules['__main__'], 'SubspaceEnsembleIF'):
+    setattr(sys.modules['__main__'], 'SubspaceEnsembleIF', SubspaceEnsembleIF)
 
 
 class NetworkAnomalyDetector:
@@ -286,6 +310,8 @@ class NetworkAnomalyDetector:
         """Loads a serialized model artifact."""
         if not os.path.exists(path):
             raise FileNotFoundError(f"Model file not found at: {path}")
+        if '__main__' in sys.modules and not hasattr(sys.modules['__main__'], 'SubspaceEnsembleIF'):
+            setattr(sys.modules['__main__'], 'SubspaceEnsembleIF', SubspaceEnsembleIF)
         self.model = joblib.load(path)
         self.is_trained = True
         self.model_path = path

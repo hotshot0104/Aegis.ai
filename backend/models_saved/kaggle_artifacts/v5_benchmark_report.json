@@ -1,0 +1,18 @@
+{
+  "model_name": "AEGIS-AI Cloud Training Benchmark v5 (Deep SVDD + Embeddings + Top-K)",
+  "timestamp": "2026-10-07 05:02:28Z",
+  "single_flow_recall": {
+    "isolation_forest": 63.25878594249201,
+    "deep_svdd_topk": 78.8903607885919,
+    "tri_engine_ensemble": 78.75788981531988
+  },
+  "roc_auc": {
+    "isolation_forest": 0.9571269872301005,
+    "deep_svdd_topk": 0.9657141093169632,
+    "tri_engine_ensemble": 0.9660656745229745
+  },
+  "false_positive_rates": {
+    "benign_val": 2.0046031628183236,
+    "unseen_benign": 3.5526722273710223
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "sameersingh0104/aegis-ai-isolation-forest-training",
+  "title": "aegis ai isolation forest training",
+  "code_file": "aegis_ai_kaggle_training.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "true",
+  "enable_gpu": "true",
+  "enable_tpu": "false",
+  "enable_internet": "false",
+  "dataset_sources": [
+    "hassan06/nslkdd"
+  ],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}

@@ -1,0 +1,29 @@
+# Dockerfile for AEGIS-AI Next.js SOC Command Center Interface
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+COPY frontend/package.json frontend/package-lock.json /app/
+RUN npm ci
+
+COPY frontend/ /app/
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV BACKEND_INTERNAL_URL=http://aegis-backend:8000
+RUN npm run build
+
+# Production runner
+FROM node:20-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV BACKEND_INTERNAL_URL=http://aegis-backend:8000
+
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
+EXPOSE 3000
+
+CMD ["npm", "run", "start", "--", "-p", "3000", "-H", "0.0.0.0"]

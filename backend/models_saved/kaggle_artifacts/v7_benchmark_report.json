@@ -1,0 +1,18 @@
+{
+  "model_name": "AEGIS-AI Cloud Training Benchmark v7 (APAN + Regularized Multi-Task AE + Power-Mean Consensus)",
+  "timestamp": "2026-10-07 06:00:09Z",
+  "single_flow_recall": {
+    "isolation_forest": 63.25878594249201,
+    "regularized_ae": 86.53471518740746,
+    "power_mean_consensus": 83.3787890594561
+  },
+  "roc_auc": {
+    "isolation_forest": 0.9571269872301005,
+    "regularized_ae": 0.9534783241604604,
+    "power_mean_consensus": 0.9422428337931384
+  },
+  "false_positive_rates": {
+    "benign_val": 2.0046031628183236,
+    "unseen_benign": 8.608794150962826
+  }
+}

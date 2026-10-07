@@ -1,0 +1,15 @@
+# Dockerfile for AEGIS-AI Live Multi-Subnet IP Telemetry Generator
+FROM python:3.12-alpine
+
+WORKDIR /app
+
+# Copy generator files
+COPY docker/generator/traffic_generator.py /app/traffic_generator.py
+COPY docker/generator/scenario_ips.json /app/scenario_ips.json
+
+ENV PYTHONUNBUFFERED=1
+ENV BACKEND_URL=http://aegis-backend:8000
+ENV STREAM_INTERVAL=0.8
+ENV ATTACK_INTERVAL=15
+
+CMD ["python", "/app/traffic_generator.py"]

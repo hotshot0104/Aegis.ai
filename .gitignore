@@ -31,6 +31,8 @@ wheels/
 # ML Models & Checkpoints (regenerate via train_model.py)
 backend/models_saved/*.joblib
 *.joblib
+!backend/models_saved/isolation_forest_benign.joblib
+!backend/models_saved/kaggle_artifacts/*.joblib
 
 # Data
 # Allow baseline CSV and JSON files for deployment reproducibility

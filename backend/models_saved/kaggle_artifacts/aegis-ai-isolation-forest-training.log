@@ -1,0 +1,63 @@
+[{"stream_name":"stderr","time":11.926487528,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":11.926649467,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":11.926656118,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":11.926659166,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":12.856640333,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":12.856681025,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":12.856687244,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":12.856691905,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":24.448353348,"data":"[+] Python Version: 3.13.15\n"}
+,{"stream_name":"stdout","time":24.448401188,"data":"[+] PyTorch Device: cpu\n"}
+,{"stream_name":"stdout","time":24.648974368,"data":"[+] Found attached dataset in /kaggle/input/nslkdd\n"}
+,{"stream_name":"stdout","time":25.547678202,"data":"[+] Raw KDDTrain+ records: 125,973\n"}
+,{"stream_name":"stdout","time":25.547753076,"data":"[+] Raw KDDTest+ records:  22,544\n"}
+,{"stream_name":"stdout","time":25.7494548,"data":"[+] Categorical Vocabulary Sizes: Protocols=3, Services=70, Flags=11\n"}
+,{"stream_name":"stdout","time":26.222839948,"data":"[+] Benign Train Size: 53,874 | Validation: 13,469\n"}
+,{"stream_name":"stdout","time":26.222879596,"data":"[+] Continuous Input Dimension: 44 (38 Telemetry + 6 APAN)\n"}
+,{"stream_name":"stdout","time":26.222908965,"data":"[+] Unseen Test Benign: 9,711 | Unseen Attacks: 12,833\n"}
+,{"stream_name":"stdout","time":26.428963578,"data":"[*] Training Subspace Ensemble Isolation Forest...\n"}
+,{"stream_name":"stdout","time":28.675159458,"data":"[+] Subspace Ensemble Trained in 2.42 seconds!\n"}
+,{"stream_name":"stdout","time":36.063711679,"data":"[*] Training Regularized Multi-Task Autoencoder on cpu (25 Epochs with Dropout=0.15)...\n"}
+,{"stream_name":"stdout","time":47.595868578,"data":"    Epoch 05/25 | Recon MSE: 0.007279 | Service CE: 0.0130 | SVDD: 0.0059\n"}
+,{"stream_name":"stdout","time":59.496663845,"data":"    Epoch 10/25 | Recon MSE: 0.004858 | Service CE: 0.0054 | SVDD: 0.0032\n"}
+,{"stream_name":"stdout","time":72.060019715,"data":"    Epoch 15/25 | Recon MSE: 0.004058 | Service CE: 0.0039 | SVDD: 0.0023\n"}
+,{"stream_name":"stdout","time":84.578055669,"data":"    Epoch 20/25 | Recon MSE: 0.003688 | Service CE: 0.0030 | SVDD: 0.0021\n"}
+,{"stream_name":"stdout","time":97.694601379,"data":"    Epoch 25/25 | Recon MSE: 0.003098 | Service CE: 0.0028 | SVDD: 0.0019\n"}
+,{"stream_name":"stdout","time":97.694634965,"data":"[+] Trained Regularized Autoencoder in 61.83 seconds!\n"}
+,{"stream_name":"stdout","time":97.762149178,"data":"[+] Final Regularized AE Threshold: 1.1968\n"}
+,{"stream_name":"stdout","time":97.762208571,"data":"[+] APAN Standalone Threshold: 1.0111\n"}
+,{"stream_name":"stdout","time":98.610579352,"data":"[+] Final Power-Mean Consensus Threshold: 1.0442\n"}
+,{"stream_name":"stdout","time":98.610618809,"data":"================================================================================================\n"}
+,{"stream_name":"stdout","time":98.6106261,"data":"        SINGLE-FLOW ATTACK RECALL BREAKDOWN BY THREAT FAMILY (VERSION 7)\n"}
+,{"stream_name":"stdout","time":98.610658323,"data":"================================================================================================\n"}
+,{"stream_name":"stdout","time":98.610662043,"data":"     Category Total Flows Isolation Forest Regularized AE (Top-5) Power-Mean Consensus\n"}
+,{"stream_name":"stdout","time":98.610664883,"data":"          DoS       7,458            81.0%                  92.2%                92.6%\n"}
+,{"stream_name":"stdout","time":98.610667758,"data":"        Probe       2,421            72.6%                  99.0%                93.3%\n"}
+,{"stream_name":"stdout","time":98.610670469,"data":"          R2L       2,754            10.2%                  59.5%                50.4%\n"}
+,{"stream_name":"stdout","time":98.610673242,"data":"          U2R         198            19.2%                  93.9%                72.2%\n"}
+,{"stream_name":"stdout","time":98.610675956,"data":"Unknown/Novel           2           100.0%                 100.0%               100.0%\n"}
+,{"stream_name":"stdout","time":98.610678674,"data":"\n"}
+,{"stream_name":"stdout","time":98.610681424,"data":"================================================================================================\n"}
+,{"stream_name":"stdout","time":98.610684379,"data":"                   FINAL BENCHMARK KPI COMPARISON MATRIX (VERSION 7)\n"}
+,{"stream_name":"stdout","time":98.61068711,"data":"================================================================================================\n"}
+,{"stream_name":"stdout","time":98.61068988,"data":"                    Metric Isolation Forest Regularized AE Power-Mean Consensus\n"}
+,{"stream_name":"stdout","time":98.61069259,"data":"Overall Single-Flow Recall           63.26%         86.53%               83.38%\n"}
+,{"stream_name":"stdout","time":98.610695373,"data":"             ROC-AUC Score           0.9571         0.9535               0.9422\n"}
+,{"stream_name":"stdout","time":98.610698061,"data":" Benign Validation FP Rate            2.00%          2.00%                2.00%\n"}
+,{"stream_name":"stdout","time":98.610700791,"data":"     Unseen Benign FP Rate            1.12%          9.27%                8.61%\n"}
+,{"stream_name":"stdout","time":99.63307201800001,"data":"[+] Exported Regularized Autoencoder: /kaggle/working/v7_regularized_autoencoder.pt\n"}
+,{"stream_name":"stdout","time":99.633116389,"data":"[+] Exported Subspace Isolation Forest: /kaggle/working/isolation_forest_subspace_ensemble.joblib\n"}
+,{"stream_name":"stdout","time":99.633123529,"data":"[+] Exported Benchmark Report: /kaggle/working/v7_benchmark_report.json\n"}
+,{"stream_name":"stdout","time":99.633128732,"data":"\n"}
+,{"stream_name":"stdout","time":99.633133165,"data":"[SUCCESS] Version 7 Cloud Training \u0026 Evaluation Completed Successfully!\n"}
+,{"stream_name":"stderr","time":105.444918815,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":105.444961201,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":105.684622174,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":105.684655608,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":106.688440644,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":106.795869025,"data":"[NbConvertApp] Writing 163238 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":110.299545566,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":111.176350967,"data":"[NbConvertApp] Support files will be in __results___files/\n"}
+,{"stream_name":"stderr","time":111.176392635,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":111.176913375,"data":"[NbConvertApp] Writing 431448 bytes to __results__.html\n"}
+]

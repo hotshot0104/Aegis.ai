@@ -1,0 +1,74 @@
+{
+  "topology": {
+    "enterprise_internal_subnet": "192.168.1.0/24",
+    "dmz_public_subnet": "172.16.10.0/24",
+    "external_internet": "WAN / Internet"
+  },
+  "assets": {
+    "192.168.1.10": {
+      "hostname": "DC-AD-CORE-01",
+      "role": "Active Directory / Kerberos / LDAP Domain Controller",
+      "criticality": "TIER_1_CRITICAL",
+      "services": ["kerberos", "ldap", "dns", "smb"]
+    },
+    "192.168.1.50": {
+      "hostname": "DB-PROD-FINANCE-01",
+      "role": "Production Financial PostgreSQL/Oracle Database (Crown Jewel)",
+      "criticality": "TIER_1_CROWN_JEWEL",
+      "services": ["postgresql", "ssh", "smb"]
+    },
+    "192.168.1.60": {
+      "hostname": "FS-CORP-SHARE-01",
+      "role": "Enterprise SMB File Repository",
+      "criticality": "TIER_2_HIGH",
+      "services": ["smb", "http"]
+    },
+    "192.168.1.101": {
+      "hostname": "WS-ENG-ALICE",
+      "role": "Engineering Lead Workstation (Ubuntu 22.04)",
+      "criticality": "TIER_3_STANDARD",
+      "services": ["ssh", "http"]
+    },
+    "192.168.1.102": {
+      "hostname": "WS-FIN-BOB",
+      "role": "Finance Analyst Workstation (Windows 11)",
+      "criticality": "TIER_2_HIGH",
+      "services": ["rdp", "smb"]
+    },
+    "192.168.1.103": {
+      "hostname": "WS-HR-CHARLIE",
+      "role": "Human Resources Workstation (Windows 11)",
+      "criticality": "TIER_3_STANDARD",
+      "services": ["http", "smb"]
+    },
+    "172.16.10.20": {
+      "hostname": "WEB-NGINX-DMZ",
+      "role": "Public Reverse Proxy & Web Portal",
+      "criticality": "TIER_2_HIGH",
+      "services": ["http", "https", "ssh"]
+    },
+    "172.16.10.25": {
+      "hostname": "MAIL-POSTFIX-01",
+      "role": "Inbound MX Email Gateway",
+      "criticality": "TIER_2_HIGH",
+      "services": ["smtp", "pop_3", "imap"]
+    }
+  },
+  "adversaries": {
+    "198.51.100.23": {
+      "alias": "APT-RECON-BOT",
+      "origin": "External Tor Exit / Bulletproof VPS",
+      "tactics": ["T1046: Network Service Scanning", "T1110: Credential Brute-Force"]
+    },
+    "185.220.101.5": {
+      "alias": "C2-COBALT-STRIKE",
+      "origin": "Known Command & Control Infrastructure",
+      "tactics": ["T1071.001: Web Protocol C2 Beaconing"]
+    },
+    "45.33.32.156": {
+      "alias": "EXFIL-DROP-SERVER",
+      "origin": "Staging Server / Unencrypted Exfiltration Drop",
+      "tactics": ["T1048: Alternative Protocol Data Exfiltration"]
+    }
+  }
+}

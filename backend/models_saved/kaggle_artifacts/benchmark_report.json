@@ -1,0 +1,20 @@
+{
+  "model_name": "AEGIS-AI Cloud Training Benchmark",
+  "timestamp": "2026-10-07 04:30:36Z",
+  "isolation_forest": {
+    "campaign_recall": 8.4,
+    "single_flow_recall": 57.83526844853113,
+    "val_fp_rate": 2.034300987452669,
+    "test_fp_rate": 4.973741118319432,
+    "latency_ms": 23.307302515999993,
+    "roc_auc": 0.8705345812455778
+  },
+  "deep_autoencoder": {
+    "campaign_recall": 11.4,
+    "single_flow_recall": 64.20166757578119,
+    "val_fp_rate": 2.0046031628183236,
+    "test_fp_rate": 5.746061167747914,
+    "latency_ms": 0.1720332080000162,
+    "roc_auc": 0.9315572736572251
+  }
+}

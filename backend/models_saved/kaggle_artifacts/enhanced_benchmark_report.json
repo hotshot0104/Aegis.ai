@@ -1,0 +1,19 @@
+{
+  "model_name": "AEGIS-AI Cloud Training Benchmark v4 (Enhanced Subspace-Max)",
+  "timestamp": "2026-10-07 04:46:40Z",
+  "single_flow_recall": {
+    "isolation_forest": 68.57320969375827,
+    "standard_ae": 77.65136756798879,
+    "subspace_max_ae": 76.69290111431467,
+    "hybrid_ensemble": 78.24359074261669
+  },
+  "roc_auc": {
+    "isolation_forest": 0.9134288704809548,
+    "subspace_max_ae": 0.9596439252906626,
+    "hybrid_ensemble": 0.9592626099448214
+  },
+  "false_positive_rates": {
+    "benign_val": 2.0046031628183236,
+    "unseen_benign": 3.284934610235815
+  }
+}
