@@ -1,5 +1,5 @@
 """
-WebSocket Connection Manager for Project AEGIS-AI.
+WebSocket Connection Manager for Project RAKSHA-AI.
 Broadcasting hub for real-time telemetry metrics, BDI anomaly ticks,
 sub-second agent reasoning thought events, and containment status updates.
 """
@@ -11,7 +11,7 @@ from fastapi import WebSocket
 
 from backend.app.models.incident import AgentThoughtEvent
 
-logger = logging.getLogger("aegis.websocket")
+logger = logging.getLogger("raksha.websocket")
 
 
 class WebSocketManager:

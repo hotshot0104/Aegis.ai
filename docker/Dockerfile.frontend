@@ -1,4 +1,4 @@
-# Dockerfile for AEGIS-AI Next.js SOC Command Center Interface
+# Dockerfile for RAKSHA-AI Next.js SOC Command Center Interface
 FROM node:20-alpine AS builder
 
 WORKDIR /app
@@ -8,7 +8,7 @@ RUN npm ci
 
 COPY frontend/ /app/
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV BACKEND_INTERNAL_URL=http://aegis-backend:8000
+ENV BACKEND_INTERNAL_URL=http://raksha-backend:8000
 RUN npm run build
 
 # Production runner
@@ -17,7 +17,7 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV BACKEND_INTERNAL_URL=http://aegis-backend:8000
+ENV BACKEND_INTERNAL_URL=http://raksha-backend:8000
 
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next

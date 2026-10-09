@@ -1,5 +1,5 @@
 """
-Core Package for Project AEGIS-AI.
+Core Package for Project RAKSHA-AI.
 Exports configuration settings, security utilities, and WebSocket broadcasting manager.
 """
 

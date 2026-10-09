@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Live Multi-Subnet IP Telemetry Generator for Project AEGIS-AI.
+Live Multi-Subnet IP Telemetry Generator for Project RAKSHA-AI.
 Simulates a live enterprise network by continuously sending flow vectors
-with realistic internal, DMZ, and adversary IP addresses into the AEGIS-AI
+with realistic internal, DMZ, and adversary IP addresses into the RAKSHA-AI
 telemetry stream endpoint (/api/v1/telemetry/stream).
 
 Strictly zero third-party dependencies (pure standard library: urllib, json, time).
@@ -240,7 +240,7 @@ class TelemetryStreamGenerator:
 
     def print_banner(self):
         print(f"\n{Colors.CYAN}{Colors.BOLD}╔══════════════════════════════════════════════════════════════════════════╗{Colors.RESET}")
-        print(f"{Colors.CYAN}{Colors.BOLD}║   PROJECT AEGIS-AI: LIVE MULTI-SUBNET IP TELEMETRY SIMULATOR PROBE     ║{Colors.RESET}")
+        print(f"{Colors.CYAN}{Colors.BOLD}║   PROJECT RAKSHA-AI: LIVE MULTI-SUBNET IP TELEMETRY SIMULATOR PROBE     ║{Colors.RESET}")
         print(f"{Colors.CYAN}{Colors.BOLD}╚══════════════════════════════════════════════════════════════════════════╝{Colors.RESET}")
         print(f"[*] Target Backend Endpoint: {Colors.BLUE}{self.stream_endpoint}{Colors.RESET}")
         print(f"[*] Flow Stream Interval:    {self.interval}s per tick")
@@ -266,7 +266,7 @@ class TelemetryStreamGenerator:
                 flow = self.generate_normal_flow()
                 flow_type_label = f"{Colors.GREEN}[NORMAL BASELINE]{Colors.RESET}"
 
-            # Dispatch flow to AEGIS backend
+            # Dispatch flow to RAKSHA backend
             res = self.send_flow(flow)
             bdi = res.get("bdi_score", 0.0)
             status = res.get("status", "UNKNOWN")
@@ -296,7 +296,7 @@ class TelemetryStreamGenerator:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="AEGIS-AI Multi-Subnet Live IP Telemetry Generator")
+    parser = argparse.ArgumentParser(description="RAKSHA-AI Multi-Subnet Live IP Telemetry Generator")
     parser.add_argument("--backend", default=os.getenv("BACKEND_URL", "http://localhost:8000"), help="Backend URL (default: http://localhost:8000)")
     parser.add_argument("--interval", type=float, default=float(os.getenv("STREAM_INTERVAL", "0.8")), help="Seconds between telemetry flow ticks (default: 0.8)")
     parser.add_argument("--attack-interval", type=int, default=int(os.getenv("ATTACK_INTERVAL", "15")), help="Inject an attack wave every N ticks (default: 15)")

@@ -1,12 +1,12 @@
-# AEGIS-AI — Cyber Command Dashboard
+# RAKSHA-AI — Cyber Command Dashboard
 
-High-performance real-time Security Operations Center (SOC) dashboard for **Project AEGIS-AI** (Autonomous Agentic SOC & Non-IoC Network Compromise Defense).
+High-performance real-time Security Operations Center (SOC) dashboard for **Project RAKSHA-AI** (Autonomous Agentic SOC & Non-IoC Network Compromise Defense).
 
 ---
 
 ## Overview
 
-AEGIS-AI provides an intuitive, high-contrast dark command center designed for cyber operators and SOC analysts to:
+RAKSHA-AI provides an intuitive, high-contrast dark command center designed for cyber operators and SOC analysts to:
 1. **Monitor Live Telemetry**: Visualize packet and statistical flow throughput streaming at $10\text{ flows/sec}$.
 2. **Observe Real-Time Multi-Agent Reasoning**: Stream live Chain-of-Thought traces from the **Supervisor**, **Threat Hunter**, **Asset Investigator**, and **Rule Generator** agents.
 3. **Inspect Subnet Topology & Blast Radius**: Interactive visual node graphs identifying rogue attacker IPs and targeted enterprise Crown Jewels.

@@ -1,0 +1,109 @@
+{
+  "dataset": "CIC-IDS2017",
+  "total_flows": 2313810,
+  "benign_flows": 1977318,
+  "attack_flows": 336492,
+  "overall_recall_pct": 38.23,
+  "benign_false_alarm_pct": 4.08,
+  "throughput_flows_per_sec": 57327.4,
+  "latency_microseconds": 17.44,
+  "macro_families": {
+    "DDoS / DoS": {
+      "total": 321759,
+      "detected": 128202,
+      "recall_pct": 39.84
+    },
+    "Recon / PortScan": {
+      "total": 1956,
+      "detected": 279,
+      "recall_pct": 14.26
+    },
+    "Credential Brute Force": {
+      "total": 9150,
+      "detected": 4,
+      "recall_pct": 0.04
+    },
+    "Web Attacks": {
+      "total": 0,
+      "detected": 0,
+      "recall_pct": 0.0
+    },
+    "Botnet / Advanced": {
+      "total": 1484,
+      "detected": 84,
+      "recall_pct": 5.66
+    }
+  },
+  "detailed_attacks": {
+    "Bot": {
+      "total": 1437,
+      "detected": 44,
+      "recall_pct": 3.06
+    },
+    "DDoS": {
+      "total": 128014,
+      "detected": 19437,
+      "recall_pct": 15.18
+    },
+    "DoS GoldenEye": {
+      "total": 10286,
+      "detected": 8,
+      "recall_pct": 0.08
+    },
+    "DoS Hulk": {
+      "total": 172846,
+      "detected": 101737,
+      "recall_pct": 58.86
+    },
+    "DoS Slowhttptest": {
+      "total": 5228,
+      "detected": 3904,
+      "recall_pct": 74.67
+    },
+    "DoS slowloris": {
+      "total": 5385,
+      "detected": 3116,
+      "recall_pct": 57.86
+    },
+    "FTP-Patator": {
+      "total": 5931,
+      "detected": 1,
+      "recall_pct": 0.02
+    },
+    "Heartbleed": {
+      "total": 11,
+      "detected": 11,
+      "recall_pct": 100.0
+    },
+    "Infiltration": {
+      "total": 36,
+      "detected": 29,
+      "recall_pct": 80.56
+    },
+    "PortScan": {
+      "total": 1956,
+      "detected": 279,
+      "recall_pct": 14.26
+    },
+    "SSH-Patator": {
+      "total": 3219,
+      "detected": 3,
+      "recall_pct": 0.09
+    },
+    "Web Attack \ufffd Brute Force": {
+      "total": 1470,
+      "detected": 71,
+      "recall_pct": 4.83
+    },
+    "Web Attack \ufffd Sql Injection": {
+      "total": 21,
+      "detected": 0,
+      "recall_pct": 0.0
+    },
+    "Web Attack \ufffd XSS": {
+      "total": 652,
+      "detected": 16,
+      "recall_pct": 2.45
+    }
+  }
+}

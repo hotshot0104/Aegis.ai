@@ -1,8 +1,8 @@
-# 🛡️ PROJECT AEGIS-AI: Product Requirements Document (PRD)
+# 🛡️ PROJECT RAKSHA-AI: Product Requirements Document (PRD)
 
 > **Document Version:** 1.0.0  
 > **Status:** Approved / Active Baseline  
-> **Project Code:** `AEGIS-AI-ENTERPRISE-001`  
+> **Project Code:** `RAKSHA-AI-ENTERPRISE-001`  
 > **Classification:** Production Defense Specification  
 > **Theme:** Cybersecurity & Artificial Intelligence / Machine Learning  
 > **Core Objective:** *"Develop an AI/ML tool to detect whether a system / firewall / router / network is compromised. The technique should not rely only on IoCs (Indicators of Compromise) detection."*
@@ -21,7 +21,7 @@ Legacy Security Operations Centers (SOCs) and Intrusion Detection Systems (IDS/I
 ┌────────────────────────────────────────────────────────────────────────┐
 │                        THE DETECTION GAP                               │
 ├───────────────────────────────────┬────────────────────────────────────┤
-│ Traditional Signature IDS         │ AEGIS-AI Non-IoC Agentic SOC       │
+│ Traditional Signature IDS         │ RAKSHA-AI Non-IoC Agentic SOC       │
 ├───────────────────────────────────┼────────────────────────────────────┤
 │ • Static IP/Domain blocklists     │ • Statistical flow behavior baseline│
 │ • SHA256 malware hash lookups     │ • Jitter, entropy & burst analysis │
@@ -31,7 +31,7 @@ Legacy Security Operations Centers (SOCs) and Intrusion Detection Systems (IDS/I
 └───────────────────────────────────┴────────────────────────────────────┘
 ```
 
-**AEGIS-AI** decouples detection from signatures by training **unsupervised machine learning models strictly on normal/benign network traffic flows**, extracting 41 non-payload statistical flow metrics, and deploying a multi-agent reasoning graph to contextualize, classify, and mitigate compromises.
+**RAKSHA-AI** decouples detection from signatures by training **unsupervised machine learning models strictly on normal/benign network traffic flows**, extracting 41 non-payload statistical flow metrics, and deploying a multi-agent reasoning graph to contextualize, classify, and mitigate compromises.
 
 ---
 
@@ -51,7 +51,7 @@ Legacy Security Operations Centers (SOCs) and Intrusion Detection Systems (IDS/I
 
 ## 3. Target User Personas & Stakeholders
 
-| Persona | Role | Key Pain Points | How AEGIS-AI Solves It |
+| Persona | Role | Key Pain Points | How RAKSHA-AI Solves It |
 | :--- | :--- | :--- | :--- |
 | **P1: Tier-1 / Tier-2 SOC Analyst** | Daily triage & alert monitoring | Overwhelmed by alert fatigue; manual MITRE correlation takes 20+ mins per incident. | Automated incident synthesis with root-cause flow breakdown and suggested firewall command in <2 seconds. |
 | **P2: SOC Manager / CISO** | Executive oversight & compliance | Needs real-time posture awareness, blast radius clarity, and executive summary reports. | Auto-generated CISO Daily Briefs in markdown; audit-ready MITRE ATT&CK coverage reports. |
@@ -64,7 +64,7 @@ Legacy Security Operations Centers (SOCs) and Intrusion Detection Systems (IDS/I
 
 ```mermaid
 graph LR
-    Pillar1[1. Perception Layer<br/>Unsupervised Anomaly Engine] --> Unified[AEGIS-AI Ecosystem]
+    Pillar1[1. Perception Layer<br/>Unsupervised Anomaly Engine] --> Unified[RAKSHA-AI Ecosystem]
     Pillar2[2. Reasoning Layer<br/>Multi-Agent SOC DAG] --> Unified
     Pillar3[3. Defense Layer<br/>Human-in-the-Loop Containment] --> Unified
     Pillar4[4. Experience Layer<br/>Real-Time Command Center] --> Unified

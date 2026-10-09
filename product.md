@@ -1,4 +1,4 @@
-# 🛡️ PROJECT AEGIS-AI: Autonomous Agentic SOC & Non-IoC Network Compromise Defense System
+# 🛡️ PROJECT RAKSHA-AI: Autonomous Agentic SOC & Non-IoC Network Compromise Defense System
 
 > **Project Specification: Enterprise Autonomous Non-IoC Network Compromise Detection**  
 > **Theme:** Cybersecurity & Artificial Intelligence / Machine Learning  
@@ -30,8 +30,8 @@ Traditional intrusion detection systems (IDS) and Security Operations Centers (S
 * **Polymorphic Malware:** Modern threats morph their byte signatures and domain names continuously.
 * **Encrypted C2 Channels:** Payloads transmitted over TLS/QUIC bypass deep packet inspection.
 
-### 🚀 The AEGIS-AI Solution:
-**AEGIS-AI** is a dual-tier cybersecurity ecosystem:
+### 🚀 The RAKSHA-AI Solution:
+**RAKSHA-AI** is a dual-tier cybersecurity ecosystem:
 1. **Tier 1 (Perception):** An **Unsupervised Machine Learning Engine (Isolation Forest / Autoencoder)** trained **strictly on benign/normal network behavior**. It detects deviations in statistical flow metrics (entropy, packet inter-arrival jitter, SYN/ACK ratios, flow duration) without checking blacklists.
 2. **Tier 2 (Agentic Autonomous Defense):** An **Autonomous Multi-Agent SOC Analyst** that takes the statistical anomaly, autonomously queries internal asset registries, performs vector-RAG against the **MITRE ATT&CK Matrix**, correlates firewall syslogs, drafts exact firewall containment rules (`iptables` / Cisco ACL), and provides an interactive 1-click mitigation queue for security officers.
 
@@ -41,7 +41,7 @@ Traditional intrusion detection systems (IDS) and Security Operations Centers (S
 
 ```
 ┌───────────────────────────────────────┬───────────────────────────────────────┐
-│     Traditional Signature-Based IDS   │     AEGIS-AI (Behavioral + Agentic)   │
+│     Traditional Signature-Based IDS   │     RAKSHA-AI (Behavioral + Agentic)   │
 ├───────────────────────────────────────┼───────────────────────────────────────┤
 │ • Relies on static blacklists (IoCs)  │ • Learns statistical baseline of normal│
 │ • Completely blind to Zero-Days       │ • Detects abnormal behavioral spikes  │
@@ -229,7 +229,7 @@ class CyberAgentTools:
         return {
             "iptables_rule": f"sudo iptables -I INPUT 1 -s {src_ip} -j DROP",
             "cisco_acl": f"access-list 101 deny ip host {src_ip} any",
-            "powershell_command": f"New-NetFirewallRule -DisplayName 'AEGIS-Block-{src_ip}' -Direction Inbound -RemoteAddress '{src_ip}' -Action Block"
+            "powershell_command": f"New-NetFirewallRule -DisplayName 'RAKSHA-Block-{src_ip}' -Direction Inbound -RemoteAddress '{src_ip}' -Action Block"
         }
 ```
 
@@ -272,7 +272,7 @@ FastAPI Endpoints (`backend/app/routers/soc_api.py`):
 | :--- | :--- | :--- |
 | **0:00 – 0:50** | **Slide 1: Problem Gap** | *"95% of current firewalls rely on IoCs—static signatures and IP blacklists. But when a zero-day attack or ransomware hits, signatures do not exist. Modern threat defense demands detection **without relying on signatures**."* |
 | **0:50 – 1:45** | **Live Baseline Demo** | Click **'Simulate Normal Enterprise Traffic'**. <br> *"Our model uses an Unsupervised Isolation Forest trained solely on normal baseline traffic. Anomaly score remains low at 0.06. Zero false alarms."* |
-| **1:45 – 3:15** | **Zero-Day Injection & Agent Live Trace** | Click **'Inject Non-IoC Zero-Day Spike'**. <br> 1. Anomaly Gauge spikes to **0.94**. <br> 2. The **AEGIS Multi-Agent Terminal** begins live streaming: <br> *"Look at the terminal: the Agent autonomously queries our internal subnet registry, correlates the traffic against the MITRE ATT&CK Matrix, and identifies SMB lateral movement."* |
+| **1:45 – 3:15** | **Zero-Day Injection & Agent Live Trace** | Click **'Inject Non-IoC Zero-Day Spike'**. <br> 1. Anomaly Gauge spikes to **0.94**. <br> 2. The **RAKSHA Multi-Agent Terminal** begins live streaming: <br> *"Look at the terminal: the Agent autonomously queries our internal subnet registry, correlates the traffic against the MITRE ATT&CK Matrix, and identifies SMB lateral movement."* |
 | **3:15 – 4:15** | **Human-in-the-Loop 1-Click Action** | Show the incident card in the UI. <br> Click **`[ Approve Containment ]`**. <br> Modal confirms: *`iptables containment rule executed in 0.8 seconds. Node 192.168.1.104 isolated.`* |
 | **4:15 – 5:00** | **Research Grounding & Conclusion** | *"Our architecture is grounded in the peer-reviewed DIoT behavioral defense framework (95.6% detection on zero-day botnets). We offer zero signature dependency, sub-second response, and full human-in-the-loop safety. Thank you."* |
 
@@ -315,4 +315,4 @@ Include this slide in your presentation to impress college faculty:
 ```
 
 ---
-*Created for Team AEGIS-AI • Autonomous Non-IoC Compromise Detection System*
+*Created for Team RAKSHA-AI • Autonomous Non-IoC Compromise Detection System*

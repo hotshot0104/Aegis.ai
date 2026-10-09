@@ -1,5 +1,5 @@
 """
-Autonomous Agent Router for Project AEGIS-AI.
+Autonomous Agent Router for Project RAKSHA-AI.
 Endpoints:
 - POST /api/v1/agent/investigate: Trigger manual multi-agent triage on demand.
 - GET /api/v1/agent/daily-brief: Retrieve structured Executive CISO Daily Threat Brief.

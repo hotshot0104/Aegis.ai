@@ -1,5 +1,5 @@
 """
-Services Package for Project AEGIS-AI.
+Services Package for Project RAKSHA-AI.
 Exports CyberTools, ThreatHunterAgent, AssetInvestigatorAgent,
 ContainmentRuleGeneratorAgent, AgentSupervisor, and IncidentStore.
 """

@@ -1,7 +1,7 @@
 import os
 import json
 
-notebook_path = "/home/sameer/Projects/Ages AI/Aegis.ai-main/notebooks/kaggle/aegis_ai_kaggle_training.ipynb"
+notebook_path = "/home/sameer/Projects/Ages AI/Raksha.ai-main/notebooks/kaggle/raksha_ai_kaggle_training.ipynb"
 
 cells = []
 
@@ -22,7 +22,7 @@ def code_cell(source):
     }
 
 # 1. Header & Overview
-cells.append(md_cell("""# 🛡️ Project AEGIS-AI: Autonomous Non-IoC Network Compromise Detection
+cells.append(md_cell("""# 🛡️ Project RAKSHA-AI: Autonomous Non-IoC Network Compromise Detection
 ### Cloud Training & Benchmark v7: Zero-Shift APAN, Regularized Multi-Task AE & Power-Mean Consensus
 
 > **Objective:** Break through to 89%–92%+ single-flow recall on non-payload network telemetry while strictly holding benign false alarms $\\le 2.2\\% - 2.5\\%$ on out-of-distribution test traffic.
@@ -660,7 +660,7 @@ print(f"[+] Exported Subspace Isolation Forest: {os.path.join(out_dir, 'isolatio
 
 # 3. Export Comprehensive Benchmark Report
 report = {
-    "model_name": "AEGIS-AI Cloud Training Benchmark v7 (APAN + Regularized Multi-Task AE + Power-Mean Consensus)",
+    "model_name": "RAKSHA-AI Cloud Training Benchmark v7 (APAN + Regularized Multi-Task AE + Power-Mean Consensus)",
     "timestamp": time.strftime("%Y-%m-%d %H:%M:%SZ", time.gmtime()),
     "single_flow_recall": {
         "isolation_forest": overall_if_recall,

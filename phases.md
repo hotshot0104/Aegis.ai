@@ -1,6 +1,6 @@
-# 🚀 PROJECT AEGIS-AI: Implementation Phases, Roadmap & Live Pitch Playbook
+# 🚀 PROJECT RAKSHA-AI: Implementation Phases, Roadmap & Live Pitch Playbook
 
-> **Document Code:** `AEGIS-PHASES-001`  
+> **Document Code:** `RAKSHA-PHASES-001`  
 > **Target Specification:** Autonomous Non-IoC Network Compromise Detection  
 > **Sprint Horizon:** Rapid 4-Day Sprint (Aug 15 – Aug 18) $\to$ Presentation (Aug 19)
 
@@ -10,7 +10,7 @@
 
 ```mermaid
 gantt
-    title AEGIS-AI Rapid Implementation Timeline
+    title RAKSHA-AI Rapid Implementation Timeline
     dateFormat  YYYY-MM-DD
     section Phase 0 & 1: ML Engine
     Dataset Baseline & Preprocessing     :active, p0, 2026-08-15, 12h
@@ -113,7 +113,7 @@ gantt
 * **Spoken Script:**  
   *"95% of enterprise firewalls today rely on static Indicators of Compromise (IoCs)—known IP blacklists, domain registries, and file hashes. But when a zero-day exploit, ransomware, or encrypted C2 attack strikes, signatures DO NOT exist.*  
   *Core Problem: How do we detect compromised network assets WITHOUT relying on signatures?*  
-  *We built **AEGIS-AI**: a dual-tier system combining an Unsupervised Anomaly Perception Engine trained strictly on normal traffic, paired with an Autonomous 4-Agent SOC Defense Core."*
+  *We built **RAKSHA-AI**: a dual-tier system combining an Unsupervised Anomaly Perception Engine trained strictly on normal traffic, paired with an Autonomous 4-Agent SOC Defense Core."*
 
 ### [0:50 – 1:45] Live Baseline Traffic Demonstration
 * **Visual:** Click **`[ 🟢 Simulate Normal Enterprise Traffic ]`** on the live dashboard.
@@ -125,7 +125,7 @@ gantt
 * **Spoken Script:**  
   *"Now, an attacker launches an encrypted zero-day SMB lateral movement exploit. No IP blacklist catches this because the IP is internal.*  
   *Watch the Anomaly Meter: BDI immediately spikes to **0.94**.*  
-  *Instantly, the AEGIS Multi-Agent Core activates. Look at the live Thought Terminal:*  
+  *Instantly, the RAKSHA Multi-Agent Core activates. Look at the live Thought Terminal:*  
   *1. The **Supervisor Agent** initializes the investigation.*  
   *2. The **Threat Hunter Agent** vector-queries MITRE ATT&CK and maps technique **T1021.002 (SMB Lateral Movement)** with 94.8% confidence.*  
   *3. The **Asset Investigator Agent** queries the subnet registry and flags the target: `DB-PROD-FINANCE-01`—Criticality: HIGH.*  
@@ -134,13 +134,13 @@ gantt
 ### [3:15 – 4:15] Human-in-the-Loop 1-Click Containment
 * **Visual:** Highlight the pulsating red Action Card $\to$ Click **`[ Approve & Isolate Node ]`**.
 * **Spoken Script:**  
-  *"AEGIS-AI respects Human-in-the-Loop governance. The agent does not execute destructive actions blindly. The security officer is presented with the synthesized incident card.*  
+  *"RAKSHA-AI respects Human-in-the-Loop governance. The agent does not execute destructive actions blindly. The security officer is presented with the synthesized incident card.*  
   *I click 'Approve Containment'. In **0.8 seconds**, the firewall rule is deployed, the malicious host is isolated, and an executive CISO incident brief is generated."*
 
 ### [4:15 – 5:00] Academic Grounding & Conclusion
 * **Visual:** Slide with DIoT Citation & Performance Benchmarks.
 * **Spoken Script:**  
-  *"Our architecture is grounded in the peer-reviewed **DIoT Defense Framework** (IEEE ICDCS), achieving a 95.6% zero-day detection rate without signature databases. With sub-second agentic triage, zero payload snooping, and full human safety, AEGIS-AI redefines network defense. Thank you!"*
+  *"Our architecture is grounded in the peer-reviewed **DIoT Defense Framework** (IEEE ICDCS), achieving a 95.6% zero-day detection rate without signature databases. With sub-second agentic triage, zero payload snooping, and full human safety, RAKSHA-AI redefines network defense. Thank you!"*
 
 ---
 
@@ -150,4 +150,4 @@ gantt
 | :--- | :--- |
 | **"How do you prevent high false positives during normal traffic spikes?"** | *"We employ a two-layer filter: first, a rolling-window temporal filter that requires sustained statistical deviation (K=3 consecutive windows), discarding transient spikes like large file backups; second, our Asset Investigator Agent correlates historical host activity before triggering containment."* |
 | **"Why not just use an LLM for everything?"** | *"Pure LLMs cannot ingest 10,000 packets per second. We use a dual-tier design: lightweight unsupervised ML (Isolation Forest) handles high-velocity perception at $<5\text{ ms}$, while specialized Agentic reasoning is invoked ONLY when a verified anomaly occurs."* |
-| **"Does your system inspect encrypted packet payloads?"** | *"No! AEGIS-AI is completely non-payload-based. We inspect statistical flow characteristics: packet inter-arrival jitter, byte symmetry, connection duration, and flag ratios. This guarantees 100% compliance with TLS 1.3/QUIC privacy standards."* |
+| **"Does your system inspect encrypted packet payloads?"** | *"No! RAKSHA-AI is completely non-payload-based. We inspect statistical flow characteristics: packet inter-arrival jitter, byte symmetry, connection duration, and flag ratios. This guarantees 100% compliance with TLS 1.3/QUIC privacy standards."* |

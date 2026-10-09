@@ -1,5 +1,5 @@
 """
-Main FastAPI Application Entrypoint for Project AEGIS-AI.
+Main FastAPI Application Entrypoint for Project RAKSHA-AI.
 Configures:
 - Async lifespan startup (ML model pre-loading)
 - CORS Middleware

@@ -1,5 +1,5 @@
 """
-Security and Cryptographic Verification Module for Project AEGIS-AI.
+Security and Cryptographic Verification Module for Project RAKSHA-AI.
 Implements:
 1. Constant-time officer token authentication (Rule 3 HITL gate) to prevent timing attacks.
 2. Cryptographic SHA-256 audit log generation for tamper-evident containment records.

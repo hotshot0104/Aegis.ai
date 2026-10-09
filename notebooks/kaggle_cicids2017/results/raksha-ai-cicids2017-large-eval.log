@@ -1,0 +1,117 @@
+[{"stream_name":"stderr","time":8.462714829,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.462763707,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.462770253,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.462775324,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.253095288,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.253133513,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.253140634,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.253145585,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":17.720986499,"data":"[+] Python Version: 3.13.15\n"}
+,{"stream_name":"stdout","time":17.721031956,"data":"[+] PyTorch Device: cpu\n"}
+,{"stream_name":"stdout","time":17.921109928,"data":"[*] Looking for Parquet files in: /kaggle/input/datasets/dhoogla/cicids2017\n"}
+,{"stream_name":"stdout","time":17.921147375,"data":"    - Benign-Monday-no-metadata.parquet (56.8 MB)\n"}
+,{"stream_name":"stdout","time":17.921153257,"data":"    - Botnet-Friday-no-metadata.parquet (19.9 MB)\n"}
+,{"stream_name":"stdout","time":17.921157877,"data":"    - Bruteforce-Tuesday-no-metadata.parquet (46.1 MB)\n"}
+,{"stream_name":"stdout","time":17.92116249,"data":"    - DDoS-Friday-no-metadata.parquet (25.3 MB)\n"}
+,{"stream_name":"stdout","time":17.921167162,"data":"    - DoS-Wednesday-no-metadata.parquet (68.2 MB)\n"}
+,{"stream_name":"stdout","time":17.921171849,"data":"    - Infiltration-Thursday-no-metadata.parquet (23.1 MB)\n"}
+,{"stream_name":"stdout","time":17.921176539,"data":"    - Portscan-Friday-no-metadata.parquet (13.6 MB)\n"}
+,{"stream_name":"stdout","time":17.92118121,"data":"    - WebAttacks-Thursday-no-metadata.parquet (17.7 MB)\n"}
+,{"stream_name":"stdout","time":19.465896799,"data":"[+] Loaded Benign-Monday: 458,831 flows in 1.51s\n"}
+,{"stream_name":"stdout","time":19.861008213,"data":"[+] Loaded Botnet-Friday: 176,038 flows in 0.39s\n"}
+,{"stream_name":"stdout","time":20.766805254,"data":"[+] Loaded Bruteforce-Tuesday: 389,714 flows in 0.90s\n"}
+,{"stream_name":"stdout","time":21.039552805,"data":"[+] Loaded DDoS-Friday: 221,264 flows in 0.28s\n"}
+,{"stream_name":"stdout","time":21.824026521,"data":"[+] Loaded DoS-Wednesday: 584,991 flows in 0.78s\n"}
+,{"stream_name":"stdout","time":22.095998326,"data":"[+] Loaded Infiltration-Thursday: 207,630 flows in 0.28s\n"}
+,{"stream_name":"stdout","time":22.096034965,"data":"[+] Loaded Portscan-Friday: 119,522 flows in 0.14s\n"}
+,{"stream_name":"stdout","time":22.490280823,"data":"[+] Loaded WebAttacks-Thursday: 155,820 flows in 0.25s\n"}
+,{"stream_name":"stdout","time":22.832321808,"data":"\n"}
+,{"stream_name":"stdout","time":22.832366851,"data":"[+] Total Flows Loaded: 2,313,810\n"}
+,{"stream_name":"stdout","time":22.832373423,"data":"[+] Memory Usage: 0.61 GB\n"}
+,{"stream_name":"stdout","time":22.832378285,"data":"\n"}
+,{"stream_name":"stdout","time":22.832382918,"data":"[+] Flow Label Distribution:\n"}
+,{"stream_name":"stdout","time":22.832387477,"data":"Label\n"}
+,{"stream_name":"stdout","time":22.83239232,"data":"Benign                        1977318\n"}
+,{"stream_name":"stdout","time":22.832396681,"data":"DoS Hulk                       172846\n"}
+,{"stream_name":"stdout","time":22.832419922,"data":"DDoS                           128014\n"}
+,{"stream_name":"stdout","time":22.832445026,"data":"DoS GoldenEye                   10286\n"}
+,{"stream_name":"stdout","time":22.832449584,"data":"FTP-Patator                      5931\n"}
+,{"stream_name":"stdout","time":22.832453625,"data":"DoS slowloris                    5385\n"}
+,{"stream_name":"stdout","time":22.832457827,"data":"DoS Slowhttptest                 5228\n"}
+,{"stream_name":"stdout","time":22.832461911,"data":"SSH-Patator                      3219\n"}
+,{"stream_name":"stdout","time":22.832466171,"data":"PortScan                         1956\n"}
+,{"stream_name":"stdout","time":22.832470517,"data":"Web Attack � Brute Force         1470\n"}
+,{"stream_name":"stdout","time":22.832475436,"data":"Bot                              1437\n"}
+,{"stream_name":"stdout","time":22.832479828,"data":"Web Attack � XSS                  652\n"}
+,{"stream_name":"stdout","time":22.832484113,"data":"Infiltration                       36\n"}
+,{"stream_name":"stdout","time":22.832488432,"data":"Web Attack � Sql Injection         21\n"}
+,{"stream_name":"stdout","time":22.832492651,"data":"Heartbleed                         11\n"}
+,{"stream_name":"stdout","time":22.832497283,"data":"Name: count, dtype: int64\n"}
+,{"stream_name":"stdout","time":22.863849627,"data":"[+] Total Behavioral Flow Features: 77\n"}
+,{"stream_name":"stdout","time":31.71440034,"data":"[+] Applied log1p scaling to 56 volumetric features.\n"}
+,{"stream_name":"stdout","time":31.71445475,"data":"[+] Feature preprocessing \u0026 float32 optimization complete.\n"}
+,{"stream_name":"stdout","time":33.599638756,"data":"[+] Pure Benign-Monday Baseline Flows: 458,831\n"}
+,{"stream_name":"stdout","time":34.271337469,"data":"[*] Training RAKSHA-AI 4-Subspace Ensemble Isolation Forest Engine...\n"}
+,{"stream_name":"stdout","time":37.155137012,"data":"[+] 4-Subspace Models trained in 2.89s!\n"}
+,{"stream_name":"stdout","time":38.154275848,"data":"[+] Calibrated Anomaly Cutoff at 2.5% False Positive Rate: -0.02299\n"}
+,{"stream_name":"stdout","time":38.356075449,"data":"[*] Running full batch inference across all 2,830,743 flows in chunks...\n"}
+,{"stream_name":"stdout","time":43.105717854,"data":"    - Processed chunk 0 to 250,000 flows...\n"}
+,{"stream_name":"stdout","time":47.592887737,"data":"    - Processed chunk 250,000 to 500,000 flows...\n"}
+,{"stream_name":"stdout","time":52.102504188,"data":"    - Processed chunk 500,000 to 750,000 flows...\n"}
+,{"stream_name":"stdout","time":56.617606478,"data":"    - Processed chunk 750,000 to 1,000,000 flows...\n"}
+,{"stream_name":"stdout","time":60.114069217,"data":"    - Processed chunk 1,000,000 to 1,250,000 flows...\n"}
+,{"stream_name":"stdout","time":63.749320772,"data":"    - Processed chunk 1,250,000 to 1,500,000 flows...\n"}
+,{"stream_name":"stdout","time":68.271729603,"data":"    - Processed chunk 1,500,000 to 1,750,000 flows...\n"}
+,{"stream_name":"stdout","time":72.648712486,"data":"    - Processed chunk 1,750,000 to 2,000,000 flows...\n"}
+,{"stream_name":"stdout","time":77.090411108,"data":"    - Processed chunk 2,000,000 to 2,250,000 flows...\n"}
+,{"stream_name":"stdout","time":78.909349149,"data":"    - Processed chunk 2,250,000 to 2,313,810 flows...\n"}
+,{"stream_name":"stdout","time":78.909387453,"data":"\n"}
+,{"stream_name":"stdout","time":78.909400934,"data":"[+] Complete 2.83M Flow Inference Time: 40.36s\n"}
+,{"stream_name":"stdout","time":78.909407129,"data":"    - Throughput: 57,327 flows/sec\n"}
+,{"stream_name":"stdout","time":78.909438419,"data":"    - Per-Flow Latency: 17.44 microseconds (0.0174 ms)\n"}
+,{"stream_name":"stdout","time":78.935448648,"data":"\n"}
+,{"stream_name":"stdout","time":78.935487392,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":78.935494036,"data":"   CIC-IDS2017 FULL BENCHMARK RESULTS (2,830,743 FLOWS)\n"}
+,{"stream_name":"stdout","time":78.935499224,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":78.935504569,"data":"Total Flows Evaluated:        2,313,810\n"}
+,{"stream_name":"stdout","time":78.935508829,"data":"Total Legitimate Flows:       1,977,318\n"}
+,{"stream_name":"stdout","time":78.93551321,"data":"Total Attack Telemetry Flows: 336,492\n"}
+,{"stream_name":"stdout","time":78.935518194,"data":"OVERALL ATTACK RECALL:        38.23% (128,656 / 336,492)\n"}
+,{"stream_name":"stdout","time":78.935522669,"data":"BENIGN FALSE ALARM RATE:      4.08% (80,722 / 1,977,318)\n"}
+,{"stream_name":"stdout","time":80.690828831,"data":"\n"}
+,{"stream_name":"stdout","time":80.690867083,"data":"| Attack Category                  | Total Flows | Detected Flows | Recall % |\n"}
+,{"stream_name":"stdout","time":80.690874062,"data":"|:---------------------------------|:-----------:|:--------------:|:--------:|\n"}
+,{"stream_name":"stdout","time":80.690879146,"data":"| Bot                              |       1,437 |             44 |    3.06% |\n"}
+,{"stream_name":"stdout","time":80.690884071,"data":"| DDoS                             |     128,014 |         19,437 |   15.18% |\n"}
+,{"stream_name":"stdout","time":80.690888893,"data":"| DoS GoldenEye                    |      10,286 |              8 |    0.08% |\n"}
+,{"stream_name":"stdout","time":80.690893641,"data":"| DoS Hulk                         |     172,846 |        101,737 |   58.86% |\n"}
+,{"stream_name":"stdout","time":80.690898301,"data":"| DoS Slowhttptest                 |       5,228 |          3,904 |   74.67% |\n"}
+,{"stream_name":"stdout","time":80.690903713,"data":"| DoS slowloris                    |       5,385 |          3,116 |   57.86% |\n"}
+,{"stream_name":"stdout","time":80.930799983,"data":"| FTP-Patator                      |       5,931 |              1 |    0.02% |\n"}
+,{"stream_name":"stdout","time":80.9308462,"data":"| Heartbleed                       |          11 |             11 |  100.00% |\n"}
+,{"stream_name":"stdout","time":80.930855832,"data":"| Infiltration                     |          36 |             29 |   80.56% |\n"}
+,{"stream_name":"stdout","time":80.930863849,"data":"| PortScan                         |       1,956 |            279 |   14.26% |\n"}
+,{"stream_name":"stdout","time":80.930872817,"data":"| SSH-Patator                      |       3,219 |              3 |    0.09% |\n"}
+,{"stream_name":"stdout","time":80.930880149,"data":"| Web Attack � Brute Force         |       1,470 |             71 |    4.83% |\n"}
+,{"stream_name":"stdout","time":80.93089085,"data":"| Web Attack � Sql Injection       |          21 |              0 |    0.00% |\n"}
+,{"stream_name":"stdout","time":81.212315937,"data":"| Web Attack � XSS                 |         652 |             16 |    2.45% |\n"}
+,{"stream_name":"stdout","time":81.212352001,"data":"\n"}
+,{"stream_name":"stdout","time":81.21235769,"data":"--- Macro Threat Family Aggregation ---\n"}
+,{"stream_name":"stdout","time":81.212362602,"data":"[*] DDoS / DoS: 39.84% (128,202 / 321,759 flows detected)\n"}
+,{"stream_name":"stdout","time":81.212367567,"data":"[*] Recon / PortScan: 14.26% (279 / 1,956 flows detected)\n"}
+,{"stream_name":"stdout","time":81.406032402,"data":"[*] Credential Brute Force: 0.04% (4 / 9,150 flows detected)\n"}
+,{"stream_name":"stdout","time":81.406081087,"data":"[*] Web Attacks: 0.00% (0 / 0 flows detected)\n"}
+,{"stream_name":"stdout","time":81.406087144,"data":"[*] Botnet / Advanced: 5.66% (84 / 1,484 flows detected)\n"}
+,{"stream_name":"stdout","time":81.648653859,"data":"[+] Saved cicids2017_large_benchmark.json!\n"}
+,{"stream_name":"stdout","time":81.874313322,"data":"[+] Benchmark plot generated and saved.\n"}
+,{"stream_name":"stderr","time":86.030939217,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":86.030977468,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":86.239972499,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":86.2400036,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":87.163494985,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":87.275631349,"data":"[NbConvertApp] Writing 80894 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":90.648284428,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":91.440044746,"data":"[NbConvertApp] Support files will be in __results___files/\n"}
+,{"stream_name":"stderr","time":91.440081826,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":91.440430149,"data":"[NbConvertApp] Writing 341710 bytes to __results__.html\n"}
+]

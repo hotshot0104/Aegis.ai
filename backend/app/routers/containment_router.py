@@ -1,5 +1,5 @@
 """
-Containment Execution Router for Project AEGIS-AI.
+Containment Execution Router for Project RAKSHA-AI.
 Enforces Rule 3 (Human-in-the-Loop Safety Gate).
 Endpoints:
 - POST /api/v1/agent/execute-containment: Authorizes and executes staged firewall isolation with officer token verification.

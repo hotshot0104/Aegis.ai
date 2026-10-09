@@ -1,5 +1,5 @@
 """
-Routers package for Project AEGIS-AI FastAPI endpoints.
+Routers package for Project RAKSHA-AI FastAPI endpoints.
 Exports telemetry_router, agent_router, containment_router, and ws_router.
 """
 

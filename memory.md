@@ -1,7 +1,7 @@
-# 🧠 PROJECT AEGIS-AI: Developer Memory, Architectural Decision Records (ADR) & Triage Guide
+# 🧠 PROJECT RAKSHA-AI: Developer Memory, Architectural Decision Records (ADR) & Triage Guide
 
-> **Document Code:** `AEGIS-MEMORY-001`  
-> **Purpose:** Persistent context store for developers and AI pair programmers to debug, expand, and maintain the AEGIS-AI platform without re-reading the entire codebase.
+> **Document Code:** `RAKSHA-MEMORY-001`  
+> **Purpose:** Persistent context store for developers and AI pair programmers to debug, expand, and maintain the RAKSHA-AI platform without re-reading the entire codebase.
 
 ---
 
@@ -9,7 +9,7 @@
 
 | Parameter | Value / Detail |
 | :--- | :--- |
-| **Project Title** | Project AEGIS-AI (Autonomous Agentic SOC & Non-IoC Network Compromise Defense) |
+| **Project Title** | Project RAKSHA-AI (Autonomous Agentic SOC & Non-IoC Network Compromise Defense) |
 | **Target Environment** | Enterprise SOC & Autonomous Network Perimeter Defense |
 | **Theme** | Cybersecurity & AI / Machine Learning |
 | **Core Philosophy** | Detect network compromise through **statistical flow anomalies (non-IoC)** without relying on static signatures, IP blacklists, or malware hashes. |
@@ -38,7 +38,7 @@
 
 ### ADR-004: Pure Statistical Flow Metrics vs Deep Packet Inspection (DPI)
 * **Context:** Over 85% of enterprise and attack traffic is encrypted via TLS 1.3 or QUIC. DPI is computationally expensive and breaks user privacy.
-* **Decision:** AEGIS-AI operates purely on 41 statistical flow characteristics (connection duration, src/dst byte counts, SYN/ACK ratios, service dispersion, host traversal counts).
+* **Decision:** RAKSHA-AI operates purely on 41 statistical flow characteristics (connection duration, src/dst byte counts, SYN/ACK ratios, service dispersion, host traversal counts).
 * **Consequences:** 100% compatibility with encrypted traffic, zero payload privacy violations, and ultra-high processing throughput.
 
 ### ADR-005: Backend Framework Selection (Python FastAPI)
@@ -68,7 +68,7 @@
 ### 3.3 Multi-Platform Firewall Command Templates
 * **Linux `iptables`:** `sudo iptables -I INPUT 1 -s {src_ip} -j DROP`
 * **Cisco IOS ACL:** `access-list 101 deny ip host {src_ip} any`
-* **Windows Defender PowerShell:** `New-NetFirewallRule -DisplayName 'AEGIS-Block-{src_ip}' -Direction Inbound -RemoteAddress '{src_ip}' -Action Block`
+* **Windows Defender PowerShell:** `New-NetFirewallRule -DisplayName 'RAKSHA-Block-{src_ip}' -Direction Inbound -RemoteAddress '{src_ip}' -Action Block`
 
 ---
 

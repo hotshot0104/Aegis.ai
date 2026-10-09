@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-KERNEL_SLUG="sameersingh0104/aegis-ai-isolation-forest-training"
+KERNEL_SLUG="sameersingh0104/raksha-ai-isolation-forest-training"
 OUTPUT_DIR="backend/models_saved/kaggle_artifacts"
 
 echo "[*] Checking Kaggle Kernel status for: $KERNEL_SLUG"

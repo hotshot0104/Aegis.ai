@@ -1,5 +1,5 @@
 /**
- * AEGIS-AI Unified REST & Real-Time API Client
+ * RAKSHA-AI Unified REST & Real-Time API Client
  * Interoperates between Next.js SOC Dashboard and Python FastAPI Backend (:8000)
  */
 
@@ -146,7 +146,7 @@ async function fetchJson<T>(endpoint: string, options: RequestInit = {}): Promis
   return response.json();
 }
 
-export const aegisApi = {
+export const rakshaApi = {
   /** Health check endpoint */
   async getHealth(): Promise<{ status: string; model_loaded: boolean; version: string }> {
     return fetchJson("/health");
@@ -372,14 +372,14 @@ export const aegisApi = {
     try {
       const incident = await this.simulateAttack();
       return {
-        message: `🧠 **AEGIS Multi-Agent Core Processed Instruction**: "${text}"\n\n` +
+        message: `🧠 **RAKSHA Multi-Agent Core Processed Instruction**: "${text}"\n\n` +
           `Dispatched 4-Agent DAG Triage. Generated Incident \`${incident.incident_id}\` targeting \`${incident.target_ip}\`.`,
         incident,
         command_executed: "MANUAL_INVESTIGATION",
       };
     } catch (err: any) {
       return {
-        message: `ℹ️ **AEGIS Assistant**: Processed prompt "${text}". FastAPI engine online and monitoring real-time flow stream.`,
+        message: `ℹ️ **RAKSHA Assistant**: Processed prompt "${text}". FastAPI engine online and monitoring real-time flow stream.`,
         command_executed: "CHAT_PROMPT",
       };
     }

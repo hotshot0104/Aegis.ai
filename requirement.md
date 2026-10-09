@@ -1,6 +1,6 @@
-# 📋 PROJECT AEGIS-AI: System & Technical Requirements Specification
+# 📋 PROJECT RAKSHA-AI: System & Technical Requirements Specification
 
-> **Document Code:** `AEGIS-REQ-001`  
+> **Document Code:** `RAKSHA-REQ-001`  
 > **Target Version:** v1.0.0 (Core MVP) & v2.0.0 (Enterprise)  
 > **Classification:** Technical Requirements Specification
 

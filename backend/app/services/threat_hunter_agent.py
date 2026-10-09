@@ -1,5 +1,5 @@
 """
-Threat Hunter Agent for Project AEGIS-AI.
+Threat Hunter Agent for Project RAKSHA-AI.
 Specializes in non-IoC behavioral pattern recognition and MITRE ATT&CK mapping.
 Rule 1: Zero IoC Dependency - Analyzes purely statistical flow metrics and TTPs.
 Rule 4: Deterministic Pydantic Tool Schemas.

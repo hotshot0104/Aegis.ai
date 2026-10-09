@@ -1,5 +1,5 @@
 """
-Rolling False-Positive Filter for Project AEGIS-AI.
+Rolling False-Positive Filter for Project RAKSHA-AI.
 Suppresses transient network noise, short bursts, and temporary spike events
 using cumulative BDI score accumulation over a sliding window with noise-floor gating,
 while maintaining consecutive anomaly tracking for low-and-slow / burst detection.

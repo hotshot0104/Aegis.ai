@@ -1,4 +1,4 @@
-# Dockerfile for AEGIS-AI FastAPI Backend & Unsupervised ML Perception Engine
+# Dockerfile for RAKSHA-AI FastAPI Backend & Unsupervised ML Perception Engine
 FROM python:3.12-slim
 
 WORKDIR /app

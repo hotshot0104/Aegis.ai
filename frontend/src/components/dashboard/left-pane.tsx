@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
-import { aegisApi, type FleetStats, type IncidentCard } from "@/lib/api-client";
+import { rakshaApi, type FleetStats, type IncidentCard } from "@/lib/api-client";
 import { useChatContext } from "@/components/agent-feed/chat-provider";
 
 export function DashboardLeftPane() {
@@ -13,8 +13,8 @@ export function DashboardLeftPane() {
     const fetchStats = async () => {
       try {
         const [s, inc] = await Promise.all([
-          aegisApi.getFleetStats(),
-          aegisApi.getIncidents(),
+          rakshaApi.getFleetStats(),
+          rakshaApi.getIncidents(),
         ]);
         setStats(s);
         setIncidents(inc);
@@ -47,7 +47,7 @@ export function DashboardLeftPane() {
         ip: tick.src_ip,
         flag,
         dotColor: tick.is_anomaly ? "bg-rose-500 animate-pulse" : "bg-emerald-500",
-        domain: tick.domain || "aegis-fleet-node.net",
+        domain: tick.domain || "raksha-fleet-node.net",
         time: "Just now",
       };
       setLiveStreamItems((prev) => [newItem, ...prev.slice(0, 49)]);
@@ -87,9 +87,9 @@ export function DashboardLeftPane() {
   const baselineFeed = useMemo(() => {
     const flags = ["🇺🇸", "🇩🇪", "🇯🇵", "🇮🇳", "🇬🇧", "🇨🇦", "🇫🇷", "🇧🇷", "🇦🇺", "🇸🇬", "🇳🇱", "🇸🇪", "🇰🇷", "🇮🇹", "🇪🇸"];
     const domains = [
-      "api.aegis.cloud",
+      "api.raksha.cloud",
       "finance.subnet.internal",
-      "auth-gateway.aegis.io",
+      "auth-gateway.raksha.io",
       "exit-node-05.tor.org",
       "telemetry.aws-east.com",
       "webhook.github.com",
@@ -97,7 +97,7 @@ export function DashboardLeftPane() {
       "s3-vault.amazonaws.com",
       "statuspage.io",
       "db-cluster-prod.internal",
-      "k8s-ingress.aegis.dev",
+      "k8s-ingress.raksha.dev",
       "monitoring.datadog.com",
     ];
 

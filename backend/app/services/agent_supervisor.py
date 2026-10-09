@@ -1,5 +1,5 @@
 """
-Agent Supervisor Orchestrator for Project AEGIS-AI.
+Agent Supervisor Orchestrator for Project RAKSHA-AI.
 Implements the Autonomous Multi-Agent Reasoning Directed Acyclic Graph (DAG).
 Orchestrates parallel execution of ThreatHunter, AssetInvestigator, and RuleGenerator agents
 via asyncio.gather() and synthesizes the unified IncidentCard.
@@ -197,7 +197,7 @@ class AgentSupervisor:
             f"Firewall drop rules staged for operator approval."
         )
 
-        incident_id = f"AEGIS-{uuid.uuid4().hex[:6].upper()}"
+        incident_id = f"RAKSHA-{uuid.uuid4().hex[:6].upper()}"
 
         # Step 6: Assemble unified Incident Card
         incident_card = IncidentCard(
@@ -239,7 +239,7 @@ class AgentSupervisor:
         pending_count = sum(1 for inc in incidents if inc.status == "PENDING_APPROVAL")
 
         lines = [
-            f"# 🛡️ AEGIS-AI Executive CISO Daily Threat & Compromise Brief",
+            f"# 🛡️ RAKSHA-AI Executive CISO Daily Threat & Compromise Brief",
             f"",
             f"> **Report Generated:** `{now_str}`  ",
             f"> **Detection Paradigm:** Unsupervised Non-IoC Statistical Flow Profiling (Zero Signatures)",
@@ -297,7 +297,7 @@ class AgentSupervisor:
             f"2. Rotate administrative credentials on affected endpoints.",
             f"3. Verify SHA-256 audit logs for all contained host approvals.",
             f"",
-            f"*Report compiled autonomously by AEGIS-AI Multi-Agent Core.*",
+            f"*Report compiled autonomously by RAKSHA-AI Multi-Agent Core.*",
         ])
 
         return "\n".join(lines)

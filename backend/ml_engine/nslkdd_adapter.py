@@ -1,5 +1,5 @@
 """
-NSL-KDD Dataset Adapter for Project AEGIS-AI.
+NSL-KDD Dataset Adapter for Project RAKSHA-AI.
 Parses KDDTrain+ and KDDTest+ files, extracts 41 statistical non-payload flow metrics
 using FlowFeatureExtractor, and separates benign baseline from attack traffic.
 """
@@ -34,7 +34,7 @@ COLUMN_NAMES = FEATURE_NAMES + ["label", "difficulty_level"]
 
 
 class NslKddAdapter:
-    """Adapts raw NSL-KDD data into normalized feature matrices for AEGIS-AI."""
+    """Adapts raw NSL-KDD data into normalized feature matrices for RAKSHA-AI."""
 
     @staticmethod
     def load_dataset(

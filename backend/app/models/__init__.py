@@ -1,5 +1,5 @@
 """
-Models Package for Project AEGIS-AI.
+Models Package for Project RAKSHA-AI.
 Exports Pydantic v2 schemas for telemetry, incidents, assets, MITRE mappings,
 containment rules, and streaming thought events.
 """

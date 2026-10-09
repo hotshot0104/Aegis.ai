@@ -1,5 +1,5 @@
 """
-In-Memory Incident and Audit Repository for Project AEGIS-AI.
+In-Memory Incident and Audit Repository for Project RAKSHA-AI.
 Stores triaged IncidentCard instances, telemetry logs, and tamper-evident
 cryptographic containment audit receipts in memory for sub-millisecond retrieval.
 """

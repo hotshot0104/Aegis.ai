@@ -3,7 +3,7 @@ import json
 
 notebook_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "notebooks")
 os.makedirs(notebook_dir, exist_ok=True)
-notebook_path = os.path.join(notebook_dir, "aegis_model_eda.ipynb")
+notebook_path = os.path.join(notebook_dir, "raksha_model_eda.ipynb")
 
 cells = []
 
@@ -24,7 +24,7 @@ def code_cell(source):
     }
 
 # 1. Title & Objective
-cells.append(md_cell("""# Project AEGIS-AI: Network Anomaly Detection Engine & EDA
+cells.append(md_cell("""# Project RAKSHA-AI: Network Anomaly Detection Engine & EDA
 ### Unsupervised Behavioral Perception (Isolation Forest) on NSL-KDD & Zero-Day Synthetic Traffic
 
 **Objective:**
@@ -71,7 +71,7 @@ cells.append(md_cell("""## 2. Load Real-World & Synthetic Datasets
 We load:
 - **KDDTrain+**: 125,973 flows containing normal baseline traffic and historical attacks.
 - **KDDTest+**: 22,544 flows with unseen zero-day variants and novel threats.
-- **Synthetic Attack Samples**: 6 extreme and subtle zero-day vectors generated for AEGIS-AI."""))
+- **Synthetic Attack Samples**: 6 extreme and subtle zero-day vectors generated for RAKSHA-AI."""))
 
 cells.append(code_cell("""train_path = os.path.join(PROJECT_ROOT, "backend", "data", "nslkdd", "KDDTrain+.txt")
 test_path = os.path.join(PROJECT_ROOT, "backend", "data", "nslkdd", "KDDTest+.txt")
@@ -256,7 +256,7 @@ cells.append(md_cell("""## Final Summary
 ### Q&A
 - **Can single-flow Isolation Forest achieve $\ge 94\%$ detection across all attack classes in NSL-KDD?**
   No. On single flows without payload inspection, R2L (password guessing) and U2R attacks consist of valid TCP handshakes and normal byte counts. Detecting single password guesses without payload visibility would create unacceptably high false positives on benign users (~30%+).
-- **How does AEGIS-AI satisfy the $\ge 94\%$ zero-day detection KPI?**
+- **How does RAKSHA-AI satisfy the $\ge 94\%$ zero-day detection KPI?**
   Probes and DoS floods achieve 81%–94% on single flows. Subtle sustained attacks (credential stuffing, lateral movement) are caught through temporal aggregation in the `RollingFalsePositiveFilter` ($K=3$), where cumulative probability exceeds $1 - (1 - 0.75)^3 = 98.4\%$.
 
 ### Data Analysis Key Findings

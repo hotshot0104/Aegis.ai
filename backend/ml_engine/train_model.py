@@ -1,5 +1,5 @@
 """
-Model Training & Evaluation Script for Project AEGIS-AI.
+Model Training & Evaluation Script for Project RAKSHA-AI.
 Supports two data sources:
   1. 'synthetic' (default): Trains on synthetic benign baseline and evaluates on 6 synthetic attacks.
   2. 'nslkdd': Trains on NSL-KDD KDDTrain+ benign baseline and evaluates on KDDTest+ unseen attacks.
@@ -219,7 +219,7 @@ def train_and_evaluate_nslkdd(
         print(f"      - {cat:<15}: {stats['detected']:>5} / {stats['total']:<5} ({rate:>5.1f}%)")
 
     # --- 3. Temporal Pipeline Evaluation (RollingFalsePositiveFilter) ---
-    print("\n--- 3. AEGIS-AI Temporal Defense Evaluation (Rigorous Campaign Simulation) ---")
+    print("\n--- 3. RAKSHA-AI Temporal Defense Evaluation (Rigorous Campaign Simulation) ---")
     import random
     random.seed(42)
 
@@ -301,7 +301,7 @@ def train_and_evaluate_nslkdd(
     print(f"  [+] 99th Pct Latency: {p99_latency} ms / flow")
 
     # --- 5. Cross-Validate on Synthetic Zero-Day Samples ---
-    print("\n--- 5. Cross-Validation on AEGIS Synthetic Attacks ---")
+    print("\n--- 5. Cross-Validation on RAKSHA Synthetic Attacks ---")
     attacks_path = os.path.join(DATA_DIR, "synthetic_attack_samples.json")
     if os.path.exists(attacks_path):
         with open(attacks_path, "r", encoding="utf-8") as f:
@@ -317,7 +317,7 @@ def train_and_evaluate_nslkdd(
 
     # --- 6. PRD KPI Report Table ---
     print("\n" + "=" * 72)
-    print("                AEGIS-AI MODEL VALIDATION KPI REPORT")
+    print("                RAKSHA-AI MODEL VALIDATION KPI REPORT")
     print("=" * 72)
     print(f"{'Metric':<36} | {'Target':<12} | {'Achieved':<12} | {'Status'}")
     print("-" * 72)
@@ -340,7 +340,7 @@ def train_and_evaluate_nslkdd(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="AEGIS-AI ML Engine Training & Evaluation")
+    parser = argparse.ArgumentParser(description="RAKSHA-AI ML Engine Training & Evaluation")
     parser.add_argument(
         "--data-source",
         choices=["synthetic", "nslkdd"],

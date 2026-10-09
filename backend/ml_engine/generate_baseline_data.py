@@ -1,5 +1,5 @@
 """
-Dataset and Baseline Generator for Project AEGIS-AI.
+Dataset and Baseline Generator for Project RAKSHA-AI.
 Generates:
 1. backend/data/benign_baseline.csv: 100% normal flow records (NSL-KDD inspired)
 2. backend/data/synthetic_attack_samples.json: Zero-day stealth attacks (T1021, T1046, T1071, T1048)

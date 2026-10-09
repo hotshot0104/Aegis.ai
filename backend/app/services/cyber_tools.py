@@ -1,5 +1,5 @@
 """
-Deterministic Cyber Security Tools for Project AEGIS-AI.
+Deterministic Cyber Security Tools for Project RAKSHA-AI.
 These are the structured Python tools that agents invoke via the DAG.
 All tools use strict Pydantic-validated inputs/outputs (Rule 4).
 No arbitrary shell execution. No IoC lookups (Rule 1).
@@ -22,7 +22,7 @@ DATA_DIR = os.path.join(
 
 
 class CyberTools:
-    """Deterministic, schema-validated security tools for the AEGIS-AI agent core."""
+    """Deterministic, schema-validated security tools for the RAKSHA-AI agent core."""
 
     # Class-level caches to avoid disk I/O on every tool call
     _asset_registry_cache: Optional[Dict] = None
@@ -349,7 +349,7 @@ class CyberTools:
                 f"access-list 101 deny ip host {safe_ip} any"
             ),
             powershell_command=(
-                f"New-NetFirewallRule -DisplayName 'AEGIS-Block-{safe_ip}' "
+                f"New-NetFirewallRule -DisplayName 'RAKSHA-Block-{safe_ip}' "
                 f"-Direction Inbound -RemoteAddress '{safe_ip}' "
                 f"-Protocol {safe_proto.upper()} -LocalPort {safe_port} -Action Block"
             ),

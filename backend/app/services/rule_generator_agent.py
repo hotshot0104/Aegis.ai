@@ -1,5 +1,5 @@
 """
-Containment Rule Generator Agent for Project AEGIS-AI.
+Containment Rule Generator Agent for Project RAKSHA-AI.
 Synthesizes precise, platform-specific firewall rules (iptables, Cisco ACL, Windows PowerShell)
 to isolate attacking hosts while enforcing Human-in-the-Loop (HITL) safety constraints (Rule 3).
 Rule 4: Deterministic Pydantic Tool Schemas.

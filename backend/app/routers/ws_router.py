@@ -1,5 +1,5 @@
 """
-WebSocket Streaming Router for Project AEGIS-AI.
+WebSocket Streaming Router for Project RAKSHA-AI.
 Endpoint:
 - WebSocket /api/v1/ws/agent-thoughts: Streams sub-second agent reasoning steps,
   telemetry ticks, and containment state changes to the SOC dashboard.
@@ -9,7 +9,7 @@ import logging
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from backend.app.core.websocket_manager import ws_manager
 
-logger = logging.getLogger("aegis.ws_router")
+logger = logging.getLogger("raksha.ws_router")
 router = APIRouter(prefix="/ws", tags=["Real-Time WebSocket Streaming"])
 
 
@@ -24,7 +24,7 @@ async def websocket_agent_thoughts_endpoint(websocket: WebSocket) -> None:
     await websocket.send_json({
         "type": "CONNECTION_ESTABLISHED",
         "data": {
-            "message": "Connected to AEGIS-AI Real-Time SOC Stream.",
+            "message": "Connected to RAKSHA-AI Real-Time SOC Stream.",
             "status": "ONLINE",
             "channels": ["AGENT_THOUGHT", "TELEMETRY_TICK", "INCIDENT_CREATED", "CONTAINMENT_UPDATE"],
         }

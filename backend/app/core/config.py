@@ -1,5 +1,5 @@
 """
-Application Configuration and Settings for Project AEGIS-AI.
+Application Configuration and Settings for Project RAKSHA-AI.
 Uses Pydantic Settings for type-safe environment variable management.
 """
 
@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     """Global application settings and operational parameters."""
 
     # Project Information
-    PROJECT_NAME: str = "Project AEGIS-AI"
+    PROJECT_NAME: str = "Project RAKSHA-AI"
     API_V1_STR: str = "/api/v1"
     VERSION: str = "1.0.0"
     DESCRIPTION: str = "Autonomous Agentic SOC & Non-IoC Network Compromise Defense Engine"

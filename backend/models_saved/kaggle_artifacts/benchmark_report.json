@@ -1,5 +1,5 @@
 {
-  "model_name": "AEGIS-AI Cloud Training Benchmark",
+  "model_name": "RAKSHA-AI Cloud Training Benchmark",
   "timestamp": "2026-10-07 04:30:36Z",
   "isolation_forest": {
     "campaign_recall": 8.4,

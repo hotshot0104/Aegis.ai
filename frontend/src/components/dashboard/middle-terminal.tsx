@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { useChatContext } from "@/components/agent-feed/chat-provider";
-import { aegisApi } from "@/lib/api-client";
+import { rakshaApi } from "@/lib/api-client";
 
 interface TerminalLog {
   id: string;
@@ -25,7 +25,7 @@ export function MiddleTerminal() {
   const [terminalLogs, setTerminalLogs] = useState<TerminalLog[]>([
     {
       id: "init-1",
-      text: "👾 Okara Terminal — AEGIS-AI Cyber Command Console",
+      text: "👾 Okara Terminal — RAKSHA-AI Cyber Command Console",
       type: "system",
     },
     {
@@ -146,7 +146,7 @@ export function MiddleTerminal() {
         { id: Math.random().toString(), text: "[SIMULATOR] Injecting zero-day SMB lateral movement attack vector...", type: "system" },
       ]);
       try {
-        const inc = await aegisApi.simulateAttack("T1021.002");
+        const inc = await rakshaApi.simulateAttack("T1021.002");
         setTerminalLogs((prev) => [
           ...prev,
           { id: Math.random().toString(), text: `[+] Incident Generated: ${inc.incident_id} | Attacker: ${inc.attacker_ip} -> Target: ${inc.target_ip}`, type: "success" },
@@ -166,7 +166,7 @@ export function MiddleTerminal() {
         { id: Math.random().toString(), text: "[TEST_RUNNER] Running Pytest suite against backend endpoints...", type: "system" },
       ]);
       try {
-        const res = await aegisApi.runTests();
+        const res = await rakshaApi.runTests();
         setTerminalLogs((prev) => [
           ...prev,
           { id: Math.random().toString(), text: `[+] Test Run Complete: ${res.passed}/${res.total} Passed in ${res.duration_seconds}s`, type: "success" },
@@ -183,7 +183,7 @@ export function MiddleTerminal() {
 
     if (lower === "status") {
       try {
-        const s = await aegisApi.getFleetStats();
+        const s = await rakshaApi.getFleetStats();
         setTerminalLogs((prev) => [
           ...prev,
           { id: Math.random().toString(), text: `[OKARA SOC] Flow Ticks: ${s.flow_ticks} | Avg BDI: ${s.avg_bdi_score} | Engine: ${s.engine_status}`, type: "success" },
@@ -234,13 +234,13 @@ export function MiddleTerminal() {
 
     if (lower.startsWith("approve") || lower.startsWith("contain")) {
       const parts = cmd.split(" ");
-      const targetId = parts[1] || "AEGIS-APP-1";
+      const targetId = parts[1] || "RAKSHA-APP-1";
       setTerminalLogs((prev) => [
         ...prev,
         { id: Math.random().toString(), text: `[HITL GATEWAY] Authorizing containment for incident '${targetId}' with Officer Auth Token...`, type: "system" },
       ]);
       try {
-        const res = await aegisApi.executeContainment({
+        const res = await rakshaApi.executeContainment({
           incident_id: targetId,
           rule_type: "iptables",
           officer_token: "SOC-OFFICER-AUTH-TOKEN-DEMO",
@@ -263,7 +263,7 @@ export function MiddleTerminal() {
 
     if (lower === "audit" || lower === "receipts") {
       try {
-        const logs = await aegisApi.getAuditLogs();
+        const logs = await rakshaApi.getAuditLogs();
         if (logs.length === 0) {
           setTerminalLogs((prev) => [
             ...prev,
@@ -291,7 +291,7 @@ export function MiddleTerminal() {
 
     if (lower === "brief" || lower === "ciso") {
       try {
-        const brief = await aegisApi.getCisoBrief();
+        const brief = await rakshaApi.getCisoBrief();
         setTerminalLogs((prev) => [
           ...prev,
           { id: Math.random().toString(), text: `[CISO DAILY THREAT BRIEF] Total Incidents: ${brief.total_incidents} | Critical: ${brief.critical_incidents}`, type: "system" },

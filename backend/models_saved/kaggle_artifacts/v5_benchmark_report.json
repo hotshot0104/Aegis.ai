@@ -1,5 +1,5 @@
 {
-  "model_name": "AEGIS-AI Cloud Training Benchmark v5 (Deep SVDD + Embeddings + Top-K)",
+  "model_name": "RAKSHA-AI Cloud Training Benchmark v5 (Deep SVDD + Embeddings + Top-K)",
   "timestamp": "2026-10-07 05:02:28Z",
   "single_flow_recall": {
     "isolation_forest": 63.25878594249201,

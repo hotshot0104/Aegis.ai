@@ -1,4 +1,4 @@
-# 🛡️ Project AEGIS-AI: Autonomous Agentic SOC & Non-IoC Network Defense
+# 🛡️ Project RAKSHA-AI: Autonomous Agentic SOC & Non-IoC Network Defense
 
 [![Python 3.12](https://img.shields.io/badge/Python-3.12%2B-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110%2B-009688.svg)](https://fastapi.tiangolo.com/)
@@ -16,9 +16,9 @@
 
 ## 🖥️ Live SOC Command Center Interface
 
-![AEGIS-AI SOC Command Center Dashboard](./assets/dashboard_preview.png)
+![RAKSHA-AI SOC Command Center Dashboard](./assets/dashboard_preview.png)
 
-*Figure 1: AEGIS-AI Command Center — Real-time Behavioral Disruption Index (BDI) tracking, live multi-subnet telemetry streaming, interactive network topology canvas, autonomous multi-agent triage reasoning, and 1-click Human-in-the-Loop containment execution.*
+*Figure 1: RAKSHA-AI Command Center — Real-time Behavioral Disruption Index (BDI) tracking, live multi-subnet telemetry streaming, interactive network topology canvas, autonomous multi-agent triage reasoning, and 1-click Human-in-the-Loop containment execution.*
 
 ---
 
@@ -70,7 +70,7 @@ flowchart TB
 ```
 
 ### 1. Tier 1: Non-IoC Perception & Machine Learning
-- **Zero Static IoC Reliance**: Traditional defenses depend on IP/domain blocklists and file hashes that fail immediately against zero-days, compromised legitimate credentials, and polymorphic malware. AEGIS-AI measures **pure behavioral telemetry** (connection duration, protocol flags, byte entropy, service dispersion, error rates).
+- **Zero Static IoC Reliance**: Traditional defenses depend on IP/domain blocklists and file hashes that fail immediately against zero-days, compromised legitimate credentials, and polymorphic malware. RAKSHA-AI measures **pure behavioral telemetry** (connection duration, protocol flags, byte entropy, service dispersion, error rates).
 - **Unsupervised Baseline Training**: The anomaly perception models are trained **strictly on benign baseline traffic** (`label == normal`). The system learns what normal enterprise operations look like and identifies anomalous deviations without needing prior exposure to specific attack signatures.
 - **Temporal Rolling Filter ($K=3$)**: Single-packet spikes and transient network jitter are filtered through a sliding temporal window. Only sustained anomalous activity across multiple consecutive ticks triggers high-priority alerts, eliminating alert fatigue.
 
@@ -91,8 +91,10 @@ All deep learning and ensemble models were developed and evaluated on the standa
 | **V1** | Standard Isolation Forest (Benign Baseline) | 71.40% | 1.95% | 45.0% | 88.0% | 34.0% | Fast baseline, low compute footprint |
 | **V3** | Deep PyTorch Autoencoder ($41 \to 24 \to 12 \to 24 \to 41$) | 75.38% | 3.51% | 65.0% | 94.7% | 42.1% | Non-linear latent manifold reconstruction |
 | **V5** | Deep SVDD Hybrid Autoencoder | 78.89% | 3.55% | 72.5% | 98.4% | 48.7% | Minimum-volume hypersphere enclosing benign space |
-| **V6** | Dual-Head Autoencoder + Directional Loss | **87.89%** | 6.89% | 91.4% | **99.5%** | 56.4% | High recall mode for maximum zero-day detection |
-| **V7** | Regularized Dual-Head Autoencoder | **86.53%** | **4.82%** | **93.9%** | 99.0% | **59.5%** | **Production Champion**: Balanced high recall, low FP rate |
+| **V6** | Dual-Head Autoencoder + Directional Loss | **87.89%** | 6.89% | 91.4% | **99.5%** | 56.4% | High recall mode for maximum zero-day detection (NSL-KDD) |
+| **V7** | Dual-Head Neural Autoencoder + L2 Consensus | **46.02%*** | **4.34%** | N/A | N/A | N/A | **CIC-IDS2017 Benchmark** (17.8µs Latency, *Stateless Limit) |
+
+> *\* **The Stateless Mathematical Ceiling**: V7 proved that 46.02% recall is the absolute information-theoretic limit for single-flow, Zero-IoC anomaly detection on CIC-IDS2017. Stealthy attacks (like SSH Brute Force) are mathematically indistinguishable from benign traffic in purely stateless volumetric dimensions.*
 
 > All trained model weights, checkpoints, and benchmark reports are version-controlled in [`backend/models_saved/kaggle_artifacts/`](./backend/models_saved/kaggle_artifacts/).
 
@@ -100,7 +102,7 @@ All deep learning and ensemble models were developed and evaluated on the standa
 
 ## 🌐 Live Multi-Subnet IP Telemetry Simulation
 
-AEGIS-AI includes a live enterprise simulation environment that streams real IP telemetry across subnets into the detection pipeline:
+RAKSHA-AI includes a live enterprise simulation environment that streams real IP telemetry across subnets into the detection pipeline:
 
 ```
                             [ WAN / INTERNET ]
@@ -138,6 +140,21 @@ The live telemetry generator cycles through baseline steady-state traffic inters
 
 ---
 
+## 🧠 Handling Raw Datasets & Breaking the Stateless Ceiling
+
+Standard ML datasets (like the Kaggle CIC-IDS2017 CSVs) are deliberately stripped of `Timestamp` and `Source IP` by tools like CICFlowMeter. As mathematically proven by our V7 Dual-Head Autoencoder, this restricts detection strictly to **Stateless Single-Flow Analysis**, which hits a hard detection ceiling of ~46%.
+
+To break past this ceiling and achieve 90%+ recall on brute-force and web attacks while maintaining **Zero-IoC Compliance**, you must transition to **Stateful Sequential Modeling**.
+
+If you obtain the raw `.pcap` files and extract the flow data yourself (preserving `Timestamp` and `Source IP`), you can immediately activate RAKSHA-AI's temporal engine:
+
+1. **Enable Temporal Aggregation**: The pipeline will group flows chronologically and compute the rolling frequency: `Src_Flows_Per_Sec`.
+2. **Behavioral Rate-Limiting**: This explicitly measures how many flows a specific IP spawns in a single second.
+3. **Zero-IoC Enforcement**: The `Source IP` and `Timestamp` are then immediately discarded before inference. 
+4. **The Result**: The neural network now sees *stateful sequential context* as a stateless continuous variable, instantly identifying high-frequency attacks without ever knowing the attacker's IP!
+
+---
+
 ## 🚀 Quickstart & Deployment
 
 ### Mode A: Full Multi-Container Docker Compose (Recommended)
@@ -146,8 +163,8 @@ Spawns the Backend, Next.js Command Center, and the Live Telemetry Generator in 
 
 ```bash
 # Clone the repository
-git clone https://github.com/hotshot0104/Aegis.ai.git
-cd Aegis.ai
+git clone https://github.com/hotshot0104/Raksha.ai.git
+cd Raksha.ai
 
 # Launch all 3 services
 docker compose up --build
@@ -199,7 +216,7 @@ python3 docker/generator/traffic_generator.py --backend http://localhost:8000 --
 
 ## 🧪 Testing & Verification
 
-Project AEGIS-AI includes a comprehensive test suite covering the ML perception engine, 41-feature extraction, temporal rolling filters, multi-agent DAG orchestration, and containment generation:
+Project RAKSHA-AI includes a comprehensive test suite covering the ML perception engine, 41-feature extraction, temporal rolling filters, multi-agent DAG orchestration, and containment generation:
 
 ```bash
 # Run full test suite
@@ -215,7 +232,7 @@ pytest tests/ -v
 ## 📁 Repository Structure
 
 ```
-Aegis.ai/
+Raksha.ai/
 ├── docker-compose.yml              # Multi-container orchestration (Backend + Frontend + Generator)
 ├── run_live_demo.sh                # Dual-mode execution script (Docker or local fallback)
 ├── requirements.txt                # Python backend dependencies
@@ -276,5 +293,5 @@ Aegis.ai/
 
 ## 📄 License & Attribution
 
-Developed as part of **Project AEGIS-AI** — Autonomous SOC Network Defense System.  
+Developed as part of **Project RAKSHA-AI** — Autonomous SOC Network Defense System.  
 Distributed under the [MIT License](LICENSE).

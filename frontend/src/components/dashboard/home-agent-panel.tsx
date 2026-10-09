@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useChatContext } from "@/components/agent-feed/chat-provider";
 import { AgentFeed } from "@/components/agent-feed/agent-feed";
-import { aegisApi } from "@/lib/api-client";
+import { rakshaApi } from "@/lib/api-client";
 import {
   Plus,
   ArrowUp,
@@ -108,8 +108,8 @@ export function HomeAgentPanel() {
         sendMessage({ text: detail.text });
       }
     };
-    window.addEventListener("aegis:proceed-tasks", handleProceed);
-    return () => window.removeEventListener("aegis:proceed-tasks", handleProceed);
+    window.addEventListener("raksha:proceed-tasks", handleProceed);
+    return () => window.removeEventListener("raksha:proceed-tasks", handleProceed);
   }, [sendMessage]);
 
   const handleSend = () => {
@@ -135,7 +135,7 @@ export function HomeAgentPanel() {
         >
           <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#22d3ee]" />
           <Bot className="w-4 h-4 text-cyan-400" />
-          <span className="font-mono">AEGIS SOC Agent</span>
+          <span className="font-mono">RAKSHA SOC Agent</span>
         </button>
       </div>
     );

@@ -1,5 +1,5 @@
 """
-Unit Tests for Project AEGIS-AI Core Security & Cryptography Module.
+Unit Tests for Project RAKSHA-AI Core Security & Cryptography Module.
 Verifies:
 1. Constant-time officer authentication token matching (Rule 3 HITL Gate).
 2. Rejection of invalid, empty, or malicious token attempts.
@@ -26,7 +26,7 @@ def test_verify_officer_token_invalid():
 def test_generate_audit_hash_deterministic():
     """Verify SHA-256 audit digest is deterministic and tamper-evident."""
     event_1 = {
-        "incident_id": "AEGIS-123456",
+        "incident_id": "RAKSHA-123456",
         "action": "CONTAIN_SOURCE_IP",
         "officer": "analyst-01",
         "target_ip": "192.168.1.104",

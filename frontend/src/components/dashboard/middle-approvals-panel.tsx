@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useChatContext } from "@/components/agent-feed/chat-provider";
-import { aegisApi, type IncidentCard } from "@/lib/api-client";
+import { rakshaApi, type IncidentCard } from "@/lib/api-client";
 
 interface ApprovalItem {
   id: string;
@@ -45,7 +45,7 @@ const initialApprovals: ApprovalItem[] = [
     reason: "Anomaly detected in AWS STS AssumeRole token generation outside trusted CIDR blocks. Possible credential theft attempt.",
     remediationCommands: [
       "aws iam revoke-security-credentials --user-name soc-deploy-bot",
-      "aws s3api put-bucket-policy --bucket aegis-vault --policy file://containment.json",
+      "aws s3api put-bucket-policy --bucket raksha-vault --policy file://containment.json",
     ],
     telemetrySource: "AWS-CLOUD-TRAIL-INGRESS",
     timeAgo: "15m ago",
@@ -86,7 +86,7 @@ function mapIncidentToApproval(inc: IncidentCard): ApprovalItem {
     flag: "🚨",
     reason: inc.agent_reasoning_summary || `High-risk anomaly (BDI ${inc.bdi_score}) detected targeting ${inc.target_ip}.`,
     remediationCommands: [iptables, powershell],
-    telemetrySource: "AEGIS-MULTI-AGENT-DAG",
+    telemetrySource: "RAKSHA-MULTI-AGENT-DAG",
     timeAgo: "Just now",
     status: statusStr,
   };
@@ -102,7 +102,7 @@ export function MiddleApprovalsPanel() {
   useEffect(() => {
     const loadIncidents = async () => {
       try {
-        const incidents = await aegisApi.getIncidents();
+        const incidents = await rakshaApi.getIncidents();
         if (incidents && incidents.length > 0) {
           const mapped = incidents.map(mapIncidentToApproval);
           setApprovals((prev) => {
@@ -149,7 +149,7 @@ export function MiddleApprovalsPanel() {
     const isDemoItem = item.id.startsWith("app-");
     if (!isDemoItem) {
       try {
-        await aegisApi.executeContainment({
+        await rakshaApi.executeContainment({
           incident_id: item.id,
           rule_type: "iptables",
           officer_token: "SOC-OFFICER-AUTH-TOKEN-DEMO",
@@ -174,7 +174,7 @@ export function MiddleApprovalsPanel() {
     const isDemoItem = item.id.startsWith("app-");
     if (!isDemoItem) {
       try {
-        await aegisApi.executeContainment({
+        await rakshaApi.executeContainment({
           incident_id: item.id,
           approval_action: "REJECT",
         });

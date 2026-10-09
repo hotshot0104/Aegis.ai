@@ -1,0 +1,64 @@
+[{"stream_name":"stderr","time":9.048507401,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.048574334,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.048579777,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.048582769,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.834176314,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.834215772,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.834222689,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.834227648,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":19.187630416,"data":"[+] Python Version: 3.13.15\n"}
+,{"stream_name":"stdout","time":19.187675182,"data":"[+] PyTorch Device: cpu\n"}
+,{"stream_name":"stdout","time":19.22297283,"data":"[*] Looking for CSV files in: .\n"}
+,{"stream_name":"stderr","time":20.559136634,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":20.559960441,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":20.559979881,"data":"    import sys;import papermill as pm;pm.execute_notebook(\"__notebook__.ipynb\",\"__notebook__.ipynb\",progress_bar=False,log_output=True,stdout_file=sys.stdout,stderr_file=sys.stderr,allow_errors=False,timeout=43200)\n"}
+,{"stream_name":"stderr","time":20.559986029,"data":"                                      ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":20.559989677,"data":"  File \"/usr/local/lib/python3.13/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":20.559993193,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":20.559996239,"data":"    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":20.559999162,"data":"  File \"/usr/local/lib/python3.13/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":20.560002464,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":20.560005401,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":20.560008368,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":20.560011376,"data":"Exception encountered at \"In [2]\":\n"}
+,{"stream_name":"stderr","time":20.560014473,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":20.560017433,"data":"ValueError                                Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":20.560020414,"data":"/tmp/ipykernel_17/3363024436.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":20.560023478,"data":"     25     dfs.append(day_df)\n"}
+,{"stream_name":"stderr","time":20.560026419,"data":"     26 \n"}
+,{"stream_name":"stderr","time":20.560029275,"data":"---\u003e 27 df_all = pd.concat(dfs, ignore_index=True)\n"}
+,{"stream_name":"stderr","time":20.560032312,"data":"     28 print(\"\\n[+] Total Flows Loaded: {:,}\".format(len(df_all)))\n"}
+,{"stream_name":"stderr","time":20.560051829,"data":"     29 print(\"[+] Memory Usage: {:.2f} GB\".format(df_all.memory_usage().sum() / 1e9))\n"}
+,{"stream_name":"stderr","time":20.560055721,"data":"\n"}
+,{"stream_name":"stderr","time":20.56005867,"data":"/usr/local/lib/python3.13/dist-packages/pandas/core/reshape/concat.py in concat(objs, axis, join, ignore_index, keys, levels, names, verify_integrity, sort, copy)\n"}
+,{"stream_name":"stderr","time":20.560062001,"data":"    380         copy = False\n"}
+,{"stream_name":"stderr","time":20.560064908,"data":"    381 \n"}
+,{"stream_name":"stderr","time":20.560067728,"data":"--\u003e 382     op = _Concatenator(\n"}
+,{"stream_name":"stderr","time":20.560070654,"data":"    383         objs,\n"}
+,{"stream_name":"stderr","time":20.560073616,"data":"    384         axis=axis,\n"}
+,{"stream_name":"stderr","time":20.560076469,"data":"\n"}
+,{"stream_name":"stderr","time":20.560079316,"data":"/usr/local/lib/python3.13/dist-packages/pandas/core/reshape/concat.py in __init__(self, objs, axis, join, keys, levels, names, ignore_index, verify_integrity, copy, sort)\n"}
+,{"stream_name":"stderr","time":20.56008255,"data":"    443         self.copy = copy\n"}
+,{"stream_name":"stderr","time":20.560085522,"data":"    444 \n"}
+,{"stream_name":"stderr","time":20.560088367,"data":"--\u003e 445         objs, keys = self._clean_keys_and_objs(objs, keys)\n"}
+,{"stream_name":"stderr","time":20.56009142,"data":"    446 \n"}
+,{"stream_name":"stderr","time":20.560094385,"data":"    447         # figure out what our result ndim is going to be\n"}
+,{"stream_name":"stderr","time":20.560097356,"data":"\n"}
+,{"stream_name":"stderr","time":20.56010108,"data":"/usr/local/lib/python3.13/dist-packages/pandas/core/reshape/concat.py in _clean_keys_and_objs(self, objs, keys)\n"}
+,{"stream_name":"stderr","time":20.560104441,"data":"    505 \n"}
+,{"stream_name":"stderr","time":20.56010726,"data":"    506         if len(objs_list) == 0:\n"}
+,{"stream_name":"stderr","time":20.560110183,"data":"--\u003e 507             raise ValueError(\"No objects to concatenate\")\n"}
+,{"stream_name":"stderr","time":20.560113334,"data":"    508 \n"}
+,{"stream_name":"stderr","time":20.560116148,"data":"    509         if keys is None:\n"}
+,{"stream_name":"stderr","time":20.560119025,"data":"\n"}
+,{"stream_name":"stderr","time":20.560121813,"data":"ValueError: No objects to concatenate\n"}
+,{"stream_name":"stderr","time":20.560124725,"data":"\n"}
+,{"stream_name":"stderr","time":23.449962701,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":23.450006782,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":23.67873691,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":23.678765671,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":24.648730613,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":24.754207904,"data":"[NbConvertApp] Writing 34003 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":28.002354876,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":28.727747296,"data":"[NbConvertApp] Writing 374345 bytes to __results__.html\n"}
+]

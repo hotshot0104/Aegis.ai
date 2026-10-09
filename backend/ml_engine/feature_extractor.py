@@ -1,5 +1,5 @@
 """
-Feature Extractor Module for Project AEGIS-AI.
+Feature Extractor Module for Project RAKSHA-AI.
 Extracts, formats, and normalizes 41 non-payload statistical flow metrics
 following the NSL-KDD / CIC-IDS2017 flow taxonomy.
 Strictly zero-IoC compliant (Rule 1 & Rule 2).
@@ -155,7 +155,11 @@ class FlowFeatureExtractor:
 
         if name in FEATURE_SCALING_BOUNDS:
             max_val = FEATURE_SCALING_BOUNDS[name]
-            scaled = float_val / max_val
+            volumetric_features = ["src_bytes", "dst_bytes", "duration", "count", "srv_count"]
+            if name in volumetric_features:
+                scaled = np.log1p(max(0.0, float_val)) / np.log1p(max_val)
+            else:
+                scaled = float_val / max_val
             return 0.0 if scaled < 0.0 else (1.0 if scaled > 1.0 else scaled)
 
         # Rates and binary flags are already naturally in [0.0, 1.0]

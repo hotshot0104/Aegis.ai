@@ -1,5 +1,5 @@
 {
-  "model_name": "AEGIS-AI Cloud Training Benchmark v7 (APAN + Regularized Multi-Task AE + Power-Mean Consensus)",
+  "model_name": "RAKSHA-AI Cloud Training Benchmark v7 (APAN + Regularized Multi-Task AE + Power-Mean Consensus)",
   "timestamp": "2026-10-07 06:00:09Z",
   "single_flow_recall": {
     "isolation_forest": 63.25878594249201,

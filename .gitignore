@@ -60,6 +60,10 @@ dist/
 # Temporary directories
 temp_repo/
 
+# Ignore large PCAP CSV datasets
+Monday-WorkingHours.pcap_ISCX.csv
+*.pcap_ISCX.csv
+
 # Raw dataset files (re-downloaded via backend/ml_engine/download_nslkdd.py)
 backend/data/nslkdd/
 

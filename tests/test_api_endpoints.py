@@ -1,5 +1,5 @@
 """
-Integration and End-to-End API Tests for Project AEGIS-AI (Phase 3).
+Integration and End-to-End API Tests for Project RAKSHA-AI (Phase 3).
 Tests:
 1. Health & Root API endpoints.
 2. Live telemetry flow ingestion and BDI scoring (/api/v1/telemetry/stream).
@@ -122,7 +122,7 @@ def test_simulate_attack_burst_and_triage():
     assert response.status_code == 200
     incident = response.json()
     
-    assert incident["incident_id"].startswith("AEGIS-")
+    assert incident["incident_id"].startswith("RAKSHA-")
     assert incident["bdi_score"] >= 0.70
     assert incident["attacker_ip"] == "192.168.1.104"
     assert incident["target_ip"] == "192.168.1.45"
@@ -153,7 +153,7 @@ def test_manual_agent_investigate():
     response = client.post("/api/v1/agent/investigate", json=payload)
     assert response.status_code == 200
     data = response.json()
-    assert data["incident_id"].startswith("AEGIS-")
+    assert data["incident_id"].startswith("RAKSHA-")
     assert data["bdi_score"] == 0.96
     assert data["mitre_threat"]["technique_id"] == "T1046"
 
@@ -167,7 +167,7 @@ def test_ciso_daily_brief_endpoint():
     assert response.status_code == 200
     data = response.json()
     assert "report_markdown" in data
-    assert "# 🛡️ AEGIS-AI Executive CISO Daily Threat & Compromise Brief" in data["report_markdown"]
+    assert "# 🛡️ RAKSHA-AI Executive CISO Daily Threat & Compromise Brief" in data["report_markdown"]
     assert data["total_incidents"] >= 1
 
 

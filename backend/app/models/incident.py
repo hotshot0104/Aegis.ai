@@ -1,5 +1,5 @@
 """
-Pydantic v2 Data Models for Project AEGIS-AI.
+Pydantic v2 Data Models for Project RAKSHA-AI.
 Defines strict schemas for network telemetry, anomaly scores, MITRE mappings,
 asset profiles, containment rules, incident cards, and agent thought events.
 """
@@ -104,7 +104,7 @@ class IncidentCard(BaseModel):
     Contains the combined outputs from all sub-agents: MITRE mapping,
     asset blast radius, and containment rules.
     """
-    incident_id: str = Field(default_factory=lambda: f"AEGIS-{uuid.uuid4().hex[:6].upper()}")
+    incident_id: str = Field(default_factory=lambda: f"RAKSHA-{uuid.uuid4().hex[:6].upper()}")
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     bdi_score: float = Field(ge=0.0, le=1.0, description="Behavioral Deviation Index [0.0, 1.0]")
     attacker_ip: str

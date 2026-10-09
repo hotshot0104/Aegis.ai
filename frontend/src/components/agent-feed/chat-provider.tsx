@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import {
-  aegisApi,
+  rakshaApi,
   type AgentThoughtEvent,
   type IncidentCard,
   type ChatCommandResponse,
@@ -90,7 +90,7 @@ export function ChatProvider({
         },
         {
           type: "text",
-          text: "### 🛡️ AEGIS Multi-Agent System Active\nMonitoring 104 network nodes. Detected high-velocity SYN sweep from **185.220.101.5** targeting Finance Subnet.",
+          text: "### 🛡️ RAKSHA Multi-Agent System Active\nMonitoring 104 network nodes. Detected high-velocity SYN sweep from **185.220.101.5** targeting Finance Subnet.",
         },
       ],
     },
@@ -245,7 +245,7 @@ export function ChatProvider({
       setError(null);
 
       try {
-        const response: ChatCommandResponse = await aegisApi.sendChatMessage(text);
+        const response: ChatCommandResponse = await rakshaApi.sendChatMessage(text);
 
         setMessages((prev) =>
           prev.map((msg) => {
@@ -282,8 +282,8 @@ export function ChatProvider({
 
         setStatus("ready");
       } catch (err: any) {
-        console.error("[AEGIS ChatProvider] Error sending message:", err);
-        const fallbackErrorMsg = err?.message || "Failed to reach AEGIS-AI backend on port 8000.";
+        console.error("[RAKSHA ChatProvider] Error sending message:", err);
+        const fallbackErrorMsg = err?.message || "Failed to reach RAKSHA-AI backend on port 8000.";
         setError(new Error(fallbackErrorMsg));
         setStatus("error");
 
@@ -317,7 +317,7 @@ export function ChatProvider({
 
   const executeContainment = React.useCallback(
     async (incidentId: string, ruleType = "iptables") => {
-      const res = await aegisApi.executeContainment({
+      const res = await rakshaApi.executeContainment({
         incident_id: incidentId,
         rule_type: ruleType,
       });
@@ -350,7 +350,7 @@ export function ChatProvider({
 
   const dismissIncident = React.useCallback(
     async (incidentId: string, reason = "False Positive / Whitelisted Activity") => {
-      await aegisApi.dismissIncident(incidentId, reason);
+      await rakshaApi.dismissIncident(incidentId, reason);
       setMessages((prev) => [
         ...prev,
         {

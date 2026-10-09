@@ -1,0 +1,131 @@
+[{"stream_name":"stderr","time":9.254796595,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.255038479,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.255047013,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.255050014,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":10.062488096,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.062526288,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.06253183,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.06253599,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":19.847358378,"data":"[+] Python Version: 3.13.15\n"}
+,{"stream_name":"stdout","time":19.847407102,"data":"[+] PyTorch Device: cpu\n"}
+,{"stream_name":"stdout","time":20.047850089,"data":"[*] Looking for CSV files in: /kaggle/input\n"}
+,{"stream_name":"stdout","time":20.047897752,"data":"    - Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv (77.1 MB)\n"}
+,{"stream_name":"stdout","time":20.047903141,"data":"    - Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv (76.9 MB)\n"}
+,{"stream_name":"stdout","time":20.047907395,"data":"    - Friday-WorkingHours-Morning.pcap_ISCX.csv (58.3 MB)\n"}
+,{"stream_name":"stdout","time":20.047911582,"data":"    - Monday-WorkingHours.pcap_ISCX.csv (176.9 MB)\n"}
+,{"stream_name":"stdout","time":20.047915515,"data":"    - Thursday-WorkingHours-Afternoon-Infilteration.pcap_ISCX.csv (83.1 MB)\n"}
+,{"stream_name":"stdout","time":20.047920034,"data":"    - Thursday-WorkingHours-Morning-WebAttacks.pcap_ISCX.csv (52.0 MB)\n"}
+,{"stream_name":"stdout","time":20.047924524,"data":"    - Tuesday-WorkingHours.pcap_ISCX.csv (135.1 MB)\n"}
+,{"stream_name":"stdout","time":20.04792839,"data":"    - Wednesday-workingHours.pcap_ISCX.csv (225.2 MB)\n"}
+,{"stream_name":"stdout","time":23.396516207,"data":"[+] Loaded Friday-WorkingHours-Afternoon-DDos: 225,745 flows in 3.32s\n"}
+,{"stream_name":"stdout","time":26.741324982,"data":"[+] Loaded Friday-WorkingHours-Afternoon-PortScan: 286,467 flows in 3.34s\n"}
+,{"stream_name":"stdout","time":29.187147824,"data":"[+] Loaded Friday-WorkingHours-Morning: 191,033 flows in 2.45s\n"}
+,{"stream_name":"stdout","time":36.460107523,"data":"[+] Loaded Monday-WorkingHours: 529,918 flows in 7.27s\n"}
+,{"stream_name":"stdout","time":39.955110961,"data":"[+] Loaded Thursday-WorkingHours-Afternoon-Infilteration: 288,602 flows in 3.50s\n"}
+,{"stream_name":"stdout","time":42.26124563,"data":"[+] Loaded Thursday-WorkingHours-Morning-WebAttacks: 170,366 flows in 2.31s\n"}
+,{"stream_name":"stdout","time":48.015723855,"data":"[+] Loaded Tuesday-WorkingHours: 445,909 flows in 5.75s\n"}
+,{"stream_name":"stdout","time":56.878724556,"data":"[+] Loaded Wednesday-workingHours: 692,703 flows in 8.86s\n"}
+,{"stream_name":"stdout","time":57.519475587,"data":"\n"}
+,{"stream_name":"stdout","time":57.519517116,"data":"[+] Total Flows Loaded: 2,830,743\n"}
+,{"stream_name":"stdout","time":57.519524092,"data":"[+] Memory Usage: 1.81 GB\n"}
+,{"stream_name":"stdout","time":57.519529227,"data":"\n"}
+,{"stream_name":"stdout","time":57.519533989,"data":"[+] Flow Label Distribution:\n"}
+,{"stream_name":"stdout","time":57.520407966,"data":"Label\n"}
+,{"stream_name":"stdout","time":57.520454576,"data":"BENIGN                        2273097\n"}
+,{"stream_name":"stdout","time":57.5204605,"data":"DoS Hulk                       231073\n"}
+,{"stream_name":"stdout","time":57.52046442,"data":"PortScan                       158930\n"}
+,{"stream_name":"stdout","time":57.520467779,"data":"DDoS                           128027\n"}
+,{"stream_name":"stdout","time":57.520471509000004,"data":"DoS GoldenEye                   10293\n"}
+,{"stream_name":"stdout","time":57.520474366,"data":"FTP-Patator                      7938\n"}
+,{"stream_name":"stdout","time":57.520476729,"data":"SSH-Patator                      5897\n"}
+,{"stream_name":"stdout","time":57.520479059,"data":"DoS slowloris                    5796\n"}
+,{"stream_name":"stdout","time":57.520481584,"data":"DoS Slowhttptest                 5499\n"}
+,{"stream_name":"stdout","time":57.520483925,"data":"Bot                              1966\n"}
+,{"stream_name":"stdout","time":57.520486402,"data":"Web Attack � Brute Force         1507\n"}
+,{"stream_name":"stdout","time":57.520489519,"data":"Web Attack � XSS                  652\n"}
+,{"stream_name":"stdout","time":57.520491929,"data":"Infiltration                       36\n"}
+,{"stream_name":"stdout","time":57.520494682,"data":"Web Attack � Sql Injection         21\n"}
+,{"stream_name":"stdout","time":57.520497151,"data":"Heartbleed                         11\n"}
+,{"stream_name":"stdout","time":57.520499524,"data":"Name: count, dtype: int64\n"}
+,{"stream_name":"stdout","time":57.542588031,"data":"[*] Computing Temporal Sequence Metrics (Src_Flows_Per_Sec)...\n"}
+,{"stream_name":"stdout","time":57.542749142,"data":"[-] Missing Timestamp or Source IP. Skipping temporal aggregation.\n"}
+,{"stream_name":"stdout","time":57.721759564,"data":"[+] Total Behavioral Flow Features: 78\n"}
+,{"stream_name":"stdout","time":62.770916762,"data":"[+] Categorical Features: ['Destination Port']\n"}
+,{"stream_name":"stdout","time":62.770960805,"data":"[+] Continuous Features: 77\n"}
+,{"stream_name":"stdout","time":69.653602945,"data":"[+] Applied log1p scaling to 57 volumetric features.\n"}
+,{"stream_name":"stdout","time":69.653648113,"data":"[+] Feature preprocessing \u0026 float32 optimization complete.\n"}
+,{"stream_name":"stdout","time":71.733867845,"data":"[+] Pure Benign-Monday Baseline Flows: 0\n"}
+,{"stream_name":"stderr","time":73.171793387,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":73.172500672,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":73.1725183,"data":"    import sys;import papermill as pm;pm.execute_notebook(\"__notebook__.ipynb\",\"__notebook__.ipynb\",progress_bar=False,log_output=True,stdout_file=sys.stdout,stderr_file=sys.stderr,allow_errors=False,timeout=43200)\n"}
+,{"stream_name":"stderr","time":73.172525793,"data":"                                      ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":73.17253138,"data":"  File \"/usr/local/lib/python3.13/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":73.172536982,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":73.172542081,"data":"    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":73.172546501,"data":"  File \"/usr/local/lib/python3.13/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":73.172578521,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":73.172582024,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":73.172584442,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":73.172587036,"data":"Exception encountered at \"In [5]\":\n"}
+,{"stream_name":"stderr","time":73.172589505,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":73.172592001,"data":"ValueError                                Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":73.172594422,"data":"/tmp/ipykernel_15/3765676175.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":73.172597075,"data":"     11 \n"}
+,{"stream_name":"stderr","time":73.172599447,"data":"     12 scaler = RobustScaler()\n"}
+,{"stream_name":"stderr","time":73.172602021,"data":"---\u003e 13 X_train_cont = scaler.fit_transform(train_df[cont_cols].values)\n"}
+,{"stream_name":"stderr","time":73.172604565,"data":"     14 X_train_cat = train_df[cat_cols].values\n"}
+,{"stream_name":"stderr","time":73.172607071,"data":"     15 \n"}
+,{"stream_name":"stderr","time":73.172609424,"data":"\n"}
+,{"stream_name":"stderr","time":73.172611687,"data":"/usr/local/lib/python3.13/dist-packages/sklearn/utils/_set_output.py in wrapped(self, X, *args, **kwargs)\n"}
+,{"stream_name":"stderr","time":73.172614217,"data":"    317     @wraps(f)\n"}
+,{"stream_name":"stderr","time":73.172616634,"data":"    318     def wrapped(self, X, *args, **kwargs):\n"}
+,{"stream_name":"stderr","time":73.172619025,"data":"--\u003e 319         data_to_wrap = f(self, X, *args, **kwargs)\n"}
+,{"stream_name":"stderr","time":73.172621655,"data":"    320         if isinstance(data_to_wrap, tuple):\n"}
+,{"stream_name":"stderr","time":73.172624091,"data":"    321             # only wrap the first output for cross decomposition\n"}
+,{"stream_name":"stderr","time":73.172626621,"data":"\n"}
+,{"stream_name":"stderr","time":73.172628927,"data":"/usr/local/lib/python3.13/dist-packages/sklearn/base.py in fit_transform(self, X, y, **fit_params)\n"}
+,{"stream_name":"stderr","time":73.172631401,"data":"    916         if y is None:\n"}
+,{"stream_name":"stderr","time":73.172633748,"data":"    917             # fit method of arity 1 (unsupervised transformation)\n"}
+,{"stream_name":"stderr","time":73.172636144,"data":"--\u003e 918             return self.fit(X, **fit_params).transform(X)\n"}
+,{"stream_name":"stderr","time":73.172638802,"data":"    919         else:\n"}
+,{"stream_name":"stderr","time":73.172642251,"data":"    920             # fit method of arity 2 (supervised transformation)\n"}
+,{"stream_name":"stderr","time":73.172644759,"data":"\n"}
+,{"stream_name":"stderr","time":73.172646986,"data":"/usr/local/lib/python3.13/dist-packages/sklearn/base.py in wrapper(estimator, *args, **kwargs)\n"}
+,{"stream_name":"stderr","time":73.17264947,"data":"   1387                 )\n"}
+,{"stream_name":"stderr","time":73.172741851,"data":"   1388             ):\n"}
+,{"stream_name":"stderr","time":73.172746873,"data":"-\u003e 1389                 return fit_method(estimator, *args, **kwargs)\n"}
+,{"stream_name":"stderr","time":73.172750843,"data":"   1390 \n"}
+,{"stream_name":"stderr","time":73.172754362,"data":"   1391         return wrapper\n"}
+,{"stream_name":"stderr","time":73.172756783,"data":"\n"}
+,{"stream_name":"stderr","time":73.172759408,"data":"/usr/local/lib/python3.13/dist-packages/sklearn/preprocessing/_data.py in fit(self, X, y)\n"}
+,{"stream_name":"stderr","time":73.172767965,"data":"   1622         # at fit, convert sparse matrices to csc for optimized computation of\n"}
+,{"stream_name":"stderr","time":73.172770684,"data":"   1623         # the quantiles\n"}
+,{"stream_name":"stderr","time":73.17277338,"data":"-\u003e 1624         X = validate_data(\n"}
+,{"stream_name":"stderr","time":73.172776055,"data":"   1625             self,\n"}
+,{"stream_name":"stderr","time":73.1727784,"data":"   1626             X,\n"}
+,{"stream_name":"stderr","time":73.172780693,"data":"\n"}
+,{"stream_name":"stderr","time":73.172783118,"data":"/usr/local/lib/python3.13/dist-packages/sklearn/utils/validation.py in validate_data(_estimator, X, y, reset, validate_separately, skip_check_array, **check_params)\n"}
+,{"stream_name":"stderr","time":73.172785941,"data":"   2942             out = X, y\n"}
+,{"stream_name":"stderr","time":73.172788572,"data":"   2943     elif not no_val_X and no_val_y:\n"}
+,{"stream_name":"stderr","time":73.172790988,"data":"-\u003e 2944         out = check_array(X, input_name=\"X\", **check_params)\n"}
+,{"stream_name":"stderr","time":73.172793687,"data":"   2945     elif no_val_X and not no_val_y:\n"}
+,{"stream_name":"stderr","time":73.172796058,"data":"   2946         out = _check_y(y, **check_params)\n"}
+,{"stream_name":"stderr","time":73.172798442,"data":"\n"}
+,{"stream_name":"stderr","time":73.172801151,"data":"/usr/local/lib/python3.13/dist-packages/sklearn/utils/validation.py in check_array(array, accept_sparse, accept_large_sparse, dtype, order, copy, force_writeable, force_all_finite, ensure_all_finite, ensure_non_negative, ensure_2d, allow_nd, ensure_min_samples, ensure_min_features, estimator, input_name)\n"}
+,{"stream_name":"stderr","time":73.172805075,"data":"   1128         n_samples = _num_samples(array)\n"}
+,{"stream_name":"stderr","time":73.172807643,"data":"   1129         if n_samples \u003c ensure_min_samples:\n"}
+,{"stream_name":"stderr","time":73.172810215,"data":"-\u003e 1130             raise ValueError(\n"}
+,{"stream_name":"stderr","time":73.172812696,"data":"   1131                 \"Found array with %d sample(s) (shape=%s) while a\"\n"}
+,{"stream_name":"stderr","time":73.172815209,"data":"   1132                 \" minimum of %d is required%s.\"\n"}
+,{"stream_name":"stderr","time":73.172817718,"data":"\n"}
+,{"stream_name":"stderr","time":73.17282016,"data":"ValueError: Found array with 0 sample(s) (shape=(0, 77)) while a minimum of 1 is required by RobustScaler.\n"}
+,{"stream_name":"stderr","time":73.172822783,"data":"\n"}
+,{"stream_name":"stderr","time":76.029122063,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":76.029165651,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":76.24031858,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":76.240351994,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":77.164033574,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":77.268353319,"data":"[NbConvertApp] Writing 41792 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":80.522925922,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":81.28742414,"data":"[NbConvertApp] Writing 379802 bytes to __results__.html\n"}
+]

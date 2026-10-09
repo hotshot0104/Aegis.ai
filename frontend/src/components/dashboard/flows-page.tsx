@@ -544,7 +544,7 @@ function WorkflowCard({
 
 // ─── Main Component ───────────────────────────────────────────
 
-import { aegisApi, type IncidentCard } from '@/lib/api-client'
+import { rakshaApi, type IncidentCard } from '@/lib/api-client'
 
 function mapIncidentToWorkflow(inc: IncidentCard): WorkflowRunInspection {
   const isContained = inc.status === 'CONTAINED'
@@ -588,11 +588,11 @@ function mapIncidentToWorkflow(inc: IncidentCard): WorkflowRunInspection {
         : 'Statistical deviation unclassified',
       error: null,
       durationMs: 245.0,
-      modelUsed: 'AEGIS-ThreatHunter-Core',
+      modelUsed: 'RAKSHA-ThreatHunter-Core',
       tokensUsed: 0,
       costCents: 0,
       personaId: 'ThreatHunter',
-      provider: 'aegis_multi_agent',
+      provider: 'raksha_multi_agent',
       jobIndex: 1,
       parentRunId: inc.incident_id,
       retryCount: 0,
@@ -614,11 +614,11 @@ function mapIncidentToWorkflow(inc: IncidentCard): WorkflowRunInspection {
         : 'Asset identity unknown',
       error: null,
       durationMs: 180.0,
-      modelUsed: 'AEGIS-AssetInvestigator',
+      modelUsed: 'RAKSHA-AssetInvestigator',
       tokensUsed: 0,
       costCents: 0,
       personaId: 'AssetInvestigator',
-      provider: 'aegis_multi_agent',
+      provider: 'raksha_multi_agent',
       jobIndex: 2,
       parentRunId: inc.incident_id,
       retryCount: 0,
@@ -638,11 +638,11 @@ function mapIncidentToWorkflow(inc: IncidentCard): WorkflowRunInspection {
       outputSummary: inc.containment?.iptables_rule || 'Firewall drop scripts generated',
       error: null,
       durationMs: 95.0,
-      modelUsed: 'AEGIS-RuleGenerator',
+      modelUsed: 'RAKSHA-RuleGenerator',
       tokensUsed: 0,
       costCents: 0,
       personaId: 'RuleGenerator',
-      provider: 'aegis_multi_agent',
+      provider: 'raksha_multi_agent',
       jobIndex: 3,
       parentRunId: inc.incident_id,
       retryCount: 0,
@@ -711,7 +711,7 @@ export function FlowsPage() {
       setError(null)
 
       try {
-        const incidents = await aegisApi.getIncidents()
+        const incidents = await rakshaApi.getIncidents()
         const mapped = incidents.map(mapIncidentToWorkflow)
 
         setWorkflows(mapped)

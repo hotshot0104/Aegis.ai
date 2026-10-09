@@ -1,5 +1,5 @@
 {
-  "model_name": "AEGIS-AI Cloud Training Benchmark v6 (Dual-Head AE + SC-EQR + Quad Fusion)",
+  "model_name": "RAKSHA-AI Cloud Training Benchmark v6 (Dual-Head AE + SC-EQR + Quad Fusion)",
   "timestamp": "2026-10-07 05:47:22Z",
   "single_flow_recall": {
     "isolation_forest": 63.25878594249201,

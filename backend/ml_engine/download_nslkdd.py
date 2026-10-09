@@ -1,5 +1,5 @@
 """
-NSL-KDD Dataset Downloader for Project AEGIS-AI.
+NSL-KDD Dataset Downloader for Project RAKSHA-AI.
 Downloads KDDTrain+.txt and KDDTest+.txt from verified public mirrors
 into backend/data/nslkdd/.
 """

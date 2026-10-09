@@ -1,10 +1,10 @@
 services:
-  # 1. AEGIS-AI Backend (FastAPI + ML Perception + Multi-Agent DAG + WebSockets)
-  aegis-backend:
+  # 1. RAKSHA-AI Backend (FastAPI + ML Perception + Multi-Agent DAG + WebSockets)
+  raksha-backend:
     build:
       context: .
       dockerfile: docker/Dockerfile.backend
-    container_name: aegis-backend
+    container_name: raksha-backend
     ports:
       - "8000:8000"
     environment:
@@ -19,42 +19,42 @@ services:
       timeout: 3s
       retries: 5
     networks:
-      - aegis-network
+      - raksha-network
 
-  # 2. AEGIS-AI SOC Command Center Dashboard (Next.js)
-  aegis-frontend:
+  # 2. RAKSHA-AI SOC Command Center Dashboard (Next.js)
+  raksha-frontend:
     build:
       context: .
       dockerfile: docker/Dockerfile.frontend
-    container_name: aegis-frontend
+    container_name: raksha-frontend
     ports:
       - "3000:3000"
     environment:
-      - BACKEND_INTERNAL_URL=http://aegis-backend:8000
+      - BACKEND_INTERNAL_URL=http://raksha-backend:8000
       - NEXT_PUBLIC_API_URL=http://localhost:8000
       - NEXT_PUBLIC_WS_URL=ws://localhost:8000/api/v1/ws
     depends_on:
-      aegis-backend:
+      raksha-backend:
         condition: service_healthy
     networks:
-      - aegis-network
+      - raksha-network
 
   # 3. Live Multi-Subnet IP Telemetry Generator Container
-  aegis-traffic-generator:
+  raksha-traffic-generator:
     build:
       context: .
       dockerfile: docker/Dockerfile.generator
-    container_name: aegis-traffic-generator
+    container_name: raksha-traffic-generator
     environment:
-      - BACKEND_URL=http://aegis-backend:8000
+      - BACKEND_URL=http://raksha-backend:8000
       - STREAM_INTERVAL=0.8
       - ATTACK_INTERVAL=15
     depends_on:
-      aegis-backend:
+      raksha-backend:
         condition: service_healthy
     networks:
-      - aegis-network
+      - raksha-network
 
 networks:
-  aegis-network:
+  raksha-network:
     driver: bridge

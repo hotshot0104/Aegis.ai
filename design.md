@@ -1,6 +1,6 @@
-# 📐 PROJECT AEGIS-AI: System Design & Technical Architecture Document
+# 📐 PROJECT RAKSHA-AI: System Design & Technical Architecture Document
 
-> **Document Code:** `AEGIS-DESIGN-001`  
+> **Document Code:** `RAKSHA-DESIGN-001`  
 > **Status:** Baseline Engineering Specification  
 > **Architecture Paradigm:** Dual-Tier (Unsupervised ML Perception + Multi-Agent DAG Defense)
 
@@ -218,12 +218,12 @@ class ContainmentApprovalRequest(BaseModel):
 ### 5.2 Command Center Layout Wireframe
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
-│ 🛡️ AEGIS-AI COMMAND CENTER  [BDI: 0.12 NOMINAL]  [ZERO-DAY DEFENSE: ACTIVE]  [18:30 UTC]│
+│ 🛡️ RAKSHA-AI COMMAND CENTER  [BDI: 0.12 NOMINAL]  [ZERO-DAY DEFENSE: ACTIVE]  [18:30 UTC]│
 ├──────────────────────────┬─────────────────────────────┬───────────────────────────────┤
 │ 📡 LIVE FLOW TELEMETRY   │ 🤖 AGENTIC THOUGHT TERMINAL │ 🚨 ACTION & CONTAINMENT QUEUE │
 │                          │                             │                               │
 │ [🟢 Simulate Normal]     │ > [Supervisor] Anomaly 0.94 │ ┌───────────────────────────┐ │
-│ [🚨 Inject Zero-Day]     │   detected on 192.168.1.104 │ │ INCIDENT #AEGIS-8821      │ │
+│ [🚨 Inject Zero-Day]     │   detected on 192.168.1.104 │ │ INCIDENT #RAKSHA-8821      │ │
 │                          │ > [ThreatHunter] Querying   │ │ Host: DB-PROD-FINANCE-01  │ │
 │ ┌──────────────────────┐ │   MITRE ATT&CK Matrix...    │ │ Threat: MITRE T1021.002   │ │
 │ │  ( ) BDI GAUGE       │ │ > [MITRE] Matched T1021.002 │ │ Criticality: CRITICAL_T1  │ │

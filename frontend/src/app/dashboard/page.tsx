@@ -7,7 +7,7 @@ import { MiddleTerminal } from "@/components/dashboard/middle-terminal";
 export default function DashboardPage() {
   const chatStorageScope = {
     userId: "soc-operator-01",
-    workspaceId: "aegis-fleet-workspace",
+    workspaceId: "raksha-fleet-workspace",
   };
 
   return (

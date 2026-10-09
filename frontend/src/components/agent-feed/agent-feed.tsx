@@ -45,7 +45,7 @@ import {
   Network,
 } from "lucide-react"
 
-// ─── Tool → Icon mapping (AEGIS Cyber & SOC Tools) ────────────────────────────────────────────
+// ─── Tool → Icon mapping (RAKSHA Cyber & SOC Tools) ────────────────────────────────────────────
 const TOOL_ICONS: Record<string, React.ReactNode> = {
   tool_inspect_flow_metrics: <Network className="w-4 h-4 text-cyan-400 shrink-0" />,
   tool_query_asset_registry: <Database className="w-4 h-4 text-blue-400 shrink-0" />,

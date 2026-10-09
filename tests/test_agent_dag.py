@@ -187,7 +187,7 @@ async def test_supervisor_dag_e2e_triage(smb_attack_flow):
 
     # 2. Schema Integrity
     assert isinstance(incident_card, IncidentCard)
-    assert incident_card.incident_id.startswith("AEGIS-")
+    assert incident_card.incident_id.startswith("RAKSHA-")
     assert incident_card.bdi_score == 0.945
     assert incident_card.attacker_ip == "192.168.1.104"
     assert incident_card.target_ip == "192.168.1.45"
@@ -223,7 +223,7 @@ def test_ciso_daily_brief_generation(smb_attack_flow):
 
     report_md = supervisor.generate_ciso_daily_brief([incident_card])
     assert isinstance(report_md, str)
-    assert "# 🛡️ AEGIS-AI Executive CISO Daily Threat & Compromise Brief" in report_md
+    assert "# 🛡️ RAKSHA-AI Executive CISO Daily Threat & Compromise Brief" in report_md
     assert incident_card.incident_id in report_md
     assert "DB-PROD-FINANCE-01" in report_md
     assert "T1021.002" in report_md

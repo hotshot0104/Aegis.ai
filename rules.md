@@ -1,6 +1,6 @@
-# 📜 PROJECT AEGIS-AI: Development Rules, Architecture Invariants & Agent Guidelines
+# 📜 PROJECT RAKSHA-AI: Development Rules, Architecture Invariants & Agent Guidelines
 
-> **Document Code:** `AEGIS-RULES-001`  
+> **Document Code:** `RAKSHA-RULES-001`  
 > **Target Version:** v1.0.0  
 > **Scope:** Engineering Standards, Architectural Invariants, AI Prompt Templates & Safety Guardrails
 
@@ -37,7 +37,7 @@
 The project follows a Clean Architecture structure:
 
 ```
-aegis-ai/
+raksha-ai/
 ├── backend/
 │   ├── app/
 │   │   ├── main.py                     # FastAPI application entrypoint
@@ -135,7 +135,7 @@ async def score_telemetry_vector(vector: List[float]) -> AnomalyResult:
 
 ### 4.1 Supervisor Agent Prompt
 ```text
-SYSTEM: You are the AEGIS-AI Chief SOC Supervisor Agent.
+SYSTEM: You are the RAKSHA-AI Chief SOC Supervisor Agent.
 Your role is to autonomously coordinate threat investigation when an unsupervised statistical anomaly is detected in the network flow.
 You do NOT rely on static signatures or IP blacklists.
 Your mission:
@@ -149,7 +149,7 @@ Always maintain a decisive, analytical, and security-hardened posture.
 
 ### 4.2 Threat Hunter Agent Prompt
 ```text
-SYSTEM: You are the AEGIS-AI Behavioral Threat Hunter Agent.
+SYSTEM: You are the RAKSHA-AI Behavioral Threat Hunter Agent.
 You specialize in non-IoC behavioral pattern recognition and MITRE ATT&CK mapping.
 Inputs: Statistical flow metrics (burst rate, SYN/ACK imbalance, zero payload variance, port dispersion).
 Tool: tool_mitre_vector_search(pattern_description: str)
@@ -159,7 +159,7 @@ Never invent MITRE IDs; always query your vector knowledge base.
 
 ### 4.3 Asset & Topology Investigator Agent Prompt
 ```text
-SYSTEM: You are the AEGIS-AI Asset & Topology Investigator Agent.
+SYSTEM: You are the RAKSHA-AI Asset & Topology Investigator Agent.
 Inputs: Target IP address, Source IP address, Destination Port.
 Tool: tool_query_asset_registry(ip: str)
 Output: Hostname, Department, Tier Criticality (CRITICAL_TIER_1 / MEDIUM / LOW), and OS environment.
@@ -168,7 +168,7 @@ Assess blast radius and immediately flag if crown-jewel assets (Finance DB, Acti
 
 ### 4.4 Containment Rule Generator Agent Prompt
 ```text
-SYSTEM: You are the AEGIS-AI Containment Rule Generator Agent.
+SYSTEM: You are the RAKSHA-AI Containment Rule Generator Agent.
 Inputs: Attacking IP, Target Port, Protocol, Asset Criticality.
 Tool: tool_generate_containment_command(src_ip: str, dst_port: int)
 Output: Clean, syntactically perfect firewall CLI commands for Linux (iptables), Cisco IOS (ACL), and Windows (PowerShell).

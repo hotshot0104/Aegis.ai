@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { aegisApi, type IncidentCard, type TestRunResult, type AuditLogReceipt } from "@/lib/api-client";
+import { rakshaApi, type IncidentCard, type TestRunResult, type AuditLogReceipt } from "@/lib/api-client";
 import { useAgentWebSocket } from "@/hooks/use-agent-websocket";
 import { Shield, Radio, TestTube, Lock, Play, CheckCircle2, AlertTriangle, RefreshCw } from "lucide-react";
 
@@ -65,8 +65,8 @@ export function LowerWorkspacePanel() {
   const loadBackendData = async () => {
     try {
       const [incData, logData] = await Promise.all([
-        aegisApi.getIncidents().catch(() => []),
-        aegisApi.getAuditLogs().catch(() => []),
+        rakshaApi.getIncidents().catch(() => []),
+        rakshaApi.getAuditLogs().catch(() => []),
       ]);
       setIncidents(incData);
       setAuditLogs(logData);
@@ -85,7 +85,7 @@ export function LowerWorkspacePanel() {
     setContainmentLoading((prev) => ({ ...prev, [incidentId]: true }));
     try {
       const ruleType = selectedPlatform[incidentId] || "iptables";
-      await aegisApi.executeContainment({
+      await rakshaApi.executeContainment({
         incident_id: incidentId,
         rule_type: ruleType,
         officer_token: officerToken,
@@ -96,7 +96,7 @@ export function LowerWorkspacePanel() {
         prev.map((i) => (i.incident_id === incidentId ? { ...i, status: "CONTAINED" } : i))
       );
 
-      const logs = await aegisApi.getAuditLogs().catch(() => []);
+      const logs = await rakshaApi.getAuditLogs().catch(() => []);
       setAuditLogs(logs);
     } catch (err: any) {
       alert(`Containment Error: ${err?.message}`);
@@ -108,7 +108,7 @@ export function LowerWorkspacePanel() {
   const handleRunTests = async () => {
     setIsTesting(true);
     try {
-      const res = await aegisApi.runTests();
+      const res = await rakshaApi.runTests();
       setTestResult(res);
       setActiveTab("tests");
     } catch (err: any) {

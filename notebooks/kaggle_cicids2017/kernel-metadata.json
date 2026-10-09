@@ -1,0 +1,16 @@
+{
+  "id": "sameersingh0104/raksha-ai-cicids2017-large-eval",
+  "title": "raksha-ai-cicids2017-large-eval",
+  "code_file": "raksha_ai_cicids2017_large_eval.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "true",
+  "enable_gpu": "true",
+  "enable_tpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": [
+    "shadman1028/cicids2017-official-flow-feature-csv-files"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}

@@ -1,5 +1,5 @@
 """
-Asset & Topology Investigator Agent for Project AEGIS-AI.
+Asset & Topology Investigator Agent for Project RAKSHA-AI.
 Queries internal subnet registries to resolve asset identities, departmental ownership,
 and criticality tiers to establish the blast radius of anomalous activity.
 Rule 4: Deterministic Pydantic Tool Schemas.

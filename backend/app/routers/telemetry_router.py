@@ -1,5 +1,5 @@
 """
-Telemetry and Ingestion Router for Project AEGIS-AI.
+Telemetry and Ingestion Router for Project RAKSHA-AI.
 Endpoints:
 - POST /api/v1/telemetry/stream: Live flow vector ingestion & BDI anomaly scoring.
 - POST /api/v1/telemetry/simulate/normal: Broadcast benign traffic burst for jury demonstration.
@@ -254,11 +254,11 @@ async def continuous_telemetry_loop():
     sample_ips = [
         ("66.104.232.73", "statuspage.io", "AU"),
         ("73.117.6.114", "db-cluster-prod.internal", "SG"),
-        ("80.130.35.155", "k8s-ingress.aegis.dev", "NL"),
+        ("80.130.35.155", "k8s-ingress.raksha.dev", "NL"),
         ("87.143.64.196", "monitoring.datadog.com", "SE"),
-        ("94.156.93.237", "api.aegis.cloud", "KR"),
+        ("94.156.93.237", "api.raksha.cloud", "KR"),
         ("101.169.122.23", "finance.subnet.internal", "IT"),
-        ("108.182.151.64", "auth-gateway.aegis.io", "ES"),
+        ("108.182.151.64", "auth-gateway.raksha.io", "ES"),
         ("115.195.180.105", "exit-node-05.tor.org", "US"),
         ("122.208.209.146", "telemetry.aws-east.com", "DE"),
         ("129.221.238.187", "webhook.github.com", "JP"),
@@ -266,11 +266,11 @@ async def continuous_telemetry_loop():
         ("143.247.41.14", "s3-vault.amazonaws.com", "GB"),
         ("150.5.70.55", "statuspage.io", "CA"),
         ("157.18.99.96", "db-cluster-prod.internal", "FR"),
-        ("164.31.128.137", "k8s-ingress.aegis.dev", "BR"),
+        ("164.31.128.137", "k8s-ingress.raksha.dev", "BR"),
         ("171.44.157.178", "monitoring.datadog.com", "AU"),
-        ("178.57.186.219", "api.aegis.cloud", "SG"),
+        ("178.57.186.219", "api.raksha.cloud", "SG"),
         ("185.70.215.5", "finance.subnet.internal", "NL"),
-        ("192.83.244.46", "auth-gateway.aegis.io", "SE"),
+        ("192.83.244.46", "auth-gateway.raksha.io", "SE"),
         ("199.96.18.87", "exit-node-05.tor.org", "US"),
     ]
     tick_counter = 1

@@ -1,5 +1,5 @@
 """
-Comprehensive Multi-Scenario Simulation & Stress Testing Harness for Project AEGIS-AI.
+Comprehensive Multi-Scenario Simulation & Stress Testing Harness for Project RAKSHA-AI.
 
 Executes 10 realistic operational, adversarial, and edge-case simulation scenarios:
 1. Scenario 1: Enterprise Steady-State Baseline Fleet (1,000 Normal Flows)
@@ -41,7 +41,7 @@ from backend.app.core.websocket_manager import ws_manager
 
 
 class SimulationHarness:
-    """Automated testing and benchmark harness for AEGIS-AI."""
+    """Automated testing and benchmark harness for RAKSHA-AI."""
 
     def __init__(self):
         self.client = TestClient(app)
@@ -801,7 +801,7 @@ class SimulationHarness:
             assert brief_data["total_incidents"] > 0
             assert "report_markdown" in brief_data
             report_md = brief_data["report_markdown"]
-            assert "AEGIS-AI Executive CISO Daily Threat" in report_md
+            assert "RAKSHA-AI Executive CISO Daily Threat" in report_md
             assert "Executive Summary & Fleet Posture" in report_md
 
             # Query audit logs endpoint
@@ -916,7 +916,7 @@ class SimulationHarness:
     # ──────────────────────────────────────────────────────────────────────────
     async def run_all(self):
         print("=" * 80)
-        print("[*] PROJECT AEGIS-AI: MULTI-SCENARIO STRESS & SIMULATION HARNESS")
+        print("[*] PROJECT RAKSHA-AI: MULTI-SCENARIO STRESS & SIMULATION HARNESS")
         print("=" * 80)
 
         t_start = time.time()

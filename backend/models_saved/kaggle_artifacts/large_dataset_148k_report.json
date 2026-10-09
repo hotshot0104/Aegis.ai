@@ -1,0 +1,146 @@
+{
+  "v1_isolation_forest": {
+    "model_name": "RAKSHA-AI V1: Production Isolation Forest",
+    "total_flows": 148517,
+    "inference_duration_sec": 0.226,
+    "throughput_flows_per_sec": 656369.5,
+    "latency_microseconds": 1.52,
+    "full_corpus": {
+      "total_attacks": 71463,
+      "detected_attacks": 55848,
+      "recall_pct": 78.15,
+      "total_benign": 77054,
+      "false_alarms": 1125,
+      "false_positive_pct": 1.46
+    },
+    "held_out_test": {
+      "total_attacks": 12833,
+      "detected_attacks": 7343,
+      "recall_pct": 57.22,
+      "total_benign": 9711,
+      "false_alarms": 99,
+      "false_positive_pct": 1.02
+    },
+    "kdd_test_21_stealth": {
+      "total_attacks": 9698,
+      "detected_attacks": 4247,
+      "recall_pct": 43.79
+    },
+    "family_breakdown_full": {
+      "DoS": {
+        "total": 53385,
+        "detected": 48308,
+        "recall_pct": 90.49
+      },
+      "Probe": {
+        "total": 14077,
+        "detected": 7106,
+        "recall_pct": 50.48
+      },
+      "R2L": {
+        "total": 3704,
+        "detected": 407,
+        "recall_pct": 10.99
+      },
+      "U2R": {
+        "total": 119,
+        "detected": 27,
+        "recall_pct": 22.69
+      }
+    },
+    "family_breakdown_test": {
+      "DoS": {
+        "total": 7458,
+        "detected": 5464,
+        "recall_pct": 73.26
+      },
+      "Probe": {
+        "total": 2421,
+        "detected": 1800,
+        "recall_pct": 74.35
+      },
+      "R2L": {
+        "total": 2709,
+        "detected": 60,
+        "recall_pct": 2.21
+      },
+      "U2R": {
+        "total": 67,
+        "detected": 19,
+        "recall_pct": 28.36
+      }
+    }
+  },
+  "v4_subspace_ensemble": {
+    "model_name": "RAKSHA-AI V4: Subspace Ensemble Isolation Forest",
+    "total_flows": 148517,
+    "inference_duration_sec": 1.076,
+    "throughput_flows_per_sec": 138021.1,
+    "latency_microseconds": 7.25,
+    "full_corpus": {
+      "total_attacks": 71463,
+      "detected_attacks": 3633,
+      "recall_pct": 5.08,
+      "total_benign": 77054,
+      "false_alarms": 1675,
+      "false_positive_pct": 2.17
+    },
+    "held_out_test": {
+      "total_attacks": 12833,
+      "detected_attacks": 1861,
+      "recall_pct": 14.5,
+      "total_benign": 9711,
+      "false_alarms": 41,
+      "false_positive_pct": 0.42
+    },
+    "kdd_test_21_stealth": {
+      "total_attacks": 9698,
+      "detected_attacks": 1708,
+      "recall_pct": 17.61
+    },
+    "family_breakdown_full": {
+      "DoS": {
+        "total": 53385,
+        "detected": 1836,
+        "recall_pct": 3.44
+      },
+      "Probe": {
+        "total": 14077,
+        "detected": 1665,
+        "recall_pct": 11.83
+      },
+      "R2L": {
+        "total": 3704,
+        "detected": 132,
+        "recall_pct": 3.56
+      },
+      "U2R": {
+        "total": 119,
+        "detected": 0,
+        "recall_pct": 0.0
+      }
+    },
+    "family_breakdown_test": {
+      "DoS": {
+        "total": 7458,
+        "detected": 938,
+        "recall_pct": 12.58
+      },
+      "Probe": {
+        "total": 2421,
+        "detected": 794,
+        "recall_pct": 32.8
+      },
+      "R2L": {
+        "total": 2709,
+        "detected": 129,
+        "recall_pct": 4.76
+      },
+      "U2R": {
+        "total": 67,
+        "detected": 0,
+        "recall_pct": 0.0
+      }
+    }
+  }
+}
